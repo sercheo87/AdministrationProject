@@ -15,7 +15,6 @@ public class UserServicio {
 	private EntityManager em;
 
 	public List<User> recuperartodos() {
-		System.out.println("sch ingresando a consultar");
 		Query qr = em.createQuery("SELECT cl FROM User cl");
 		return qr.getResultList();
 	}
