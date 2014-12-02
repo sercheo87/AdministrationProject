@@ -72,7 +72,8 @@ For add the conexion MySql follows step.
 ```
 
 #Launching
-Run server with followind program:**jboss-as-7.1.1.Final\bin\standalone.bat**
+Run server with followind program:**jboss-as-7.1.1.Final\bin\standalone.bat**  
+Path rest **http://localhost:1313/ProjectAdminMng/rest**
 
 #DataBase
 Mysql:
