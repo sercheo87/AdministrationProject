@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import com.project.entity.Resources;
+import com.project.entity.Resource;
 import com.project.exceptions.ProjectException;
 
 @Stateless
@@ -16,20 +16,26 @@ public class ResourcesService {
 	private EntityManager em;
 
 	@SuppressWarnings("unchecked")
-	public List<Resources> getAllResources() throws ProjectException {
+	public List<Resource> getAllResources() throws ProjectException {
 		try {
-			Query qr = em.createNamedQuery("Resources.getAllResources");
+			Query qr = em.createNamedQuery("Resource.getAllResources");
 			return qr.getResultList();
 		}
 		catch (Exception ex) {
 			ex.printStackTrace();
-			throw new ProjectException("ERROR AL INSERTAR PRODUCTO");
+			throw new ProjectException("Error al obtener el listado de recursos");
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Resources> getInformationBasic() {
-		Query qr = em.createNamedQuery("Resources.getResourcesWithType");
-		return qr.getResultList();
+	public List<Resource> getInformationBasic() throws ProjectException {
+		try {
+			Query qr = em.createNamedQuery("Resource.getResourcesWithType");
+			return qr.getResultList();
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			throw new ProjectException("Error al obtener el listado de recursos con tipo");
+		}
 	}
 }

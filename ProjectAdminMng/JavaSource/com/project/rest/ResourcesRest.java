@@ -1,7 +1,5 @@
 package com.project.rest;
 
-import java.util.List;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
@@ -10,7 +8,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.project.entity.Resources;
 import com.project.exceptions.ProjectException;
 import com.project.services.ResourcesService;
 
@@ -23,8 +20,14 @@ public class ResourcesRest {
 	@GET
 	@Path("/getInformation")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Resources> getInformation() {
-		return resourcesService.getInformationBasic();
+	public Response getInformation() throws ProjectException {
+		try {
+			return Response.ok().entity(resourcesService.getInformationBasic()).build();
+		}
+		catch (Exception ex) {
+			ex.printStackTrace();
+			throw new ProjectException("ERROR CATEGORIA NO ENCONTRADA");
+		}
 	}
 
 	@GET

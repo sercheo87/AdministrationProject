@@ -15,8 +15,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tbResources")
-@NamedQueries({ @NamedQuery(name = "Resources.getResourcesWithType", query = "SELECT r.id,r.type,r.typeResource.name FROM Resources r"), @NamedQuery(name = "Resources.getAllResources", query = "SELECT res FROM Resources res") })
-public class Resources implements Serializable {
+@NamedQueries({ @NamedQuery(name = "Resource.getResourcesWithType", query = "SELECT r.id,r.type,r.typeResource.name FROM Resource r"), @NamedQuery(name = "Resource.getAllResources", query = "SELECT res FROM Resource res") })
+public class Resource implements Serializable {
 	/**
 	 *
 	 */
@@ -34,7 +34,7 @@ public class Resources implements Serializable {
 	@JoinColumn(name = "id_typeResource")
 	private TypeResource typeResource;
 
-	public Resources() {
+	public Resource() {
 		super();
 	}
 
@@ -89,6 +89,6 @@ public class Resources implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Resources [id=" + id + ", type=" + type + ", typeResource=" + typeResource + "]";
+		return "Resource [id=" + id + ", type=" + type + ", typeResource=" + typeResource + "]";
 	}
 }

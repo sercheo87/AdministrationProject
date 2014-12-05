@@ -7,7 +7,7 @@
 		
 		<class>com.project.entity.User</class>
 		<class>com.project.entity.Project</class>
-		<class>com.project.entity.Resources</class>
+		<class>com.project.entity.Resource</class>
 		<class>com.project.entity.TypeResource</class>
 		
 		<properties>
