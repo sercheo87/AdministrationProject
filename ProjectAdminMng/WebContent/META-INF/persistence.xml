@@ -6,6 +6,9 @@
 		<jta-data-source>java:/projectadmin_db</jta-data-source>
 		
 		<class>com.project.entity.User</class>
+		<class>com.project.entity.Project</class>
+		<class>com.project.entity.Resources</class>
+		<class>com.project.entity.TypeResource</class>
 		
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />

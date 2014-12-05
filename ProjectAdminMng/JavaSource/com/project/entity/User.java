@@ -24,6 +24,10 @@ public class User {
 	@Column(name = "pass")
 	private String password;
 
+	public User() {
+		super();
+	}
+
 	/**
 	 * @return the id
 	 */
@@ -91,6 +95,6 @@ public class User {
 	 */
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", login=" + login + "]";
+		return "User [id=" + id + ", name=" + name + ", login=" + login + ", password=" + password + "]";
 	}
 }

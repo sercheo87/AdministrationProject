@@ -121,7 +121,7 @@
 		<sleep seconds="5" />
 	</target>
 
-	<target name="deploy-show" depends="generarPersistence,deploy,app-esperar,app-abrir">
+	<target name="deploy-show" depends="generarPersistence,deploy,app-esperar">
 
 	</target>
 </project>
