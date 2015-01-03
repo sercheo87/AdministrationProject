@@ -15,7 +15,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tbResources")
-@NamedQueries({ @NamedQuery(name = "Resource.getResourcesWithType", query = "SELECT r.id,r.type,r.typeResource.name FROM Resource r"), @NamedQuery(name = "Resource.getAllResources", query = "SELECT res FROM Resource res") })
+@NamedQueries({ @NamedQuery(name = "Resource.getResourcesWithType", query = "SELECT r.id, r.quantity FROM Resource r"),
+        @NamedQuery(name = "Resource.getAllResources", query = "SELECT res FROM Resource res") })
 public class Resource implements Serializable {
 	/**
 	 *
@@ -27,8 +28,8 @@ public class Resource implements Serializable {
 	@Column(name = "id")
 	private Integer id;
 
-	@Column(name = "type")
-	private Integer type;
+	@Column(name = "quantity")
+	private Integer quantity;
 
 	@ManyToOne
 	@JoinColumn(name = "id_typeResource")
@@ -42,21 +43,18 @@ public class Resource implements Serializable {
 	 * @return the id
 	 */
 	public Integer getId() {
-		return id;
+		return this.id;
 	}
 
-	/**
-	 * @return the type
-	 */
-	public Integer getType() {
-		return type;
+	public Integer getQuantity() {
+		return this.quantity;
 	}
 
 	/**
 	 * @return the typeResource
 	 */
 	public TypeResource getTypeResource() {
-		return typeResource;
+		return this.typeResource;
 	}
 
 	/**
@@ -67,12 +65,8 @@ public class Resource implements Serializable {
 		this.id = id;
 	}
 
-	/**
-	 * @param type
-	 *            the type to set
-	 */
-	public void setType(Integer type) {
-		this.type = type;
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 
 	/**
@@ -83,12 +77,8 @@ public class Resource implements Serializable {
 		this.typeResource = typeResource;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
-		return "Resource [id=" + id + ", type=" + type + ", typeResource=" + typeResource + "]";
+		return "Resource [id=" + this.id + ", quantity=" + this.quantity + ", typeResource=" + this.typeResource + "]";
 	}
 }

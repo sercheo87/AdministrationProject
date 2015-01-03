@@ -18,10 +18,9 @@ public class ResourcesService {
 	@SuppressWarnings("unchecked")
 	public List<Resource> getAllResources() throws ProjectException {
 		try {
-			Query qr = em.createNamedQuery("Resource.getAllResources");
+			Query qr = this.em.createNamedQuery("Resource.getAllResources");
 			return qr.getResultList();
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new ProjectException("Error al obtener el listado de recursos");
 		}
@@ -30,10 +29,9 @@ public class ResourcesService {
 	@SuppressWarnings("unchecked")
 	public List<Resource> getInformationBasic() throws ProjectException {
 		try {
-			Query qr = em.createNamedQuery("Resource.getResourcesWithType");
+			Query qr = this.em.createNamedQuery("Resource.getResourcesWithType");
 			return qr.getResultList();
-		}
-		catch (Exception ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new ProjectException("Error al obtener el listado de recursos con tipo");
 		}

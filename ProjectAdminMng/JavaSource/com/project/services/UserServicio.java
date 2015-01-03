@@ -14,8 +14,9 @@ public class UserServicio {
 	@PersistenceContext
 	private EntityManager em;
 
+	@SuppressWarnings("unchecked")
 	public List<User> recuperartodos() {
-		Query qr = em.createQuery("SELECT cl FROM User cl");
+		Query qr = this.em.createQuery("SELECT cl FROM User cl");
 		return qr.getResultList();
 	}
 }

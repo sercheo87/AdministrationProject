@@ -13,24 +13,25 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tbProject")
 public class Project {
+	@Column(name = "dateStart")
+	private Date dateStart;
+	@Column(name = "description", length = 1000)
+	private String description;
+
+	@Column(name = "duration")
+	private BigDecimal duration;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
 	@Column(name = "name", length = 255)
 	private String name;
-
-	@Column(name = "description", length = 1000)
-	private String description;
-
-	@Column(name = "dateStart")
-	private Date dateStart;
-	@Column(name = "duration")
-	private BigDecimal duration;
 	@Column(name = "scope", length = 2000)
 	private String scope;
 	@Column(name = "target", length = 2000)
 	private String target;
+
 	public Project() {
 		super();
 	}
@@ -142,11 +143,11 @@ public class Project {
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Project [id=" + id + ", name=" + name + ", description=" + description + ", dateStart=" + dateStart + ", duration=" + duration + ", scope=" + scope + ", target=" + target + "]";
+		return "Project [id=" + id + ", name=" + name + ", description=" + description + ", dateStart=" + dateStart
+		        + ", duration=" + duration + ", scope=" + scope + ", target=" + target + "]";
 	}
 }
