@@ -10,8 +10,9 @@
  */
 
 var express = require('express');
-var controller = require('./thing.controller');
+var resourcesController = require('./resources.controller');
+
 var router = express.Router();
 
-router.get('/', controller.index);
+router.get('/', resourcesController.getAll);
 module.exports = router;

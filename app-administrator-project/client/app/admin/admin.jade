@@ -1,0 +1,76 @@
+div(ng-include='"components/navbar/navbar.html"')
+
+header#banner.hero-unit
+  .container
+    h1 'Allo, 'Allo! hello
+    p.lead Kick-start your next web app with Angular Fullstack
+    img(src='assets/images/yeoman.png', alt='I\'m Yeoman')
+
+.container
+  .row
+    .col-lg-12
+      h1.page-header Datos del Proyecto:
+      form(id='frmProyect').form-horizontal
+        .form-group
+          label.control-label.col-md-2 Nombre:
+          .col-md-10
+            input(type='text',placeholder='Nombre del proyecto',ng-model='project.name').form-control
+        
+        .form-group
+          label.control-label.col-md-2 Descripcion:
+          .col-md-10
+            input(type='text',placeholder='Descripcion del proyecto',ng-model='project.description').form-control
+        
+        .form-group
+          label.control-label.col-md-2 Fecha Inicio:
+          .col-md-10
+            input(type='date',ng-model='project.dateStart').form-control
+        
+        .form-group
+          label.control-label.col-md-2 Duracion:
+          .col-md-10
+            input(type='text',placeholder='Duracion del proyecto',ng-model='project.duration').form-control
+        
+        .form-group
+          .col-md-offset-2.col-md-10
+            button(type='button',ng-click='projectSave()').btn.btn-primary Grabar
+            button(type='button',ng-click='projectCancel()').btn.btn-default Cancelar
+
+      .panel.panel-default
+        .panel-heading
+          p Recursos
+        .panel-body
+          .btn-toolbar(role='toolbar')
+            .btn-group
+              button(type='button').btn.btn-default Agregar
+              button(type='button').btn.btn-default Borrar
+              button(type='button').btn.btn-default Editar
+          div(ng-include='"components/editors/resource.html"')
+        table.table
+          th
+            input(type='checkbox').form-control
+          th Nombre
+          th Tipo
+          th Cantidad
+          th Accion
+          tr 
+            td
+              input(type='checkbox').form-control
+            td
+            td
+            td
+            td
+              .btn-group
+                button(type='button').btn.btn-default Agregar
+                button(type='button').btn.btn-default Borrar
+                button(type='button').btn.btn-default Editar
+
+
+footer.footer
+  .container
+    p
+      | Angular Fullstack v2.0.13
+      = ' | '
+      a(href='https://twitter.com/tyhenkel') @tyhenkel
+      = ' | '
+      a(href='https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open') Issues

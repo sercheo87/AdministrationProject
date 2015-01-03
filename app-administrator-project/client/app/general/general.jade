@@ -1,0 +1,43 @@
+div(ng-include='"components/navbar/navbar.html"')
+.container
+  .row
+    .col-lg-12
+      h1.page-header {{'TITLE_ADMIN_RESOURCE' | translate}}
+      .panel.panel-default
+        .panel-heading
+          .panel-title.pull-left Recursos
+          .btn-group.pull-right
+            button(type='button',ng-click='addResource()').btn.btn-default.fa.fa-plus {{'BUTTON_ADD' | translate}}
+          .clearfix
+        .panel-body
+        table.table.table-striped.table-hover
+            thead
+                tr
+                    th {{ 'LABEL_NAME' | translate}}
+                    th {{ 'LABEL_TYPE' | translate}}
+                    th {{ 'LABEL_ACTION' | translate}}
+            tbody
+                tr(ng-repeat='itemResource in collectionResources track by $index')
+                    td
+                      span(editable-text='itemResource.quantity',e-name='quantity',e-form='rowform',e-required='',required='') {{ itemResource.quantity || 'empty' }}
+                    td 
+                      span(editable-select='itemResource.typeResource.id',e-name='dtype',e-form='rowform',e-ng-options='s.id as s.name for s in typesResources') {{ showTypeResource(itemResource) }}
+                    td
+                      .btn-group
+                        form(editable-form='',name='rowform',ng-show='rowform.$visible',shown='inserted == itemResource',onbeforesave='saveResource($data, user.id)').form-buttons.form-inline
+                          .btn-group
+                            button(type='submit',ng-disabled='rowform.$waiting',ng-click='rowform.$show()').btn.btn-primary.fa.fa-save {{'BUTTON_SAVE' | translate}}
+                            button(type='button',ng-disabled='rowform.$waiting',ng-click='rowform.$cancel()').btn.btn-default.fa.fa-ban {{'BUTTON_CANCEL' | translate}}
+                        .buttons(ng-show='!rowform.$visible')
+                          .btn-group
+                            button(type='button',ng-click='rowform.$show()').btn.btn-default.fa.fa-edit {{'BUTTON_EDIT' | translate}}
+                            button(type='button',ng-click='removeResource($index)').btn.btn-danger.fa.fa-eraser {{'BUTTON_DELETED' | translate}}
+
+footer.footer
+  .container
+    p
+      | Angular Fullstack v2.0.13
+      = ' | '
+      a(href='https://twitter.com/tyhenkel') @tyhenkel
+      = ' | '
+      a(href='https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open') Issues
