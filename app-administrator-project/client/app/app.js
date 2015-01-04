@@ -5,12 +5,14 @@ angular.module('appAdministratorProjectApp', [
     'ngResource',
     'ngSanitize',
     'ngRoute',
+    'ngAnimate',
     'ui.bootstrap',
     'pascalprecht.translate',
     'xeditable',
-    'tmh.dynamicLocale'
+    'tmh.dynamicLocale',
+    'angular-growl'
   ])
-  .config(function($routeProvider, $locationProvider, $translateProvider, $httpProvider, tmhDynamicLocaleProvider) {
+  .config(function($routeProvider, $locationProvider, $translateProvider, $httpProvider, tmhDynamicLocaleProvider, growlProvider) {
 
     $httpProvider.defaults.useXDomain = true;
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
@@ -21,6 +23,12 @@ angular.module('appAdministratorProjectApp', [
       });
 
     $locationProvider.html5Mode(true);
+    growlProvider.globalTimeToLive({
+      success: 1000,
+      error: 2000,
+      warning: 3000,
+      info: 4000
+    });
     tmhDynamicLocaleProvider.localeLocationPattern('../bower_components/angular-i18n/angular-locale_{{locale}}.js');
 
     $translateProvider

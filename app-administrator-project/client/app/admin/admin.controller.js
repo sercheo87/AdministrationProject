@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('appAdministratorProjectApp')
-    .controller('AdminCtrl', function($scope, $http, $log, $translate, $filter, resourcesService) {
+    .controller('AdminCtrl', function($scope, $http, $log, $translate, $filter, resourcesService, growl) {
         $scope.project = {
             name: '',
             description: '',
@@ -20,6 +20,7 @@ angular.module('appAdministratorProjectApp')
         $scope.projectSave = function() {
             $log.info($scope.formProject);
             $scope.formProject.$setError('name', 'Unknown error!');
+            growl.warning("Override global ttl setting", {});
         };
 
         $scope.projectCancel = function() {

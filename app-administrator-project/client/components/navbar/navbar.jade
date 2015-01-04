@@ -21,3 +21,4 @@ nav.navbar.navbar-default.navbar-static-top(ng-controller='NavbarCtrl',role='nav
           ul.dropdown-menu
             li(ng-repeat='itemLanguaje in collectionLanguaje')
               a(href='#', ng-click='changeLanguage(itemLanguaje)', ng-class='{"fa fa-check": selectedLanguaje.key=="{{itemLanguaje.key}}"}') {{itemLanguaje.description}}
+div(growl='')

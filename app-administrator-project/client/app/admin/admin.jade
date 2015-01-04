@@ -19,17 +19,17 @@ header#banner.hero-unit
         .form-group
           label.control-label.col-md-2 {{'LABEL_DESCRIPTION' | translate}}:
           .col-md-10
-            label(editable-text='project.description', e-name='description', e-required='' ) {{ project.name || 'LABEL_EMPTY' | translate }}
+            label(editable-text='project.description', e-name='description', e-required='' ).control-label  {{ project.name || 'LABEL_EMPTY' | translate }}
         
         .form-group
           label.control-label.col-md-2 {{'LABEL_DATE_START' | translate}}:
           .col-md-10
-            label(editable-bsdate-new='project.dateStart', e-name='dateStart', e-required='') {{ project.dateStart | date:'fullDate' }}
+            label(editable-bsdate-new='project.dateStart', e-name='dateStart', e-required='').control-label  {{ project.dateStart | date:'fullDate' }}
         
         .form-group
           label.control-label.col-md-2 {{'LABEL_DURATION' | translate}}:
           .col-md-10
-            label(editable-text='project.duration',e-datepicker-popup='dd-MMMM-yyyy', e-name='duration', e-required='', e-placeholder='{{"PH_DURATION_PROJECT" | translate}}' ) {{ project.duration || 'LABEL_EMPTY' | translate }}
+            label(editable-text='project.duration',e-datepicker-popup='dd-MMMM-yyyy', e-name='duration', e-required='', e-placeholder='{{"PH_DURATION_PROJECT" | translate}}' ).control-label  {{ project.duration || 'LABEL_EMPTY' | translate }}
         
         .form-group
           .col-md-offset-2.col-md-10
