@@ -16,5 +16,6 @@ var router = express.Router();
 
 router.get('/', typeResourceController.getAll);
 router.put('/add', typeResourceController.addTypeResource);
+router.put('/delete', typeResourceController.removeTypeResource);
 
 module.exports = router;

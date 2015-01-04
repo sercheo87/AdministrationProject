@@ -24,14 +24,14 @@ div(ng-include='"components/navbar/navbar.html"')
                       span(editable-text='itemTypeResource.description',e-name='description',e-form='rowTypeResourceForm',e-required='') {{ itemTypeResource.description || 'empty' }}
                     td
                       .btn-group
-                        form(editable-form='',name='rowTypeResourceForm',ng-show='rowTypeResourceForm.$visible',shown='newTypeResource == itemTypeResource',onbeforesave='saveResource($data)').form-buttons.form-inline
+                        form(editable-form='',name='rowTypeResourceForm',ng-show='rowTypeResourceForm.$visible',shown='newTypeResource == itemTypeResource',onbeforesave='saveTypeResource($data)').form-buttons.form-inline
                           .btn-group
                             button(type='submit',ng-disabled='rowTypeResourceForm.$waiting',ng-click='rowTypeResourceForm.$show()').btn.btn-primary.fa.fa-save {{'BUTTON_SAVE' | translate}}
                             button(type='button',ng-disabled='rowTypeResourceForm.$waiting',ng-click='rowTypeResourceForm.$cancel()').btn.btn-default.fa.fa-ban {{'BUTTON_CANCEL' | translate}}
                         .buttons(ng-show='!rowTypeResourceForm.$visible')
                           .btn-group
                             button(type='button',ng-click='rowTypeResourceForm.$show()').btn.btn-default.fa.fa-edit {{'BUTTON_EDIT' | translate}}
-                            button(type='button',ng-click='removeResource($index)').btn.btn-danger.fa.fa-eraser {{'BUTTON_DELETED' | translate}}
+                            button(type='button',ng-click='removeTypeResource(itemTypeResource)').btn.btn-danger.fa.fa-eraser {{'BUTTON_DELETED' | translate}}
 
 footer.footer
   .container

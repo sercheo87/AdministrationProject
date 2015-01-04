@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('appAdministratorProjectApp')
-  .controller('NavbarCtrl', function($scope, $location, $translate) {
+  .controller('NavbarCtrl', function($scope, $location, $translate, tmhDynamicLocale) {
     $scope.menu = [{
       'title': 'LABEL_HOME',
       'link': '/'
@@ -14,15 +14,16 @@ angular.module('appAdministratorProjectApp')
     }];
 
     $scope.collectionLanguaje = [{
-    key: 'es_EC',
+      key: 'es-ec',
       description: 'Español'
     }, {
-      key: 'en_US',
+      key: 'en-us',
       description: 'English'
     }];
 
     $scope.isCollapsed = true;
     $scope.selectedLanguaje = $scope.collectionLanguaje[0];
+    tmhDynamicLocale.set('es');
 
     $scope.isActive = function(route) {
       return route === $location.path();
@@ -31,6 +32,7 @@ angular.module('appAdministratorProjectApp')
     $scope.changeLanguage = function(itemLanguaje) {
       $translate.use(itemLanguaje.key);
       $scope.selectedLanguaje = itemLanguaje;
+      tmhDynamicLocale.set(itemLanguaje.key);
     };
 
   });

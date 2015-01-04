@@ -2,11 +2,12 @@
 
 angular.module('appAdministratorProjectApp')
     .controller('AdminCtrl', function($scope, $http, $log, $translate, $filter, resourcesService) {
-        $scope.project = [];
-        $scope.project.name = '';
-        $scope.project.description = '';
-        $scope.project.dateStart = '';
-        $scope.project.duration = '';
+        $scope.project = {
+            name: '',
+            description: '',
+            dateStart: new Date(2015, 1, 1),
+            duration: ''
+        };
 
         $scope.typesResources = [{
             id: 1,
@@ -17,7 +18,8 @@ angular.module('appAdministratorProjectApp')
         }];
 
         $scope.projectSave = function() {
-            $scope.project.description = 'rrr';
+            $log.info($scope.formProject);
+            $scope.formProject.$setError('name', 'Unknown error!');
         };
 
         $scope.projectCancel = function() {
@@ -27,7 +29,12 @@ angular.module('appAdministratorProjectApp')
         resourcesService.getAllResources(function(results) {
             $scope.collectionResources = angular.fromJson(results);
         });
+        $scope.open = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
 
+            $scope.opened = true;
+        };
         $scope.showTypeResource = function(typeResource) {
             var selected = [];
             if (typeResource.typeResource) {

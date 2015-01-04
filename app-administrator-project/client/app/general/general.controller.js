@@ -1,27 +1,36 @@
 'use strict';
 
 angular.module('appAdministratorProjectApp')
+  .controller('GeneralCtrl', function($scope, $http, $log, typeResourceService) {
 
-.controller('GeneralCtrl', function($scope, $http, $log, typeResourceService) {
-
-  typeResourceService.getAll(function(results) {
-    $log.info('data devuelta', results);
-    $scope.collectionTypesResources = angular.fromJson(results);
-  });
-
-  $scope.addTypeResource = function() {
-    $scope.newTypeResource = {
-      name: '',
-      description: ''
+    $scope.addTypeResource = function() {
+      $scope.newTypeResource = {
+        name: '',
+        description: ''
+      };
+      $scope.collectionTypesResources.push($scope.newTypeResource);
     };
-    $scope.collectionTypesResources.push($scope.newTypeResource);
-  };
 
-  $scope.saveResource = function(data) {
-    typeResourceService.saveResource(data, function(results) {
-      $log.info('data devuelta', results);
-      $scope.collectionTypesResources = angular.fromJson(results);
-    });
-  };
+    $scope.saveTypeResource = function(data) {
+      typeResourceService.saveResource(data, function(results) {
+        $log.info('RESPUESTA SERVIDOR:', results);
+      });
+      $scope.getTypeResource();
+    };
 
-});
+    $scope.removeTypeResource = function(data) {
+      typeResourceService.removeResource(data, function(results) {
+        $log.info('RESPUESTA SERVIDOR:', results);
+        $scope.getTypeResource();
+      });
+    };
+
+    $scope.getTypeResource = function() {
+      typeResourceService.getAll(function(results) {
+        $log.info('RESPUESTA SERVIDOR:', results);
+        $scope.collectionTypesResources = angular.fromJson(results);
+      });
+    };
+
+    $scope.getTypeResource();
+  });

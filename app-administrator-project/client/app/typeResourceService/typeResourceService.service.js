@@ -13,4 +13,11 @@ angular.module('appAdministratorProjectApp')
         'data': newResource
       }).success(callback);
     }
+
+    this.removeResource = function(itemResource, callback) {
+      $log.info('Remove object:', itemResource);
+      $http.put('/api/typeResource/delete', {
+        'data': itemResource
+      }).success(callback);
+    }
   });
