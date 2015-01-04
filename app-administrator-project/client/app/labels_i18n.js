@@ -8,6 +8,7 @@ var translations_en = {
   LABEL_PROJECT_ADMIN: 'Project Administrator',
   LABEL_DATA_GENERAL: 'Data General',
   LABEL_HOME: 'Home',
+  LABEL_QUANTITY: 'Quantity',
 
   TITLE_ADMIN_RESOURCE: 'Resources Administrator',
 
@@ -28,6 +29,7 @@ var translations_es = {
   LABEL_PROJECT_ADMIN: 'Administrador de Proyectos',
   LABEL_DATA_GENERAL: 'Datos Generales',
   LABEL_HOME: 'Inicio',
+  LABEL_QUANTITY: 'Cantidad',
 
   TITLE_ADMIN_RESOURCE: 'Administrador de Recursos',
 

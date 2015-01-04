@@ -7,7 +7,7 @@ div(ng-include='"components/navbar/navbar.html"')
         .panel-heading
           .panel-title.pull-left Recursos
           .btn-group.pull-right
-            button(type='button',ng-click='addResource()').btn.btn-default.fa.fa-plus {{'BUTTON_ADD' | translate}}
+            button(type='button',ng-click='addTypeResource()').btn.btn-default.fa.fa-plus {{'BUTTON_ADD' | translate}}
           .clearfix
         .panel-body
         table.table.table-striped.table-hover
@@ -17,20 +17,20 @@ div(ng-include='"components/navbar/navbar.html"')
                     th {{ 'LABEL_TYPE' | translate}}
                     th {{ 'LABEL_ACTION' | translate}}
             tbody
-                tr(ng-repeat='itemResource in collectionResources track by $index')
+                tr(ng-repeat='itemTypeResource in collectionTypesResources')
                     td
-                      span(editable-text='itemResource.quantity',e-name='quantity',e-form='rowform',e-required='',required='') {{ itemResource.quantity || 'empty' }}
-                    td 
-                      span(editable-select='itemResource.typeResource.id',e-name='dtype',e-form='rowform',e-ng-options='s.id as s.name for s in typesResources') {{ showTypeResource(itemResource) }}
+                      span(editable-text='itemTypeResource.name',e-name='name',e-form='rowTypeResourceForm',e-required='') {{ itemTypeResource.name || 'empty' }}
+                    td
+                      span(editable-text='itemTypeResource.description',e-name='description',e-form='rowTypeResourceForm',e-required='') {{ itemTypeResource.description || 'empty' }}
                     td
                       .btn-group
-                        form(editable-form='',name='rowform',ng-show='rowform.$visible',shown='inserted == itemResource',onbeforesave='saveResource($data, user.id)').form-buttons.form-inline
+                        form(editable-form='',name='rowTypeResourceForm',ng-show='rowTypeResourceForm.$visible',shown='newTypeResource == itemTypeResource',onbeforesave='saveResource($data)').form-buttons.form-inline
                           .btn-group
-                            button(type='submit',ng-disabled='rowform.$waiting',ng-click='rowform.$show()').btn.btn-primary.fa.fa-save {{'BUTTON_SAVE' | translate}}
-                            button(type='button',ng-disabled='rowform.$waiting',ng-click='rowform.$cancel()').btn.btn-default.fa.fa-ban {{'BUTTON_CANCEL' | translate}}
-                        .buttons(ng-show='!rowform.$visible')
+                            button(type='submit',ng-disabled='rowTypeResourceForm.$waiting',ng-click='rowTypeResourceForm.$show()').btn.btn-primary.fa.fa-save {{'BUTTON_SAVE' | translate}}
+                            button(type='button',ng-disabled='rowTypeResourceForm.$waiting',ng-click='rowTypeResourceForm.$cancel()').btn.btn-default.fa.fa-ban {{'BUTTON_CANCEL' | translate}}
+                        .buttons(ng-show='!rowTypeResourceForm.$visible')
                           .btn-group
-                            button(type='button',ng-click='rowform.$show()').btn.btn-default.fa.fa-edit {{'BUTTON_EDIT' | translate}}
+                            button(type='button',ng-click='rowTypeResourceForm.$show()').btn.btn-default.fa.fa-edit {{'BUTTON_EDIT' | translate}}
                             button(type='button',ng-click='removeResource($index)').btn.btn-danger.fa.fa-eraser {{'BUTTON_DELETED' | translate}}
 
 footer.footer
