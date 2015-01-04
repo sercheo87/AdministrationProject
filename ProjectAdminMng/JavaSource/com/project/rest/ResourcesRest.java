@@ -22,9 +22,8 @@ public class ResourcesRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getInformation() throws ProjectException {
 		try {
-			return Response.ok().entity(resourcesService.getInformationBasic()).build();
-		}
-		catch (Exception ex) {
+			return Response.ok().entity(this.resourcesService.getInformationBasic()).build();
+		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new ProjectException("ERROR CATEGORIA NO ENCONTRADA");
 		}
@@ -35,9 +34,8 @@ public class ResourcesRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getResources() throws ProjectException {
 		try {
-			return Response.ok().entity(resourcesService.getAllResources()).build();
-		}
-		catch (Exception ex) {
+			return Response.ok().entity(this.resourcesService.getAllResources()).build();
+		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new ProjectException("ERROR CATEGORIA NO ENCONTRADA");
 		}

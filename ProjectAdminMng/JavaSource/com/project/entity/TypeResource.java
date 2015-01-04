@@ -10,6 +10,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tbTypeResource")
 public class TypeResource {
+	@Column(name = "description")
+	private String description;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -17,9 +20,6 @@ public class TypeResource {
 
 	@Column(name = "name")
 	private String name;
-
-	@Column(name = "description")
-	private String description;
 
 	public TypeResource() {
 		super();
@@ -72,7 +72,6 @@ public class TypeResource {
 
 	/*
 	 * (non-Javadoc)
-	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
