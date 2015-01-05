@@ -24,11 +24,18 @@ angular.module('appAdministratorProjectApp', [
 
     $locationProvider.html5Mode(true);
     growlProvider.globalTimeToLive({
-      success: 1000,
-      error: 2000,
-      warning: 3000,
-      info: 4000
+      success: 4000,
+      error: 4000,
+      warning: 2000,
+      info: 1000
     });
+    growlProvider.messagesKey("responses");
+    growlProvider.messageTextKey("msg");
+    growlProvider.messageSeverityKey("type");
+    growlProvider.onlyUniqueMessages(true);
+
+    $httpProvider.interceptors.push(growlProvider.serverMessagesInterceptor);
+
     tmhDynamicLocaleProvider.localeLocationPattern('../bower_components/angular-i18n/angular-locale_{{locale}}.js');
 
     $translateProvider
