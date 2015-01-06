@@ -32,7 +32,7 @@ exports.addTypeResource = function(req, result) {
 
 exports.updateTypeResource = function(req, result) {
   var optionServer = underscore.extend(config.serverRestTemplate, {
-    path: '/ProjectAdminMng/rest/typeResource/update',
+    path: '/ProjectAdminMng/rest/typeResource/update/' + req.params.id,
     method: 'POST'
   });
 
@@ -41,7 +41,7 @@ exports.updateTypeResource = function(req, result) {
 
 exports.removeTypeResource = function(req, result) {
   var optionServer = underscore.extend(config.serverRestTemplate, {
-    path: '/ProjectAdminMng/rest/typeResource/delete',
+    path: '/ProjectAdminMng/rest/typeResource/delete/' + req.params.id,
     method: 'DELETE'
   });
 

@@ -25,7 +25,7 @@ module.exports = {
       }).on('end', function() {});
     });
     if (optionServer.method === 'DELETE') {
-      response.write(JSON.stringify(request.params));
+      //response.write(JSON.stringify(request.params));
     } else {
       if (JSON.stringify(request.body) !== '{}') {
         response.write(JSON.stringify(request.body.data));

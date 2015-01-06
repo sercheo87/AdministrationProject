@@ -9,19 +9,13 @@ angular.module('appAdministratorProjectApp')
         .error(callback);
     }
 
-    this.saveResource = function(newResource) {
+    this.saveResource = function(newResource, callback) {
       $log.info('New object:', newResource);
       $http.put('/api/typeResource/add', {
           'data': newResource
         })
-        .success(function(data, status, headers, config) {
-          $log.info('succes:data:', data);
-          $log.info('status:', status);
-        })
-        .error(function(data, status, headers, config) {
-          $log.info('error:data:', data);
-          $log.info('status:', status);
-        });
+        .success(callback)
+        .error(callback);
     }
 
     this.updateResource = function(itemResource, callback) {
@@ -35,9 +29,7 @@ angular.module('appAdministratorProjectApp')
 
     this.removeResource = function(itemResource, callback) {
       $log.info('Remove object:', itemResource);
-      $http.delete('/api/typeResource/delete/' + itemResource.id, {
-          'data': itemResource
-        })
+      $http.delete('/api/typeResource/delete/' + itemResource.id, {})
         .success(callback)
         .error(callback);
     }

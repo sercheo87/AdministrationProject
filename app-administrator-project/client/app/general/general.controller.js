@@ -10,22 +10,23 @@ angular.module('appAdministratorProjectApp')
       $scope.collectionTypesResources.push($scope.newTypeResource);
     };
 
-    $scope.updateTypeResource = function(typeResource) {
-      $log.info('updateResource');
-      var res = typeResourceService.updateResource(typeResource, function(data, status, headers, config) {
-        $scope.getTypeResource();
-      });
-    };
-
     $scope.saveTypeResource = function(typeResource) {
-      $log.info('saveTypeResource');
-      var ret = typeResourceService.saveResource(typeResource, function(data, status, headers, config) {
-        $scope.getTypeResource();
-      });
+      $log.info('typeResource:', typeResource);
+      if (typeof(typeResource.id) === 'undefined') {
+        $log.info('Adding new resource type');
+        var ret = typeResourceService.saveResource(typeResource, function(data, status, headers, config) {
+          $scope.getTypeResource();
+        });
+      } else {
+        $log.info('Update new resource type');
+        var res = typeResourceService.updateResource(typeResource, function(data, status, headers, config) {
+          $scope.getTypeResource();
+        });
+      }
     };
 
     $scope.removeTypeResource = function(typeResource) {
-      $log.info('REMOVIENDO:', typeResource);
+      $log.info('Delete resource type');
       typeResourceService.removeResource(typeResource, function(data, status, headers, config) {
         $scope.getTypeResource();
       });
