@@ -32,13 +32,17 @@ public class TypesResourcesRest {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addResource(TypeResource typeResource) throws ProjectException {
 		try {
-			this.typesResourcesService.newTypeResource(typeResource);
+			TypeResource newTypeResource = new TypeResource();
+			newTypeResource.setName(typeResource.getName());
+			newTypeResource.setDescription(typeResource.getDescription());
+
+			this.typesResourcesService.newTypeResource(newTypeResource);
 
 			ResponseMessage res = new ResponseMessage();
 			res.getMessages().add(new Message("Se agrego correntamente el registro", MessageSeverity.success));
 
 			return Response.ok().status(Status.CREATED).entity(res.getResponseMessage())
-			        .type(MediaType.APPLICATION_JSON).build();
+					.type(MediaType.APPLICATION_JSON).build();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new ProjectException("Error registrando en nuevo tipo de recurso");
@@ -46,12 +50,16 @@ public class TypesResourcesRest {
 	}
 
 	@DELETE
-	@Path("/delete")
+	@Path("/delete/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response delResource(TypeResource typeResource) throws ProjectException {
+	public Response delResource(@PathParam("id")
+	int id) throws ProjectException {
 		try {
 			ResponseMessage res = new ResponseMessage();
 			res.getMessages().add(new Message("Se ha eliminado el tipo de recurso", MessageSeverity.success));
+
+			TypeResource typeResource = new TypeResource();
+			typeResource.setId(id);
 
 			this.typesResourcesService.removeTypeResource(typeResource);
 			return Response.ok().status(Status.OK).entity(res).type(MediaType.APPLICATION_JSON).build();
@@ -91,7 +99,7 @@ public class TypesResourcesRest {
 			res.getMessages().add(new Message("Se actualizo correntamente el registro", MessageSeverity.success));
 
 			return Response.ok().status(Status.CREATED).entity(res.getResponseMessage())
-			        .type(MediaType.APPLICATION_JSON).build();
+					.type(MediaType.APPLICATION_JSON).build();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new ProjectException("Error actualizando el tipo de recurso");
