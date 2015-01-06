@@ -5,10 +5,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "tbTypeResource")
+@NamedQueries({ @NamedQuery(name = "TypeResource.getAll", query = "SELECT r FROM TypeResource r") })
 public class TypeResource {
 	@Column(name = "description")
 	private String description;
@@ -29,21 +32,21 @@ public class TypeResource {
 	 * @return the description
 	 */
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 
 	/**
 	 * @return the id
 	 */
 	public Integer getId() {
-		return id;
+		return this.id;
 	}
 
 	/**
 	 * @return the name
 	 */
 	public String getName() {
-		return name;
+		return this.name;
 	}
 
 	/**
@@ -70,12 +73,8 @@ public class TypeResource {
 		this.name = name;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
-		return "TypeResource [id=" + id + ", name=" + name + ", description=" + description + "]";
+		return "TypeResource [description=" + this.description + ", id=" + this.id + ", name=" + this.name + "]";
 	}
 }
