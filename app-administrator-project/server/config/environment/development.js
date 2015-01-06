@@ -8,5 +8,13 @@ module.exports = {
     uri: 'mongodb://localhost/appadministratorproject-dev'
   },
 
-  seedDB: true
+  seedDB: true,
+
+  serverRestTemplate: {
+    host: '127.0.0.1',
+    port: 1313,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
 };

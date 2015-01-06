@@ -1,8 +1,7 @@
 'use strict';
 
 angular.module('appAdministratorProjectApp')
-  .controller('GeneralCtrl', function($scope, $http, $log, typeResourceService) {
-
+  .controller('GeneralCtrl', function($scope, $http, $log, typeResourceService, growl) {
     $scope.addTypeResource = function() {
       $scope.newTypeResource = {
         name: '',
@@ -11,24 +10,30 @@ angular.module('appAdministratorProjectApp')
       $scope.collectionTypesResources.push($scope.newTypeResource);
     };
 
-    $scope.saveTypeResource = function(data) {
-      typeResourceService.saveResource(data, function(results) {
-        $log.info('RESPUESTA SERVIDOR:', results);
+    $scope.updateTypeResource = function(typeResource) {
+      $log.info('updateResource');
+      var res = typeResourceService.updateResource(typeResource, function(data, status, headers, config) {
+        $scope.getTypeResource();
       });
-      $scope.getTypeResource();
     };
 
-    $scope.removeTypeResource = function(data) {
-      typeResourceService.removeResource(data, function(results) {
-        $log.info('RESPUESTA SERVIDOR:', results);
+    $scope.saveTypeResource = function(typeResource) {
+      $log.info('saveTypeResource');
+      var ret = typeResourceService.saveResource(typeResource, function(data, status, headers, config) {
+        $scope.getTypeResource();
+      });
+    };
+
+    $scope.removeTypeResource = function(typeResource) {
+      $log.info('REMOVIENDO:', typeResource);
+      typeResourceService.removeResource(typeResource, function(data, status, headers, config) {
         $scope.getTypeResource();
       });
     };
 
     $scope.getTypeResource = function() {
-      typeResourceService.getAll(function(results) {
-        $log.info('RESPUESTA SERVIDOR:', results);
-        $scope.collectionTypesResources = angular.fromJson(results);
+      typeResourceService.getAll(function(data, status, headers, config) {
+        $scope.collectionTypesResources = data.data;
       });
     };
 

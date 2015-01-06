@@ -29,9 +29,10 @@ angular.module('appAdministratorProjectApp', [
       warning: 2000,
       info: 1000
     });
-    growlProvider.messagesKey("responses");
-    growlProvider.messageTextKey("msg");
-    growlProvider.messageSeverityKey("type");
+    growlProvider.messagesKey("messages");
+    growlProvider.messageTextKey("message");
+    growlProvider.messageSeverityKey("severity");
+    growlProvider.messageTitleKey('title');
     growlProvider.onlyUniqueMessages(true);
 
     $httpProvider.interceptors.push(growlProvider.serverMessagesInterceptor);
