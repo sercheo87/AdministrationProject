@@ -13,8 +13,4 @@ public class ProjectException extends Exception implements Serializable {
 		super(arg0);
 	}
 
-	public ProjectException(String arg0, Exception e) {
-		super(arg0, e);
-	}
-
 }
