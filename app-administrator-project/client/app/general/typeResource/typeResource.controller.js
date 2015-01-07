@@ -11,14 +11,13 @@ angular.module('appAdministratorProjectApp')
     };
 
     $scope.saveTypeResource = function(typeResource) {
-      $log.info('typeResource:', typeResource);
       if (typeof(typeResource.id) === 'undefined') {
-        $log.info('Adding new resource type');
+        $log.info('Adding action', typeResource);
         var ret = typeResourceService.save(typeResource, function(data, status, headers, config) {
           $scope.getTypeResource();
         });
       } else {
-        $log.info('Update new resource type');
+        $log.info('Update action', typeResource);
         var res = typeResourceService.update(typeResource, function(data, status, headers, config) {
           $scope.getTypeResource();
         });
@@ -26,8 +25,8 @@ angular.module('appAdministratorProjectApp')
     };
 
     $scope.removeTypeResource = function(typeResource) {
-      $log.info('Delete resource type');
-    typeResourceService.remove(typeResource, function(data, status, headers, config) {
+      $log.info('Delete action', typeResource);
+      typeResourceService.remove(typeResource, function(data, status, headers, config) {
         $scope.getTypeResource();
       });
     };

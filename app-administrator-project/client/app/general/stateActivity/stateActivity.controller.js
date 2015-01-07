@@ -10,14 +10,13 @@ angular.module('appAdministratorProjectApp')
     };
 
     $scope.saveStateActivity = function(stateActivity) {
-      $log.info('stateActivity:', stateActivity);
       if (typeof(stateActivity.id) === 'undefined') {
-        $log.info('Adding action');
+        $log.info('Adding action', stateActivity);
         var ret = stateActivityService.save(stateActivity, function(data, status, headers, config) {
           $scope.getStateActivity();
         });
       } else {
-        $log.info('Update action');
+        $log.info('Update action', stateActivity);
         var res = stateActivityService.update(stateActivity, function(data, status, headers, config) {
           $scope.getStateActivity();
         });
@@ -25,7 +24,7 @@ angular.module('appAdministratorProjectApp')
     };
 
     $scope.removeStateActivity = function(stateActivity) {
-      $log.info('Delete action');
+      $log.info('Delete action', stateActivity);
       stateActivityService.remove(stateActivity, function(data, status, headers, config) {
         $scope.getStateActivity();
       });
