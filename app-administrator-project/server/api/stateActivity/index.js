@@ -10,13 +10,13 @@
  */
 
 var express = require('express');
-var typeResourceController = require('./typeResource.controller');
+var stateActivityController = require('./stateActivity.controller');
 
 var router = express.Router();
 
-router.get('/', typeResourceController.getAll);
-router.put('/add', typeResourceController.add);
-router.post('/update/:id', typeResourceController.update);
-router.delete('/delete/:id', typeResourceController.remove);
+router.get('/', stateActivityController.getAll);
+router.put('/add', stateActivityController.add);
+router.post('/update/:id', stateActivityController.update);
+router.delete('/delete/:id', stateActivityController.remove);
 
 module.exports = router;

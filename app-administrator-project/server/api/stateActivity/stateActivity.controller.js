@@ -13,7 +13,7 @@ var log = logger.logger;
 
 exports.getAll = function(req, result) {
   var optionServer = underscore.extend(config.serverRestTemplate, {
-    path: '/ProjectAdminMng/rest/typeResource/getAll',
+    path: '/ProjectAdminMng/rest/stateActivity/getAll',
     method: 'GET'
   });
 
@@ -23,7 +23,7 @@ exports.getAll = function(req, result) {
 exports.add = function(req, result) {
 
   var optionServer = underscore.extend(config.serverRestTemplate, {
-    path: '/ProjectAdminMng/rest/typeResource/add',
+    path: '/ProjectAdminMng/rest/stateActivity/add',
     method: 'PUT'
   });
 
@@ -32,7 +32,7 @@ exports.add = function(req, result) {
 
 exports.update = function(req, result) {
   var optionServer = underscore.extend(config.serverRestTemplate, {
-    path: '/ProjectAdminMng/rest/typeResource/update/' + req.params.id,
+    path: '/ProjectAdminMng/rest/stateActivity/update/' + req.params.id,
     method: 'POST'
   });
 
@@ -41,7 +41,7 @@ exports.update = function(req, result) {
 
 exports.remove = function(req, result) {
   var optionServer = underscore.extend(config.serverRestTemplate, {
-    path: '/ProjectAdminMng/rest/typeResource/delete/' + req.params.id,
+    path: '/ProjectAdminMng/rest/stateActivity/delete/' + req.params.id,
     method: 'DELETE'
   });
 

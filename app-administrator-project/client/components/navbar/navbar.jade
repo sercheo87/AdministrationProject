@@ -13,6 +13,15 @@ nav.navbar.navbar-default.navbar-static-top(ng-controller='NavbarCtrl',role='nav
         li(ng-repeat='item in menu', ng-class='{active: isActive(item.link)}')
           a(ng-href='{{item.link}}',translate='') {{item.title}}
       
+      ul.nav.navbar-nav   
+        li.dropdown
+          a.dropdown-toggle(href='#', data-toggle='dropdown')
+            | {{'LABEL_ADMIN' | translate}}
+            b.caret   
+          ul.dropdown-menu
+            li(ng-repeat='item in collectionDataGeneral', ng-class='{active: isActive(item.link)}')
+              a(href='#', ng-href='{{item.link}}') {{item.title | translate}}
+      
       ul.nav.navbar-nav.navbar-right      
         li.dropdown
           a.dropdown-toggle(href='#', data-toggle='dropdown').fa.fa-bullhorn

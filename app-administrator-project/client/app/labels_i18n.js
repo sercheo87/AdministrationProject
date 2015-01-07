@@ -14,6 +14,10 @@ var translations_en = {
   LABEL_DURATION: 'Duration',
   LABEL_RESOURCES: 'Resources',
   LABEL_EMPTY: 'Empty',
+  LABEL_ADMIN_TYPE_RESOURCE: 'Type Resources',
+  LABEL_ADMIN: 'Administrator',
+  LABEL_ADMIN_STATE_ACTIVITY: 'State Activity',
+  LABEL_CATALOGS: 'Catalogs',
 
   TITLE_ADMIN_RESOURCE: 'Resources Administrator',
   TITLE_PROJECT_INFO: 'Project Information',
@@ -44,6 +48,10 @@ var translations_es = {
   LABEL_DURATION: 'Duracion',
   LABEL_RESOURCES: 'Resursos',
   LABEL_EMPTY: 'Vacio',
+  LABEL_ADMIN_TYPE_RESOURCE: 'Tipo de Recursos',
+  LABEL_ADMIN: 'Administrador',
+  LABEL_ADMIN_STATE_ACTIVITY: 'Estado de las Actividades',
+  LABEL_CATALOGS: 'Catalogos',
 
   TITLE_ADMIN_RESOURCE: 'Administrador de Recursos',
   TITLE_PROJECT_INFO: 'Informacion del Proyecto',

@@ -8,9 +8,6 @@ angular.module('appAdministratorProjectApp')
     }, {
       'title': 'LABEL_PROJECT_ADMIN',
       'link': '/Administrar'
-    }, {
-      'title': 'LABEL_DATA_GENERAL',
-      'link': '/General'
     }];
 
     $scope.collectionLanguaje = [{
@@ -19,6 +16,11 @@ angular.module('appAdministratorProjectApp')
     }, {
       key: 'en-us',
       description: 'English'
+    }];
+
+    $scope.collectionDataGeneral = [{
+      title: 'LABEL_CATALOGS',
+      link: '/General'
     }];
 
     $scope.isCollapsed = true;
