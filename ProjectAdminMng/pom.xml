@@ -21,6 +21,11 @@
 			<artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
 			<version>1.0.0.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>1.0</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<sourceDirectory>JavaSource</sourceDirectory>

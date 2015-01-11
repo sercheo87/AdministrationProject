@@ -102,8 +102,11 @@ class testStateActivity {
 
 			response.success = { resp, reader ->
 				def jsonSlurper = new JsonSlurper()
-
+				println reader
 				assertTrue resp.status == 200
+
+				println getItemId()
+				assertTrue getItemId()<=0
 			}
 
 			response.failure = { resp ->
