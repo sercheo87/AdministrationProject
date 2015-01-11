@@ -56,8 +56,8 @@ class testTypeResource {
 				def jsonSlurper = new JsonSlurper()
 
 				assertTrue resp.status == 200
-				assertTrue reader.data.findAll{ it.name == 'RES_PCS' }.size()>0
-				return reader.data.findAll{ it.name == 'RES_PCS' }[0].id
+				assertTrue reader.data.findAll{ it.name == jsonSlurper.parseText(IN_DATA).name }.size()>0
+				return reader.data.findAll{ it.name == jsonSlurper.parseText(IN_DATA).name }[0].id
 			}
 
 			response.failure = { resp ->
@@ -125,8 +125,8 @@ class testTypeResource {
 				def jsonSlurper = new JsonSlurper()
 
 				assertTrue resp.status == 200
-				assertTrue reader.data.findAll{ it.name == 'RES_PCS' }.size()>0
-				return reader.data.findAll{ it.name == 'RES_PCS' }[0].id
+				assertTrue reader.data.findAll{ it.name == jsonSlurper.parseText(IN_DATA).name }.size()>0
+				return reader.data.findAll{ it.name == jsonSlurper.parseText(IN_DATA).name }[0].id
 			}
 
 			response.failure = { resp ->
