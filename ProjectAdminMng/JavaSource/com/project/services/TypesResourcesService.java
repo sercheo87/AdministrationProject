@@ -15,6 +15,15 @@ public class TypesResourcesService {
 	@PersistenceContext
 	private EntityManager em;
 
+	public void add(TypeResource typeResource) throws ProjectException {
+		try {
+			this.em.persist(typeResource);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new ProjectException("Error registrando el tipo de recurso");
+		}
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<TypeResource> getAll() throws ProjectException {
 		try {
@@ -27,27 +36,18 @@ public class TypesResourcesService {
 		}
 	}
 
-	public void newTypeResource(TypeResource typeResource) throws ProjectException {
+	public void remove(TypeResource typeResource) throws ProjectException {
 		try {
-			this.em.persist(typeResource);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			throw new ProjectException("Error registrando el tipo de recurso");
-		}
-	}
+			TypeResource item = this.em.find(TypeResource.class, typeResource.getId());
 
-	public void removeTypeResource(TypeResource typeResource) throws ProjectException {
-		try {
-			TypeResource tr = this.em.find(TypeResource.class, typeResource.getId());
-
-			this.em.remove(tr);
+			this.em.remove(item);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new ProjectException("Error al borrar el tipo de recurso");
 		}
 	}
 
-	public void updateTypeResource(Integer id, TypeResource typeResource) throws ProjectException {
+	public void update(Integer id, TypeResource typeResource) throws ProjectException {
 		try {
 			TypeResource item = this.em.find(TypeResource.class, id);
 			item.setDescription(typeResource.getDescription());

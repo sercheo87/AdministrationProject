@@ -17,35 +17,34 @@ import javax.ws.rs.core.Response.Status;
 import com.project.dto.Message;
 import com.project.dto.MessageSeverity;
 import com.project.dto.ResponseMessage;
-import com.project.entity.TypeResource;
+import com.project.entity.StateActivity;
 import com.project.exceptions.ProjectException;
-import com.project.services.TypesResourcesService;
+import com.project.services.StateActivityService;
 
 @Stateless
-@Path("/typeResource")
-public class TypesResourcesRest {
+@Path("/stateActivity")
+public class StateActivityRest {
 	@EJB
-	private TypesResourcesService typesResourcesService;
+	private StateActivityService stateActivityService;
 
 	@PUT
 	@Path("/add")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response addResource(TypeResource typeResource) throws ProjectException {
+	public Response addResource(StateActivity stateActivity) throws ProjectException {
 		try {
-			TypeResource item = new TypeResource();
-			item.setName(typeResource.getName());
-			item.setDescription(typeResource.getDescription());
+			StateActivity item = new StateActivity();
+			item.setState(stateActivity.getState());
 
-			this.typesResourcesService.add(item);
+			this.stateActivityService.add(item);
 
 			ResponseMessage res = new ResponseMessage();
 			res.getMessages().add(new Message("Se agrego correntamente el registro", MessageSeverity.success));
 
 			return Response.ok().status(Status.CREATED).entity(res.getResponseMessage())
-					.type(MediaType.APPLICATION_JSON).build();
+			        .type(MediaType.APPLICATION_JSON).build();
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			throw new ProjectException("Error registrando en nuevo tipo de recurso");
+			throw new ProjectException("Error registrando en nuevo estado de la actividad");
 		}
 	}
 
@@ -56,17 +55,16 @@ public class TypesResourcesRest {
 	int id) throws ProjectException {
 		try {
 			ResponseMessage res = new ResponseMessage();
-			res.getMessages().add(new Message("Se ha eliminado el tipo de recurso", MessageSeverity.success));
+			res.getMessages().add(new Message("Se ha eliminado el estado de la actividad", MessageSeverity.success));
 
-			TypeResource item = new TypeResource();
+			StateActivity item = new StateActivity();
 			item.setId(id);
 
-			this.typesResourcesService.remove(item);
-			return Response.ok().status(Status.OK).entity(res.getResponseMessage()).type(MediaType.APPLICATION_JSON)
-			        .build();
+			this.stateActivityService.remove(item);
+			return Response.ok().status(Status.OK).entity(res).type(MediaType.APPLICATION_JSON).build();
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			throw new ProjectException("Error borrando el tipo de recurso");
+			throw new ProjectException("Error borrando el estado de la actividad");
 		}
 	}
 
@@ -77,12 +75,12 @@ public class TypesResourcesRest {
 		try {
 
 			ResponseMessage res = new ResponseMessage();
-			res.setData(this.typesResourcesService.getAll());
+			res.setData(this.stateActivityService.getAll());
 
 			return Response.ok().status(Status.OK).entity(res.getResponse()).type(MediaType.APPLICATION_JSON).build();
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			throw new ProjectException("Error al obtener los tipos de recursos");
+			throw new ProjectException("Error al obtener los estados de la actividad");
 		}
 	}
 
@@ -91,19 +89,20 @@ public class TypesResourcesRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateResource(@PathParam("id")
-	int id, TypeResource typeResource) throws ProjectException {
+	int id, StateActivity stateActivity) throws ProjectException {
 		try {
 
-			this.typesResourcesService.update(id, typeResource);
+			this.stateActivityService.update(id, stateActivity);
 
 			ResponseMessage res = new ResponseMessage();
 			res.getMessages().add(new Message("Se actualizo correntamente el registro", MessageSeverity.success));
 
 			return Response.ok().status(Status.CREATED).entity(res.getResponseMessage())
-					.type(MediaType.APPLICATION_JSON).build();
+			        .type(MediaType.APPLICATION_JSON).build();
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			throw new ProjectException("Error actualizando el tipo de recurso");
+			throw new ProjectException("Error actualizando el estado de la actividad");
 		}
+
 	}
 }
