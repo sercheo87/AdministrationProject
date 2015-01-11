@@ -32,11 +32,11 @@ public class TypesResourcesRest {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response addResource(TypeResource typeResource) throws ProjectException {
 		try {
-			TypeResource item = new TypeResource();
-			item.setName(typeResource.getName());
-			item.setDescription(typeResource.getDescription());
+			TypeResource newTypeResource = new TypeResource();
+			newTypeResource.setName(typeResource.getName());
+			newTypeResource.setDescription(typeResource.getDescription());
 
-			this.typesResourcesService.add(item);
+			this.typesResourcesService.newTypeResource(newTypeResource);
 
 			ResponseMessage res = new ResponseMessage();
 			res.getMessages().add(new Message("Se agrego correntamente el registro", MessageSeverity.success));
@@ -58,12 +58,11 @@ public class TypesResourcesRest {
 			ResponseMessage res = new ResponseMessage();
 			res.getMessages().add(new Message("Se ha eliminado el tipo de recurso", MessageSeverity.success));
 
-			TypeResource item = new TypeResource();
-			item.setId(id);
+			TypeResource typeResource = new TypeResource();
+			typeResource.setId(id);
 
-			this.typesResourcesService.remove(item);
-			return Response.ok().status(Status.OK).entity(res.getResponseMessage()).type(MediaType.APPLICATION_JSON)
-			        .build();
+			this.typesResourcesService.removeTypeResource(typeResource);
+			return Response.ok().status(Status.OK).entity(res).type(MediaType.APPLICATION_JSON).build();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new ProjectException("Error borrando el tipo de recurso");
@@ -94,7 +93,7 @@ public class TypesResourcesRest {
 	int id, TypeResource typeResource) throws ProjectException {
 		try {
 
-			this.typesResourcesService.update(id, typeResource);
+			this.typesResourcesService.updateTypeResource(id, typeResource);
 
 			ResponseMessage res = new ResponseMessage();
 			res.getMessages().add(new Message("Se actualizo correntamente el registro", MessageSeverity.success));
