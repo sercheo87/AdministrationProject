@@ -11,13 +11,12 @@ import org.junit.Test
 import org.junit.runners.MethodSorters
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-class testTypeResource {
+class testStateActivity {
 	String BASE_URL='http://127.0.0.1:1313/ProjectAdminMng/rest'
-	String URL_MODULE=BASE_URL+'/typeResource'
+	String URL_MODULE=BASE_URL+'/stateActivity'
 
 	def IN_DATA=JsonOutput.toJson([
-		description:'COMPUTADORAS',
-		name:'RES_PCS'
+		state:'neutral'
 	])
 
 	@Test
@@ -56,8 +55,8 @@ class testTypeResource {
 				def jsonSlurper = new JsonSlurper()
 
 				assertTrue resp.status == 200
-				assertTrue reader.data.findAll{ it.name == jsonSlurper.parseText(IN_DATA).name }.size()>0
-				return reader.data.findAll{ it.name == jsonSlurper.parseText(IN_DATA).name }[0].id
+				assertTrue reader.data.findAll{ it.state == jsonSlurper.parseText(IN_DATA).state }.size()>0
+				return reader.data.findAll{ it.state == jsonSlurper.parseText(IN_DATA).state }[0].id
 			}
 
 			response.failure = { resp ->
@@ -125,8 +124,8 @@ class testTypeResource {
 				def jsonSlurper = new JsonSlurper()
 
 				assertTrue resp.status == 200
-				assertTrue reader.data.findAll{ it.name == jsonSlurper.parseText(IN_DATA).name }.size()>0
-				return reader.data.findAll{ it.name == jsonSlurper.parseText(IN_DATA).name }[0].id
+				assertTrue reader.data.findAll{ it.state == jsonSlurper.parseText(IN_DATA).state }.size()>0
+				return reader.data.findAll{ it.state == jsonSlurper.parseText(IN_DATA).state }[0].id
 			}
 
 			response.failure = { resp ->
