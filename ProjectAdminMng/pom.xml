@@ -26,6 +26,11 @@
 			<artifactId>persistence-api</artifactId>
 			<version>1.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.jboss.spec.javax.ejb</groupId>
+			<artifactId>jboss-ejb-api_3.1_spec</artifactId>
+			<version>1.0.1.Final</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<sourceDirectory>JavaSource</sourceDirectory>
