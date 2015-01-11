@@ -11,28 +11,30 @@ import org.junit.Test
 import org.junit.runners.MethodSorters
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-class testRest {
+class testTypeResource {
 	String BASE_URL='http://127.0.0.1:1313/ProjectAdminMng/rest'
-	def IN_DATA=[
+	String URL_MODULE=BASE_URL+'/typeResource'
+
+	def IN_DATA=JsonOutput.toJson([
 		description:'COMPUTADORAS',
 		name:'RES_PCS'
-	]
+	])
 
 	@Test
-	void addResourcesTest(){
-		def path = new HTTPBuilder(BASE_URL+'/typeResource/add');
-		def inData=JsonOutput.toJson(IN_DATA)
-		println 'indata:'+inData
+	void testResource_1_add(){
+		def path = new HTTPBuilder(URL_MODULE+'/add');
+
 		path.request(Method.PUT, ContentType.JSON) { req ->
 			headers.'Content-Type' = 'application/json'
 			headers.Accept = 'application/json';
 
-			body=inData
+			body=IN_DATA
 
 			response.success = { resp, reader ->
 				def jsonSlurper = new JsonSlurper()
-				assertTrue resp.status==201
-				assertTrue reader.messages[0].code==0
+
+				assertTrue resp.status == 201
+				assertTrue reader.messages[0].code == 0
 			}
 
 			response.failure = { resp ->
@@ -43,8 +45,8 @@ class testRest {
 	}
 
 	@Test
-	void getResourcesTest(){
-		def path = new HTTPBuilder(BASE_URL+'/typeResource/getAll');
+	void testResource_2_get(){
+		def path = new HTTPBuilder(URL_MODULE+'/getAll');
 
 		path.request(Method.GET, ContentType.JSON) { req ->
 			headers.'Content-Type' = 'application/json'
@@ -52,9 +54,10 @@ class testRest {
 
 			response.success = { resp, reader ->
 				def jsonSlurper = new JsonSlurper()
-				assertTrue resp.status==200
-				assertTrue reader.data.findAll{ it.name=='RES_PCS' }.size()>0
-				return reader.data.findAll{ it.name=='RES_PCS' }[0].id
+
+				assertTrue resp.status == 200
+				assertTrue reader.data.findAll{ it.name == 'RES_PCS' }.size()>0
+				return reader.data.findAll{ it.name == 'RES_PCS' }[0].id
 			}
 
 			response.failure = { resp ->
@@ -65,18 +68,21 @@ class testRest {
 	}
 
 	@Test
-	void removeResourcesTest(){
-		def pathGet = new HTTPBuilder(BASE_URL+'/typeResource/getAll');
+	void testResource_3_update(){
+		def TEMP_ID = getResourceId()
+		def path = new HTTPBuilder(URL_MODULE+'/update/'+TEMP_ID);
 
-		def TEMP_ID=	pathGet.request(Method.GET, ContentType.JSON) { req ->
+		path.request(Method.POST, ContentType.JSON) { req ->
 			headers.'Content-Type' = 'application/json'
 			headers.Accept = 'application/json';
 
+			body=IN_DATA
+
 			response.success = { resp, reader ->
 				def jsonSlurper = new JsonSlurper()
-				assertTrue resp.status==200
-				assertTrue reader.data.findAll{ it.name=='RES_PCS' }.size()>0
-				return reader.data.findAll{ it.name=='RES_PCS' }[0].id
+
+				assertTrue resp.status == 201
+				assertTrue reader.messages[0].code == 0
 			}
 
 			response.failure = { resp ->
@@ -84,24 +90,48 @@ class testRest {
 				assertTrue(false)
 			}
 		}
+	}
 
-		def path = new HTTPBuilder(BASE_URL+'/typeResource/delete/'+TEMP_ID);
-		println 'path:'+TEMP_ID
+	@Test
+	void testResource_4_delete(){
+		def TEMP_ID = getResourceId()
+		def path = new HTTPBuilder(URL_MODULE+'/delete/'+TEMP_ID);
+
 		path.request(Method.DELETE, ContentType.JSON) { req ->
 			headers.'Content-Type' = 'application/json'
 			headers.Accept = 'application/json';
 
 			response.success = { resp, reader ->
-				println reader
-				println resp
 				def jsonSlurper = new JsonSlurper()
-				assertTrue resp.status==200
-				assertTrue reader.data.findAll{ it.name=='RES_PCS' }.size()>0
+
+				assertTrue resp.status == 200
 			}
 
 			response.failure = { resp ->
 				println 'Request failed with status ${resp.status}'
 				assertFalse()
+			}
+		}
+	}
+
+	Integer getResourceId(){
+		def pathGet = new HTTPBuilder(URL_MODULE+'/getAll');
+
+		def TEMP_ID = pathGet.request(Method.GET, ContentType.JSON) { req ->
+			headers.'Content-Type' = 'application/json'
+			headers.Accept = 'application/json';
+
+			response.success = { resp, reader ->
+				def jsonSlurper = new JsonSlurper()
+
+				assertTrue resp.status == 200
+				assertTrue reader.data.findAll{ it.name == 'RES_PCS' }.size()>0
+				return reader.data.findAll{ it.name == 'RES_PCS' }[0].id
+			}
+
+			response.failure = { resp ->
+				println 'Request failed with status ${resp.status}'
+				assertTrue(false)
 			}
 		}
 	}
