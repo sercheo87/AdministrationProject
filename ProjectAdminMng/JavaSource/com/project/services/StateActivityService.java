@@ -39,8 +39,9 @@ public class StateActivityService {
 	public void remove(StateActivity stateActivity) throws ProjectException {
 		try {
 			StateActivity item = this.em.find(StateActivity.class, stateActivity.getId());
-
+			System.out.println("XXXXXXXXXXXXXXXXXXXX" + item);
 			this.em.remove(item);
+			System.out.println("ITEM REMOVIDO>>>>>>>>>>>>>>>>>");
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new ProjectException("Error al borrar el estado de la actividad");
@@ -52,7 +53,7 @@ public class StateActivityService {
 			StateActivity item = this.em.find(StateActivity.class, id);
 			item.setState(stateActivity.getState());
 
-			this.em.merge(stateActivity);
+			this.em.merge(item);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new ProjectException("Error al actualizar el estado de la actividad");

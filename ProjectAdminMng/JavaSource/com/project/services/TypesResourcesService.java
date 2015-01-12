@@ -53,7 +53,7 @@ public class TypesResourcesService {
 			item.setDescription(typeResource.getDescription());
 			item.setName(typeResource.getName());
 
-			this.em.merge(typeResource);
+			this.em.merge(item);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new ProjectException("Error al actualizar el tipo de recurso");

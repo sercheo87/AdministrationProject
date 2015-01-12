@@ -61,7 +61,8 @@ public class StateActivityRest {
 			item.setId(id);
 
 			this.stateActivityService.remove(item);
-			return Response.ok().status(Status.OK).entity(res).type(MediaType.APPLICATION_JSON).build();
+			return Response.ok().status(Status.OK).entity(res.getResponseMessage()).type(MediaType.APPLICATION_JSON)
+			        .build();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new ProjectException("Error borrando el estado de la actividad");
