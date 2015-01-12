@@ -50,5 +50,11 @@
 			<artifactId>jboss-jaxrs-api_1.1_spec</artifactId>
 			<version>1.0.0.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>ProjectAdminMng</groupId>
+			<artifactId>ProjectAdminMng</artifactId>
+			<version>1.0.0</version>
+			<type>war</type>
+		</dependency>
 	</dependencies>
 </project>
