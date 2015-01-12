@@ -1,4 +1,5 @@
 package com.projects.rest
+
 import static org.junit.Assert.*
 import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
