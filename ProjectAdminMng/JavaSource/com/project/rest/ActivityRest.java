@@ -17,25 +17,23 @@ import javax.ws.rs.core.Response.Status;
 import com.project.dto.Message;
 import com.project.dto.MessageSeverity;
 import com.project.dto.ResponseMessage;
-import com.project.entity.StateActivity;
+import com.project.entity.Activity;
 import com.project.exceptions.ProjectException;
-import com.project.services.StateActivityService;
+import com.project.services.ActivityService;
 
 @Stateless
-@Path("/stateActivity")
-public class StateActivityRest {
+@Path("/activity")
+public class ActivityRest {
 	@EJB
-	private StateActivityService stateActivityService;
+	private ActivityService activityService;
 
 	@PUT
 	@Path("/add")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response add(StateActivity stateActivity) throws ProjectException {
+	public Response add(Activity activity) throws ProjectException {
 		try {
-			StateActivity item = new StateActivity();
-			item.setState(stateActivity.getState());
 
-			this.stateActivityService.add(item);
+			this.activityService.add(activity);
 
 			ResponseMessage res = new ResponseMessage();
 			res.getMessages().add(new Message("Se agrego correntamente el registro", MessageSeverity.success));
@@ -55,7 +53,7 @@ public class StateActivityRest {
 		try {
 
 			ResponseMessage res = new ResponseMessage();
-			res.setData(this.stateActivityService.getAll());
+			res.setData(this.activityService.getAll());
 
 			return Response.ok().status(Status.OK).entity(res.getResponse()).type(MediaType.APPLICATION_JSON).build();
 		} catch (Exception ex) {
@@ -73,10 +71,10 @@ public class StateActivityRest {
 			ResponseMessage res = new ResponseMessage();
 			res.getMessages().add(new Message("Se ha eliminado el estado de la actividad", MessageSeverity.success));
 
-			StateActivity item = new StateActivity();
+			Activity item = new Activity();
 			item.setId(id);
 
-			this.stateActivityService.remove(item);
+			this.activityService.remove(item);
 			return Response.ok().status(Status.OK).entity(res.getResponseMessage()).type(MediaType.APPLICATION_JSON)
 			        .build();
 		} catch (Exception ex) {
@@ -90,10 +88,10 @@ public class StateActivityRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response update(@PathParam("id")
-	int id, StateActivity stateActivity) throws ProjectException {
+	int id, Activity activity) throws ProjectException {
 		try {
 
-			this.stateActivityService.update(id, stateActivity);
+			this.activityService.update(id, activity);
 
 			ResponseMessage res = new ResponseMessage();
 			res.getMessages().add(new Message("Se actualizo correntamente el registro", MessageSeverity.success));

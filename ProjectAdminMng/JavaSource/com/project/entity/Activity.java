@@ -7,11 +7,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "tbActivity")
+@NamedQueries({ @NamedQuery(name = "Activity.getAll", query = "SELECT act FROM Activity act") })
 public class Activity {
 	private Date dateFinish;
 	private Date dateStart;
@@ -21,8 +24,9 @@ public class Activity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@OneToOne
-	@JoinColumn(name = "pkState")
+
+	@ManyToOne
+	@JoinColumn(name = "stateActivity_id")
 	private StateActivity state;
 
 	public Date getDateFinish() {

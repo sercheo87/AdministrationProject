@@ -10,6 +10,7 @@
 		<class>com.project.entity.Resource</class>
 		<class>com.project.entity.TypeResource</class>
         <class>com.project.entity.StateActivity</class>
+        <class>com.project.entity.Activity</class>
 		
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
