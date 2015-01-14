@@ -1,7 +1,9 @@
 package com.project.entity;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,13 +12,20 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "tbActivity")
-@NamedQueries({ @NamedQuery(name = "Activity.getAll", query = "SELECT act FROM Activity act") })
+@NamedQueries({
+        @NamedQuery(name = "Activity.getAll", query = "SELECT act FROM Activity act"),
+        @NamedQuery(name = "Activity.getWithOutResources", query = "SELECT new Activity(act.dateFinish, act.dateStart, act.description, act.durationDays, act.durationHours, act.id, act.state) FROM Activity act") })
 public class Activity {
+	@Temporal(TemporalType.DATE)
 	private Date dateFinish;
+	@Temporal(TemporalType.DATE)
 	private Date dateStart;
 	private String description;
 	private Integer durationDays;
@@ -25,9 +34,28 @@ public class Activity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@ManyToOne
-	@JoinColumn(name = "stateActivity_id")
+	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "activity")
+	private List<Resource> resources;
+
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "id_stateActivity")
 	private StateActivity state;
+
+	public Activity() {
+		super();
+	}
+
+	public Activity(Date dateFinish, Date dateStart, String description, Integer durationDays, Integer durationHours,
+	        Integer id, StateActivity state) {
+		super();
+		this.dateFinish = dateFinish;
+		this.dateStart = dateStart;
+		this.description = description;
+		this.durationDays = durationDays;
+		this.durationHours = durationHours;
+		this.id = id;
+		this.state = state;
+	}
 
 	public Date getDateFinish() {
 		return this.dateFinish;
@@ -51,6 +79,10 @@ public class Activity {
 
 	public Integer getId() {
 		return this.id;
+	}
+
+	public List<Resource> getResources() {
+		return this.resources;
 	}
 
 	public StateActivity getState() {
@@ -81,15 +113,12 @@ public class Activity {
 		this.id = id;
 	}
 
-	public void setState(StateActivity state) {
-		this.state = state;
+	public void setResources(List<Resource> resources) {
+		this.resources = resources;
 	}
 
-	@Override
-	public String toString() {
-		return "Activity [dateFinish=" + this.dateFinish + ", dateStart=" + this.dateStart + ", description="
-				+ this.description + ", durationDays=" + this.durationDays + ", durationHours=" + this.durationHours
-				+ ", id=" + this.id + ", state=" + this.state + "]";
+	public void setState(StateActivity state) {
+		this.state = state;
 	}
 
 }

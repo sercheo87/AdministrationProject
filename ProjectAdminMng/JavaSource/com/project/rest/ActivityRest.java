@@ -32,7 +32,6 @@ public class ActivityRest {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response add(Activity activity) throws ProjectException {
 		try {
-
 			this.activityService.add(activity);
 
 			ResponseMessage res = new ResponseMessage();
@@ -54,6 +53,22 @@ public class ActivityRest {
 
 			ResponseMessage res = new ResponseMessage();
 			res.setData(this.activityService.getAll());
+
+			return Response.ok().status(Status.OK).entity(res.getResponse()).type(MediaType.APPLICATION_JSON).build();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new ProjectException("Error al obtener los estados de la actividad");
+		}
+	}
+
+	@GET
+	@Path("/getResume")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getResume() throws ProjectException {
+		try {
+
+			ResponseMessage res = new ResponseMessage();
+			res.setData(this.activityService.getWithOutResources());
 
 			return Response.ok().status(Status.OK).entity(res.getResponse()).type(MediaType.APPLICATION_JSON).build();
 		} catch (Exception ex) {

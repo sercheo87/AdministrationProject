@@ -16,27 +16,41 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tbResources")
 @NamedQueries({ @NamedQuery(name = "Resource.getResourcesWithType", query = "SELECT r.id, r.quantity FROM Resource r"),
-        @NamedQuery(name = "Resource.getAllResources", query = "SELECT res FROM Resource res") })
+	@NamedQuery(name = "Resource.getAllResources", query = "SELECT res FROM Resource res") })
 public class Resource implements Serializable {
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@ManyToOne
+	@JoinColumn(name = "id_activity")
+	private Activity activity;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private Integer id;
-
 	@Column(name = "quantity")
 	private Integer quantity;
-
 	@ManyToOne
 	@JoinColumn(name = "id_typeResource")
 	private TypeResource typeResource;
 
 	public Resource() {
 		super();
+	}
+
+	public Resource(Activity activity, Integer id, Integer quantity, TypeResource typeResource) {
+		super();
+		this.activity = activity;
+		this.id = id;
+		this.quantity = quantity;
+		this.typeResource = typeResource;
+	}
+
+	public Activity getActivity() {
+		return this.activity;
 	}
 
 	/**
@@ -55,6 +69,10 @@ public class Resource implements Serializable {
 	 */
 	public TypeResource getTypeResource() {
 		return this.typeResource;
+	}
+
+	public void setActivity(Activity activity) {
+		this.activity = activity;
 	}
 
 	/**
@@ -77,8 +95,4 @@ public class Resource implements Serializable {
 		this.typeResource = typeResource;
 	}
 
-	@Override
-	public String toString() {
-		return "Resource [id=" + this.id + ", quantity=" + this.quantity + ", typeResource=" + this.typeResource + "]";
-	}
 }

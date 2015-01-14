@@ -8,6 +8,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.project.entity.Activity;
+import com.project.entity.Resource;
+import com.project.entity.StateActivity;
 import com.project.exceptions.ProjectException;
 
 @Stateless
@@ -17,6 +19,21 @@ public class ActivityService {
 
 	public void add(Activity activity) throws ProjectException {
 		try {
+
+			StateActivity st = this.em.find(StateActivity.class, activity.getState().getId());
+			activity.setState(st);
+			System.out.println("OBJETO A INGRESAR ");
+			System.out.println(activity);
+			List<Resource> det = activity.getResources();
+			if (det != null) {
+				if (det.size() > 0) {
+					System.out.println("agregando recursos");
+					for (Resource resource : det) {
+						resource.setActivity(activity);
+					}
+				}
+			}
+
 			this.em.persist(activity);
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -26,8 +43,21 @@ public class ActivityService {
 
 	@SuppressWarnings("unchecked")
 	public List<Activity> getAll() throws ProjectException {
+		// try {
+		Query qr = this.em.createNamedQuery("Activity.getAll");
+		System.out.println("IMPRIMIENDO VALORES");
+		System.out.println(qr.getResultList());
+		return qr.getResultList();
+		// } catch (Exception ex) {
+		// ex.printStackTrace();
+		// throw new ProjectException("Error al obtener el listado de la actividad");
+		// }
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Activity> getWithOutResources() throws ProjectException {
 		try {
-			Query qr = this.em.createNamedQuery("Activity.getAll");
+			Query qr = this.em.createNamedQuery("Activity.getWithOutResources");
 
 			return qr.getResultList();
 		} catch (Exception ex) {
