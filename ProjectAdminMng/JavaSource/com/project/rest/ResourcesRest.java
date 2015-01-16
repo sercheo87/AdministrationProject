@@ -31,7 +31,7 @@ public class ResourcesRest {
 		try {
 			Resource item = new Resource();
 			item.setQuantity(resource.getQuantity());
-			item.setActivity(resource.getActivity());
+			// item.setActivity(resource.getActivity());
 			item.setTypeResource(resource.getTypeResource());
 
 			this.resourcesService.add(item);
@@ -40,7 +40,7 @@ public class ResourcesRest {
 			res.getMessages().add(new Message("Se agrego correntamente el registro", MessageSeverity.success));
 
 			return Response.ok().status(Status.CREATED).entity(res.getResponseMessage())
-					.type(MediaType.APPLICATION_JSON).build();
+			        .type(MediaType.APPLICATION_JSON).build();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new ProjectException("Error registrando en nuevo estado de la actividad");

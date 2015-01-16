@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import com.project.entity.Activity;
 import com.project.entity.Resource;
 import com.project.entity.TypeResource;
 import com.project.exceptions.ProjectException;
@@ -22,14 +21,14 @@ public class ResourcesService {
 			System.out.println("Recurso a ingresar");
 			System.out.println(resource);
 
-			Activity activity = this.em.find(Activity.class, resource.getActivity().getId());
+			// Activity activity = this.em.find(Activity.class, resource.getActivity().getId());
 			TypeResource typeResource = this.em.find(TypeResource.class, resource.getTypeResource().getId());
 
 			System.out.println("Recurso filtrado");
 			System.out.println(resource);
 
 			resource.setTypeResource(typeResource);
-			resource.setActivity(activity);
+			// resource.setActivity(activity);
 
 			this.em.persist(resource);
 		} catch (Exception ex) {

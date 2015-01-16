@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tbResources")
 @NamedQueries({ @NamedQuery(name = "Resource.getResourcesWithType", query = "SELECT r.id, r.quantity FROM Resource r"),
-        @NamedQuery(name = "Resource.getAllResources", query = "SELECT res FROM Resource res") })
+	@NamedQuery(name = "Resource.getAllResources", query = "SELECT res FROM Resource res") })
 public class Resource implements Serializable {
 	/**
 	 *
@@ -50,10 +50,6 @@ public class Resource implements Serializable {
 		this.typeResource = typeResource;
 	}
 
-	public Activity getActivity() {
-		return this.activity;
-	}
-
 	/**
 	 * @return the id
 	 */
@@ -70,10 +66,6 @@ public class Resource implements Serializable {
 	 */
 	public TypeResource getTypeResource() {
 		return this.typeResource;
-	}
-
-	public void setActivity(Activity activity) {
-		this.activity = activity;
 	}
 
 	/**
