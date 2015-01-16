@@ -17,9 +17,12 @@ public class ActivityService {
 
 	@SuppressWarnings("unchecked")
 	public List<Activity> getAll() throws ProjectException {
-		Query query = this.em.createQuery("SELECT e FROM Activity e JOIN FETCH e.resources");
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-		System.out.println(query.getResultList());
-		return query.getResultList();
+		try {
+			Query qr = this.em.createNamedQuery("Activity.getAll");
+			return qr.getResultList();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new ProjectException("Error al obtener el listado de actividades");
+		}
 	}
 }
