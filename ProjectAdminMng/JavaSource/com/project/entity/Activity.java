@@ -37,6 +37,7 @@ public class Activity {
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "typeResource")
 	private List<Resource> resources;
+
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "id_stateActivity")
 	private StateActivity state;
