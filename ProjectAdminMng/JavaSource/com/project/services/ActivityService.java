@@ -8,12 +8,29 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import com.project.entity.Activity;
+import com.project.entity.StateActivity;
 import com.project.exceptions.ProjectException;
 
 @Stateless
 public class ActivityService {
 	@PersistenceContext
 	private EntityManager em;
+
+	public void add(Activity activity) throws ProjectException {
+		try {
+			System.out.println("Recurso a ingresar");
+			System.out.println(activity);
+
+			StateActivity stateActivity = this.em.find(StateActivity.class, activity.getState().getId());
+
+			activity.setState(stateActivity);
+
+			this.em.persist(activity);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new ProjectException("Error registrando el recurso");
+		}
+	}
 
 	@SuppressWarnings("unchecked")
 	public List<Activity> getAll() throws ProjectException {

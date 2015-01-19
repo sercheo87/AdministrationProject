@@ -16,16 +16,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tbResources")
 @NamedQueries({ @NamedQuery(name = "Resource.getResourcesWithType", query = "SELECT r.id, r.quantity FROM Resource r"),
-	@NamedQuery(name = "Resource.getAllResources", query = "SELECT res FROM Resource res") })
+        @NamedQuery(name = "Resource.getAllResources", query = "SELECT res FROM Resource res") })
 public class Resource implements Serializable {
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
-
-	@ManyToOne
-	@JoinColumn(name = "re_id_activity")
-	private Activity activity;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
