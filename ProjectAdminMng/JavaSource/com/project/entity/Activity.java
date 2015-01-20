@@ -36,7 +36,7 @@ public class Activity {
 	private Integer id;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "activity")
-	private List<Resource> resources;
+	private List<ResourceActivity> resources;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "id_stateActivity")
@@ -46,7 +46,7 @@ public class Activity {
 		super();
 	}
 
-	public Activity(List<Resource> resources) {
+	public Activity(List<ResourceActivity> resources) {
 		super();
 		this.resources = resources;
 	}
@@ -75,7 +75,7 @@ public class Activity {
 		return this.id;
 	}
 
-	public List<Resource> getResources() {
+	public List<ResourceActivity> getResources() {
 		return this.resources;
 	}
 
@@ -107,7 +107,7 @@ public class Activity {
 		this.id = id;
 	}
 
-	public void setResources(List<Resource> resources) {
+	public void setResources(List<ResourceActivity> resources) {
 		this.resources = resources;
 	}
 

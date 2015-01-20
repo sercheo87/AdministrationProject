@@ -3,9 +3,11 @@ package com.project.rest;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -14,7 +16,7 @@ import javax.ws.rs.core.Response.Status;
 import com.project.dto.Message;
 import com.project.dto.MessageSeverity;
 import com.project.dto.ResponseMessage;
-import com.project.entity.Resource;
+import com.project.entity.ResourceActivity;
 import com.project.exceptions.ProjectException;
 import com.project.services.ResourcesService;
 
@@ -27,9 +29,9 @@ public class ResourcesRest {
 	@PUT
 	@Path("/add")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response add(Resource resource) throws ProjectException {
+	public Response add(ResourceActivity resource) throws ProjectException {
 		try {
-			Resource item = new Resource();
+			ResourceActivity item = new ResourceActivity();
 			item.setQuantity(resource.getQuantity());
 			// item.setActivity(resource.getActivity());
 			item.setTypeResource(resource.getTypeResource());
@@ -72,6 +74,27 @@ public class ResourcesRest {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new ProjectException("ERROR CATEGORIA NO ENCONTRADA");
+		}
+	}
+
+	@DELETE
+	@Path("/delete/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response remove(@PathParam("id")
+	int id) throws ProjectException {
+		try {
+			ResponseMessage res = new ResponseMessage();
+			res.getMessages().add(new Message("Se ha eliminado el recurso de la Actividad", MessageSeverity.success));
+
+			ResourceActivity item = new ResourceActivity();
+			item.setId(id);
+
+			this.resourcesService.remove(item);
+			return Response.ok().status(Status.OK).entity(res.getResponseMessage()).type(MediaType.APPLICATION_JSON)
+			        .build();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new ProjectException("Error borrando el recurso de la actividad");
 		}
 	}
 }

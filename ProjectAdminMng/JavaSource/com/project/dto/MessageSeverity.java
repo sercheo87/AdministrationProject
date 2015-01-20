@@ -1,7 +1,7 @@
 package com.project.dto;
 
 public enum MessageSeverity {
-	danger("danger"), info("info"), success("sucess"), warning("warning");
+	error("error"), info("info"), success("sucess"), warning("warning");
 
 	@SuppressWarnings("unused")
 	private String value;
