@@ -75,7 +75,6 @@ public class ResourcesService {
 			ResourceActivity item = this.em.find(ResourceActivity.class, resource.getId());
 			System.out.println("Recurso a Eliminar:" + item);
 			this.em.remove(item);
-			this.em.getTransaction().commit();
 			utx.commit();
 		} catch (Exception ex) {
 			ex.printStackTrace();
