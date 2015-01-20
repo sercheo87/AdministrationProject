@@ -11,13 +11,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "tbResources")
 @NamedQueries({
-        @NamedQuery(name = "Resource.getResourcesWithType", query = "SELECT r.id, r.quantity FROM ResourceActivity r"),
-	@NamedQuery(name = "Resource.getAllResources", query = "SELECT res FROM ResourceActivity res") })
+	@NamedQuery(name = "Resource.getResourcesWithType", query = "SELECT r.id, r.quantity FROM ResourceActivity r"),
+        @NamedQuery(name = "Resource.getAllResources", query = "SELECT res FROM ResourceActivity res") })
 public class ResourceActivity implements Serializable {
 	/**
 	 *
@@ -36,7 +37,7 @@ public class ResourceActivity implements Serializable {
 	@Column(name = "quantity")
 	private Integer quantity;
 
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "id_typeResource")
 	private TypeResource typeResource;
 
@@ -92,7 +93,7 @@ public class ResourceActivity implements Serializable {
 	@Override
 	public String toString() {
 		return "Resource [activity=" + this.activity + ", id=" + this.id + ", quantity=" + this.quantity
-				+ ", typeResource=" + this.typeResource + "]";
+		        + ", typeResource=" + this.typeResource + "]";
 	}
 
 }
