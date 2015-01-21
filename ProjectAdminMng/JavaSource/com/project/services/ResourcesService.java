@@ -31,24 +31,37 @@ public class ResourcesService {
 	@PersistenceContext
 	private EntityManager em;
 
-	public void add(ResourceActivity resource) throws ProjectException {
+	public void add(ResourceActivity resource, Activity activity) throws ProjectException {
+
+		UserTransaction utx = this.context.getUserTransaction();
 		try {
-			System.out.println("Recurso a ingresar");
-			System.out.println(resource);
-
-			// Activity activity = this.em.find(Activity.class, resource.getActivity().getId());
+			utx.begin();
+			Activity wActivity = this.em.find(Activity.class, activity.getId());
 			TypeResource typeResource = this.em.find(TypeResource.class, resource.getTypeResource().getId());
-
-			System.out.println("Recurso filtrado");
-			System.out.println(resource);
-
 			resource.setTypeResource(typeResource);
-			// resource.setActivity(activity);
 
-			this.em.persist(resource);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			throw new ProjectException("Error registrando el recurso");
+			if (wActivity != null) {
+				wActivity.getResources().add(resource);
+				this.em.merge(wActivity);
+				utx.commit();
+			} else {
+				utx.rollback();
+				throw new ProjectException("Recurso no encontrado");
+			}
+		} catch (NotSupportedException e) {
+			e.printStackTrace();
+		} catch (SystemException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (RollbackException e) {
+			e.printStackTrace();
+		} catch (HeuristicMixedException e) {
+			e.printStackTrace();
+		} catch (HeuristicRollbackException e) {
+			e.printStackTrace();
 		}
 	}
 

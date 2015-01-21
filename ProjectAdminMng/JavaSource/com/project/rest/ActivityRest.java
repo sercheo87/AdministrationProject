@@ -6,6 +6,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -35,7 +36,7 @@ public class ActivityRest {
 			res.getMessages().add(new Message("Se agrego correntamente el registro", MessageSeverity.success));
 
 			return Response.ok().status(Status.CREATED).entity(res.getResponseMessage())
-			        .type(MediaType.APPLICATION_JSON).build();
+					.type(MediaType.APPLICATION_JSON).build();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new ProjectException("Error registrando en nuevo la actividad");
@@ -56,5 +57,19 @@ public class ActivityRest {
 			ex.printStackTrace();
 			throw new ProjectException("Error al obtener los estados de la actividad");
 		}
+	}
+
+	@GET
+	@Path("/get/{idActivity}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAll(@PathParam("idActivity")
+	int idActivity) throws ProjectException {
+		Activity activity = new Activity();
+		activity.setId(idActivity);
+
+		ResponseMessage res = new ResponseMessage();
+		res.setData(this.service.getActivity(activity));
+
+		return Response.ok().status(Status.OK).entity(res.getResponse()).type(MediaType.APPLICATION_JSON).build();
 	}
 }

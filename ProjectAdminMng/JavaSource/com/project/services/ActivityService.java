@@ -32,6 +32,15 @@ public class ActivityService {
 		}
 	}
 
+	public Activity getActivity(Activity activity) throws ProjectException {
+		Activity wActivity = this.em.find(Activity.class, activity.getId());
+		if (wActivity != null) {
+			return wActivity;
+		} else {
+			throw new ProjectException("No se encuentra la actividad");
+		}
+	}
+
 	@SuppressWarnings("unchecked")
 	public List<Activity> getAll() throws ProjectException {
 		try {
