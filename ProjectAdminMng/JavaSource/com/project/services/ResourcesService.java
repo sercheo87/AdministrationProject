@@ -10,8 +10,14 @@ import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
+import com.project.entity.Activity;
 import com.project.entity.ResourceActivity;
 import com.project.entity.TypeResource;
 import com.project.exceptions.ProjectException;
@@ -68,17 +74,32 @@ public class ResourcesService {
 		}
 	}
 
-	public void remove(ResourceActivity resource) throws ProjectException {
+	public void remove(Activity activity, ResourceActivity resource) throws ProjectException {
 		try {
 			UserTransaction utx = this.context.getUserTransaction();
 			utx.begin();
+			Activity act = this.em.find(Activity.class, activity.getId());
+
 			ResourceActivity item = this.em.find(ResourceActivity.class, resource.getId());
-			System.out.println("Recurso a Eliminar:" + item);
-			this.em.remove(item);
-			utx.commit();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			throw new ProjectException("Error al borrar el recurso de la actividad");
+			if (item != null) {
+				act.getResources().remove(item);
+				utx.commit();
+			} else {
+				utx.rollback();
+				throw new ProjectException("Recurso no encontrado");
+			}
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (RollbackException e) {
+			e.printStackTrace();
+		} catch (HeuristicMixedException e) {
+			e.printStackTrace();
+		} catch (HeuristicRollbackException e) {
+			e.printStackTrace();
+		} catch (SystemException e) {
+			e.printStackTrace();
+		} catch (NotSupportedException e) {
+			e.printStackTrace();
 		}
 
 	}

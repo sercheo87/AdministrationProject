@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response.Status;
 import com.project.dto.Message;
 import com.project.dto.MessageSeverity;
 import com.project.dto.ResponseMessage;
+import com.project.entity.Activity;
 import com.project.entity.ResourceActivity;
 import com.project.exceptions.ProjectException;
 import com.project.services.ResourcesService;
@@ -78,23 +79,22 @@ public class ResourcesRest {
 	}
 
 	@DELETE
-	@Path("/delete/{id}")
+	@Path("/delete/{idActivity}/{idResource}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response remove(@PathParam("id")
-	int id) throws ProjectException {
-		try {
-			ResponseMessage res = new ResponseMessage();
-			res.getMessages().add(new Message("Se ha eliminado el recurso de la Actividad", MessageSeverity.success));
+	public Response remove(@PathParam("idActivity")
+	int idActivity, @PathParam("idResource")
+	int idResource) throws ProjectException {
+		ResponseMessage res = new ResponseMessage();
+		res.getMessages().add(new Message("Se ha eliminado el recurso de la Actividad", MessageSeverity.success));
 
-			ResourceActivity item = new ResourceActivity();
-			item.setId(id);
+		Activity inActivity = new Activity();
+		inActivity.setId(idActivity);
 
-			this.resourcesService.remove(item);
-			return Response.ok().status(Status.OK).entity(res.getResponseMessage()).type(MediaType.APPLICATION_JSON)
-			        .build();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			throw new ProjectException("Error borrando el recurso de la actividad");
-		}
+		ResourceActivity inResource = new ResourceActivity();
+		inResource.setId(idResource);
+
+		this.resourcesService.remove(inActivity, inResource);
+		return Response.ok().status(Status.OK).entity(res.getResponseMessage()).type(MediaType.APPLICATION_JSON)
+		        .build();
 	}
 }

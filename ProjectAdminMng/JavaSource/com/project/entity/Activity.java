@@ -35,7 +35,7 @@ public class Activity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "activity")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "activity", orphanRemoval = true)
 	private List<ResourceActivity> resources;
 
 	@OneToOne(cascade = CascadeType.PERSIST)
