@@ -39,8 +39,8 @@ public class ResourcesService {
 			Activity wActivity = this.em.find(Activity.class, activity.getId());
 			TypeResource typeResource = this.em.find(TypeResource.class, resource.getTypeResource().getId());
 			resource.setTypeResource(typeResource);
-
 			if (wActivity != null) {
+				resource.setActivity(wActivity);
 				wActivity.getResources().add(resource);
 				this.em.merge(wActivity);
 				utx.commit();

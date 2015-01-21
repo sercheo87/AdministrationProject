@@ -45,6 +45,14 @@ public class ResourceActivity implements Serializable {
 		super();
 	}
 
+	public ResourceActivity(Activity activity, Integer id, Integer quantity, TypeResource typeResource) {
+		super();
+		this.activity = activity;
+		this.id = id;
+		this.quantity = quantity;
+		this.typeResource = typeResource;
+	}
+
 	public ResourceActivity(Integer id, Integer quantity, TypeResource typeResource) {
 		super();
 		this.id = id;
@@ -68,6 +76,10 @@ public class ResourceActivity implements Serializable {
 	 */
 	public TypeResource getTypeResource() {
 		return this.typeResource;
+	}
+
+	public void setActivity(Activity activity) {
+		this.activity = activity;
 	}
 
 	/**
