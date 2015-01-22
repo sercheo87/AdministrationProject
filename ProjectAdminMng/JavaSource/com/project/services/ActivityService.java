@@ -51,4 +51,17 @@ public class ActivityService {
 			throw new ProjectException("Error al obtener el listado de actividades");
 		}
 	}
+
+	public void remove(Activity activity) throws ProjectException {
+		try {
+			Activity act = this.em.find(Activity.class, activity.getId());
+			if (act == null) {
+				throw new ProjectException("No se encuentra la actividad");
+			}
+			this.em.remove(act);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new ProjectException("Error al obtener el listado de actividades");
+		}
+	}
 }

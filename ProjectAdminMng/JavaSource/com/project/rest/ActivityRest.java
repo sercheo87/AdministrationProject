@@ -3,6 +3,7 @@ package com.project.rest;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -71,5 +72,26 @@ public class ActivityRest {
 		res.setData(this.service.getActivity(activity));
 
 		return Response.ok().status(Status.OK).entity(res.getResponse()).type(MediaType.APPLICATION_JSON).build();
+	}
+
+	@DELETE
+	@Path("/delete/{idActivity}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response remove(@PathParam("idActivity")
+	int idActivity) throws ProjectException {
+		try {
+			ResponseMessage res = new ResponseMessage();
+			res.getMessages().add(new Message("Se ha eliminado la actividad", MessageSeverity.success));
+
+			Activity item = new Activity();
+			item.setId(idActivity);
+
+			this.service.remove(item);
+			return Response.ok().status(Status.OK).entity(res.getResponseMessage()).type(MediaType.APPLICATION_JSON)
+			        .build();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new ProjectException("Error borrando el estado de la actividad");
+		}
 	}
 }
