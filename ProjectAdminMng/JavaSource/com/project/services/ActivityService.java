@@ -18,7 +18,9 @@ import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
 import com.project.entity.Activity;
+import com.project.entity.ResourceActivity;
 import com.project.entity.StateActivity;
+import com.project.entity.TypeResource;
 import com.project.exceptions.ProjectException;
 
 @Stateless
@@ -41,6 +43,14 @@ public class ActivityService {
 
 			StateActivity stateActivity = this.em.find(StateActivity.class, activity.getState().getId());
 			activity.setState(stateActivity);
+
+			if (activity.getResources() != null) {
+				for (ResourceActivity resource : activity.getResources()) {
+					resource.setActivity(activity);
+					TypeResource type = this.em.find(TypeResource.class, resource.getTypeResource().getId());
+					resource.setTypeResource(type);
+				}
+			}
 
 			this.em.persist(activity);
 			try {
