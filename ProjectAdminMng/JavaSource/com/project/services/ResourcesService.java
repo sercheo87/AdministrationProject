@@ -31,23 +31,52 @@ public class ResourcesService {
 	@PersistenceContext
 	private EntityManager em;
 
+	@SuppressWarnings("null")
 	public void add(ResourceActivity resource, Activity activity) throws ProjectException {
 
 		UserTransaction utx = this.context.getUserTransaction();
 		try {
 			utx.begin();
+
+			Query query = this.em.createNamedQuery("Activity.getActivity");
+			query.setParameter("id", activity.getId());
+			// Activity wActivity = (Activity) query.getSingleResult();
+
 			Activity wActivity = this.em.find(Activity.class, activity.getId());
-			TypeResource typeResource = this.em.find(TypeResource.class, resource.getTypeResource().getId());
-			resource.setTypeResource(typeResource);
-			if (wActivity != null) {
-				resource.setActivity(wActivity);
-				wActivity.getResources().add(resource);
-				this.em.merge(wActivity);
-				utx.commit();
-			} else {
+			if (wActivity == null) {
 				utx.rollback();
-				throw new ProjectException("Recurso no encontrado");
+				throw new ProjectException("Actividad no encontrada");
 			}
+
+			TypeResource typeResource = this.em.find(TypeResource.class, resource.getTypeResource().getId());
+			if (typeResource == null) {
+				utx.rollback();
+				throw new ProjectException("Tipo de recurso no encontrado");
+			}
+
+			resource.setTypeResource(typeResource);
+			resource.setActivity(wActivity);
+
+			System.out.println("ITEM ACTIVIDAD:" + wActivity);
+			System.out.println("ITEM TYPE RESOURCE:" + typeResource);
+			System.out.println("ITEM RESOURCE:" + resource);
+
+			wActivity.getResources().add(resource);
+			this.em.merge(wActivity);
+
+			try {
+				utx.commit();
+			} catch (RollbackException e) {
+				e.printStackTrace();
+				utx.rollback();
+			} catch (HeuristicMixedException e) {
+				e.printStackTrace();
+				utx.rollback();
+			} catch (HeuristicRollbackException e) {
+				e.printStackTrace();
+				utx.rollback();
+			}
+
 		} catch (NotSupportedException e) {
 			e.printStackTrace();
 		} catch (SystemException e) {
@@ -56,12 +85,9 @@ public class ResourcesService {
 			e.printStackTrace();
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
-		} catch (RollbackException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		} catch (HeuristicMixedException e) {
-			e.printStackTrace();
-		} catch (HeuristicRollbackException e) {
-			e.printStackTrace();
+			throw new ProjectException("ccccccc");
 		}
 	}
 

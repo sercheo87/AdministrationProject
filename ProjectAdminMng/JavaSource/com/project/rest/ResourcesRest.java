@@ -32,25 +32,20 @@ public class ResourcesRest {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response add(ResourceActivity resource, @PathParam("idActivity")
 	int idActivity) throws ProjectException {
-		try {
-			Activity activity = new Activity();
-			activity.setId(idActivity);
+		Activity activity = new Activity();
+		activity.setId(idActivity);
 
-			ResourceActivity item = new ResourceActivity();
-			item.setQuantity(resource.getQuantity());
-			item.setTypeResource(resource.getTypeResource());
+		ResourceActivity item = new ResourceActivity();
+		item.setQuantity(resource.getQuantity());
+		item.setTypeResource(resource.getTypeResource());
 
-			this.resourcesService.add(item, activity);
+		this.resourcesService.add(item, activity);
 
-			ResponseMessage res = new ResponseMessage();
-			res.getMessages().add(new Message("Se agrego correntamente el registro", MessageSeverity.success));
+		ResponseMessage res = new ResponseMessage();
+		res.getMessages().add(new Message("Se agrego correntamente el registro", MessageSeverity.success));
 
-			return Response.ok().status(Status.CREATED).entity(res.getResponseMessage())
-					.type(MediaType.APPLICATION_JSON).build();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			throw new ProjectException("Error registrando en nuevo estado de la actividad");
-		}
+		return Response.ok().status(Status.CREATED).entity(res.getResponseMessage()).type(MediaType.APPLICATION_JSON)
+		        .build();
 	}
 
 	@GET
@@ -98,6 +93,6 @@ public class ResourcesRest {
 
 		this.resourcesService.remove(inActivity, inResource);
 		return Response.ok().status(Status.OK).entity(res.getResponseMessage()).type(MediaType.APPLICATION_JSON)
-				.build();
+		        .build();
 	}
 }

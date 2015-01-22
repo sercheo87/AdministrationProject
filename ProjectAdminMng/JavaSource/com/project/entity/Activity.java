@@ -20,7 +20,8 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "tbActivity")
-@NamedQueries({ @NamedQuery(name = "Activity.getAll", query = "SELECT a FROM Activity a ") })
+@NamedQueries({ @NamedQuery(name = "Activity.getAll", query = "SELECT a FROM Activity a "),
+        @NamedQuery(name = "Activity.getActivity", query = "SELECT a FROM Activity a WHERE a.id = :id") })
 public class Activity {
 	@Temporal(TemporalType.DATE)
 	private Date dateFinish;
@@ -29,12 +30,12 @@ public class Activity {
 	private Date dateStart;
 
 	private String description;
+
 	private Integer durationDays;
 	private Integer durationHours;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "activity", orphanRemoval = true)
 	private List<ResourceActivity> resources;
 
@@ -114,4 +115,12 @@ public class Activity {
 	public void setState(StateActivity state) {
 		this.state = state;
 	}
+
+	@Override
+	public String toString() {
+		return "Activity [dateFinish=" + this.dateFinish + ", dateStart=" + this.dateStart + ", description="
+		        + this.description + ", durationDays=" + this.durationDays + ", durationHours=" + this.durationHours
+		        + ", id=" + this.id + ", state=" + this.state + "]";
+	}
+
 }
