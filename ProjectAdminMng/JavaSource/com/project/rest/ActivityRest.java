@@ -24,20 +24,20 @@ import com.project.services.ActivityService;
 @Path("/activity")
 public class ActivityRest {
 	@EJB
-	private ActivityService service;
+	private ActivityService activityService;
 
 	@PUT
 	@Path("/add")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response add(Activity activity) throws ProjectException {
 		try {
-			this.service.add(activity);
+			this.activityService.add(activity);
 
 			ResponseMessage res = new ResponseMessage();
 			res.getMessages().add(new Message("Se agrego correntamente el registro", MessageSeverity.success));
 
 			return Response.ok().status(Status.CREATED).entity(res.getResponseMessage())
-					.type(MediaType.APPLICATION_JSON).build();
+			        .type(MediaType.APPLICATION_JSON).build();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new ProjectException("Error registrando en nuevo la actividad");
@@ -51,7 +51,7 @@ public class ActivityRest {
 		try {
 
 			ResponseMessage res = new ResponseMessage();
-			res.setData(this.service.getAll());
+			res.setData(this.activityService.getAll());
 
 			return Response.ok().status(Status.OK).entity(res.getResponse()).type(MediaType.APPLICATION_JSON).build();
 		} catch (Exception ex) {
@@ -69,7 +69,7 @@ public class ActivityRest {
 		activity.setId(idActivity);
 
 		ResponseMessage res = new ResponseMessage();
-		res.setData(this.service.getActivity(activity));
+		res.setData(this.activityService.getActivity(activity));
 
 		return Response.ok().status(Status.OK).entity(res.getResponse()).type(MediaType.APPLICATION_JSON).build();
 	}
@@ -86,9 +86,9 @@ public class ActivityRest {
 			Activity item = new Activity();
 			item.setId(idActivity);
 
-			this.service.remove(item);
+			this.activityService.remove(item);
 			return Response.ok().status(Status.OK).entity(res.getResponseMessage()).type(MediaType.APPLICATION_JSON)
-			        .build();
+					.build();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			throw new ProjectException("Error borrando el estado de la actividad");

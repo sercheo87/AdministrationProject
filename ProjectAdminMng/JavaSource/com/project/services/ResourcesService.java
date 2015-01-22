@@ -31,7 +31,6 @@ public class ResourcesService {
 	@PersistenceContext
 	private EntityManager em;
 
-	@SuppressWarnings("null")
 	public void add(ResourceActivity resource, Activity activity) throws ProjectException {
 
 		UserTransaction utx = this.context.getUserTransaction();
@@ -87,7 +86,7 @@ public class ResourcesService {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new ProjectException("ccccccc");
+			throw new ProjectException("Error de Infraestructura");
 		}
 	}
 
