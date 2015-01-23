@@ -12,6 +12,8 @@
 		<class>com.project.entity.TypeResource</class>
 		<class>com.project.entity.StateActivity</class>
 		<class>com.project.entity.Activity</class>
+        <class>com.project.entity.Responsible</class>
+        <class>com.project.entity.StateResponsible</class>
 
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />

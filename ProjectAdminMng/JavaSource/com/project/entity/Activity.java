@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -31,13 +32,22 @@ public class Activity {
 
 	private String description;
 
+	@Column
 	private Integer durationDays;
+
+	@Column
 	private Integer durationHours;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "activity", orphanRemoval = true)
 	private List<ResourceActivity> resources;
+
+	@OneToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "id_responsible")
+	private Responsible responsible;
 
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "id_stateActivity")
@@ -80,6 +90,10 @@ public class Activity {
 		return this.resources;
 	}
 
+	public Responsible getResponsible() {
+		return this.responsible;
+	}
+
 	public StateActivity getState() {
 		return this.state;
 	}
@@ -112,6 +126,10 @@ public class Activity {
 		this.resources = resources;
 	}
 
+	public void setResponsible(Responsible responsible) {
+		this.responsible = responsible;
+	}
+
 	public void setState(StateActivity state) {
 		this.state = state;
 	}
@@ -120,7 +138,7 @@ public class Activity {
 	public String toString() {
 		return "Activity [dateFinish=" + this.dateFinish + ", dateStart=" + this.dateStart + ", description="
 		        + this.description + ", durationDays=" + this.durationDays + ", durationHours=" + this.durationHours
-		        + ", id=" + this.id + ", state=" + this.state + "]";
+		        + ", id=" + this.id + ", responsible=" + this.responsible + ", state=" + this.state + "]";
 	}
 
 }
