@@ -16,8 +16,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tbResources")
 @NamedQueries({
-        @NamedQuery(name = "Resource.getResourcesWithType", query = "SELECT r.id, r.quantity FROM ResourceActivity r"),
-	@NamedQuery(name = "Resource.getAllResources", query = "SELECT res FROM ResourceActivity res") })
+	@NamedQuery(name = "Resource.getResourcesWithType", query = "SELECT r.id, r.quantity FROM ResourceActivity r"),
+        @NamedQuery(name = "Resource.getAllResources", query = "SELECT res FROM ResourceActivity res") })
 public class ResourceActivity implements Serializable {
 	/**
 	 *
@@ -104,7 +104,7 @@ public class ResourceActivity implements Serializable {
 	@Override
 	public String toString() {
 		return "Resource [activity=" + this.activity + ", id=" + this.id + ", quantity=" + this.quantity
-				+ ", typeResource=" + this.typeResource + "]";
+		        + ", typeResource=" + this.typeResource + "]";
 	}
 
 }

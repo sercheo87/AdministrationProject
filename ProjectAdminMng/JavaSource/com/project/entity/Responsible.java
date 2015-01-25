@@ -1,5 +1,7 @@
 package com.project.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +13,15 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tbResponsible")
-public class Responsible {
+public class Responsible implements Serializable {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@ManyToOne
+	@JoinColumn(name = "id_activity")
+	private Activity activity;
 
 	@Column
 	private String address;
@@ -33,9 +43,20 @@ public class Responsible {
 	@Column
 	private String phone;
 
-	@ManyToOne
-	@JoinColumn(name = "id_stateResponsible")
-	private StateResponsible stateResponsible;
+	public Responsible() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Responsible(String address, String email, Integer id, String lastName, String name, String phone) {
+		super();
+		this.address = address;
+		this.email = email;
+		this.id = id;
+		this.lastName = lastName;
+		this.name = name;
+		this.phone = phone;
+	}
 
 	public String getAddress() {
 		return this.address;
@@ -61,10 +82,6 @@ public class Responsible {
 		return this.phone;
 	}
 
-	public StateResponsible getStateResponsible() {
-		return this.stateResponsible;
-	}
-
 	public void setAddress(String address) {
 		this.address = address;
 	}
@@ -87,10 +104,6 @@ public class Responsible {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
-	public void setStateResponsible(StateResponsible stateResponsible) {
-		this.stateResponsible = stateResponsible;
 	}
 
 	@Override

@@ -19,6 +19,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @Table(name = "tbActivity")
 @NamedQueries({ @NamedQuery(name = "Activity.getAll", query = "SELECT a FROM Activity a "),
@@ -43,11 +46,13 @@ public class Activity {
 	private Integer id;
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "activity", orphanRemoval = true)
+	// @IndexColumn(name = "id_activityResources")
 	private List<ResourceActivity> resources;
 
-	@OneToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "id_responsible")
-	private Responsible responsible;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "activity", orphanRemoval = true)
+	// @IndexColumn(name = "id_activityResponsibles", nullable = false)
+	@LazyCollection(LazyCollectionOption.FALSE)
+	private List<Responsible> responsibles;
 
 	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "id_stateActivity")
@@ -90,8 +95,8 @@ public class Activity {
 		return this.resources;
 	}
 
-	public Responsible getResponsible() {
-		return this.responsible;
+	public List<Responsible> getResponsible() {
+		return this.responsibles;
 	}
 
 	public StateActivity getState() {
@@ -126,8 +131,8 @@ public class Activity {
 		this.resources = resources;
 	}
 
-	public void setResponsible(Responsible responsible) {
-		this.responsible = responsible;
+	public void setResponsible(List<Responsible> responsible) {
+		this.responsibles = responsible;
 	}
 
 	public void setState(StateActivity state) {
@@ -138,7 +143,7 @@ public class Activity {
 	public String toString() {
 		return "Activity [dateFinish=" + this.dateFinish + ", dateStart=" + this.dateStart + ", description="
 		        + this.description + ", durationDays=" + this.durationDays + ", durationHours=" + this.durationHours
-		        + ", id=" + this.id + ", responsible=" + this.responsible + ", state=" + this.state + "]";
+		        + ", id=" + this.id + ", state=" + this.state + "]";
 	}
 
 }

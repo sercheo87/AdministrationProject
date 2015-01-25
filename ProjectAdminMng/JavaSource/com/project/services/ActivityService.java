@@ -9,11 +9,9 @@ import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import javax.persistence.RollbackException;
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
-import javax.transaction.NotSupportedException;
-import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
@@ -35,14 +33,29 @@ public class ActivityService {
 	public void add(Activity activity) throws ProjectException {
 
 		UserTransaction utx = this.context.getUserTransaction();
+		Boolean isNewItem = true;
+		Activity itemActivity = null;
 		try {
 			utx.begin();
 
-			System.out.println("Recurso a ingresar");
+			System.out.println("Actividad a ingresar");
 			System.out.println(activity);
 
+			if (activity.getId() != null && activity.getId() != 0) {
+				System.out.println("Actividad encontrada");
+
+				itemActivity = this.em.find(Activity.class, activity.getId());
+				if (itemActivity != null) {
+					isNewItem = false;
+					itemActivity.setDateFinish(activity.getDateFinish());
+					itemActivity.setDateStart(activity.getDateStart());
+					itemActivity.setDescription(activity.getDescription());
+					itemActivity.setDurationDays(activity.getDurationDays());
+					itemActivity.setDurationHours(activity.getDurationHours());
+				}
+			}
+
 			StateActivity stateActivity = this.em.find(StateActivity.class, activity.getState().getId());
-			activity.setState(stateActivity);
 
 			if (activity.getResources() != null) {
 				for (ResourceActivity resource : activity.getResources()) {
@@ -52,7 +65,13 @@ public class ActivityService {
 				}
 			}
 
-			this.em.persist(activity);
+			if (isNewItem) {
+				activity.setState(stateActivity);
+				this.em.persist(activity);
+			} else {
+				itemActivity.setState(stateActivity);
+				this.em.merge(itemActivity);
+			}
 			try {
 				utx.commit();
 			} catch (RollbackException e) {
@@ -66,8 +85,6 @@ public class ActivityService {
 				utx.rollback();
 			}
 
-		} catch (NotSupportedException e) {
-			e.printStackTrace();
 		} catch (SystemException e) {
 			e.printStackTrace();
 		} catch (SecurityException e) {
@@ -92,7 +109,7 @@ public class ActivityService {
 	@SuppressWarnings("unchecked")
 	public List<Activity> getAll() throws ProjectException {
 		try {
-			Query qr = this.em.createNamedQuery("Activity.getAll");
+			javax.persistence.Query qr = this.em.createNamedQuery("Activity.getAll");
 			return qr.getResultList();
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -124,8 +141,6 @@ public class ActivityService {
 				utx.rollback();
 			}
 
-		} catch (NotSupportedException e) {
-			e.printStackTrace();
 		} catch (SystemException e) {
 			e.printStackTrace();
 		} catch (SecurityException e) {
