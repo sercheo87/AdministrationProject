@@ -25,7 +25,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Entity
 @Table(name = "tbActivity")
 @NamedQueries({ @NamedQuery(name = "Activity.getAll", query = "SELECT a FROM Activity a "),
-        @NamedQuery(name = "Activity.getActivity", query = "SELECT a FROM Activity a WHERE a.id = :id") })
+	@NamedQuery(name = "Activity.getActivity", query = "SELECT a FROM Activity a WHERE a.id = :id") })
 public class Activity {
 	@Temporal(TemporalType.DATE)
 	private Date dateFinish;
@@ -142,8 +142,8 @@ public class Activity {
 	@Override
 	public String toString() {
 		return "Activity [dateFinish=" + this.dateFinish + ", dateStart=" + this.dateStart + ", description="
-		        + this.description + ", durationDays=" + this.durationDays + ", durationHours=" + this.durationHours
-		        + ", id=" + this.id + ", state=" + this.state + "]";
+				+ this.description + ", durationDays=" + this.durationDays + ", durationHours=" + this.durationHours
+				+ ", id=" + this.id + ", state=" + this.state + "]";
 	}
 
 }

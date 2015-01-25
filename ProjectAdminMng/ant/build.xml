@@ -37,6 +37,8 @@
 		<pathelement path="${webinf.dir}/classes" />
 		<pathelement path="${classpath.external}" />
 		<pathelement path="${classpath}" />
+		<!-- Hibernate Annontations-->
+		<pathelement path="/Users/Sergio/.m2/repository/org/hibernate/hibernate-annotations/3.3.0.ga/hibernate-annotations-3.3.0.ga.jar"/>
 	</path>
 
 	<!-- define your folder for deployment -->
