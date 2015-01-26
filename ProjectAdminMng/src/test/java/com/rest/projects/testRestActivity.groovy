@@ -23,7 +23,7 @@ public class testRestActivity {
 			assert resp.status == 200
 			JsonBuilder res= new restTools().convertToJson(json)
 			assert json.get('data').size()
-			println res.toString()
+			println res.toPrettyString()
 		}
 	}
 }

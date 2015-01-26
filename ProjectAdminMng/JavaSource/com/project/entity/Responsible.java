@@ -43,9 +43,26 @@ public class Responsible implements Serializable {
 	@Column
 	private String phone;
 
+	@ManyToOne
+	@JoinColumn(name = "id_stateResponsible")
+	private StateResponsible state;
+
 	public Responsible() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public Responsible(Activity activity, String address, String email, Integer id, String lastName, String name,
+	        String phone, StateResponsible state) {
+		super();
+		this.activity = activity;
+		this.address = address;
+		this.email = email;
+		this.id = id;
+		this.lastName = lastName;
+		this.name = name;
+		this.phone = phone;
+		this.state = state;
 	}
 
 	public Responsible(String address, String email, Integer id, String lastName, String name, String phone) {
@@ -82,6 +99,10 @@ public class Responsible implements Serializable {
 		return this.phone;
 	}
 
+	public StateResponsible getState() {
+		return this.state;
+	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
@@ -104,6 +125,10 @@ public class Responsible implements Serializable {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public void setState(StateResponsible state) {
+		this.state = state;
 	}
 
 	@Override
