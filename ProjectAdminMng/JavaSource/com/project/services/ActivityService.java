@@ -17,7 +17,9 @@ import javax.transaction.UserTransaction;
 
 import com.project.entity.Activity;
 import com.project.entity.ResourceActivity;
+import com.project.entity.Responsible;
 import com.project.entity.StateActivity;
+import com.project.entity.StateResponsible;
 import com.project.entity.TypeResource;
 import com.project.exceptions.ProjectException;
 
@@ -62,6 +64,14 @@ public class ActivityService {
 					resource.setActivity(activity);
 					TypeResource type = this.em.find(TypeResource.class, resource.getTypeResource().getId());
 					resource.setTypeResource(type);
+				}
+			}
+
+			if (activity.getResponsibles() != null) {
+				for (Responsible responsible : activity.getResponsibles()) {
+					responsible.setActivity(activity);
+					StateResponsible state = this.em.find(StateResponsible.class, responsible.getState().getId());
+					responsible.setState(state);
 				}
 			}
 

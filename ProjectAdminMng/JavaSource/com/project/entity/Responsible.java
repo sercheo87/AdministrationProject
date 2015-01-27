@@ -49,7 +49,6 @@ public class Responsible implements Serializable {
 
 	public Responsible() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public Responsible(Activity activity, String address, String email, Integer id, String lastName, String name,
@@ -101,6 +100,10 @@ public class Responsible implements Serializable {
 
 	public StateResponsible getState() {
 		return this.state;
+	}
+
+	public void setActivity(Activity activity) {
+		this.activity = activity;
 	}
 
 	public void setAddress(String address) {
