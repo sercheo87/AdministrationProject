@@ -1,97 +1,84 @@
-greeter: Greeter Example
-========================
-Author: Pete Muir  
-Level: Beginner  
-Technologies: CDI, JSF, JPA, EJB, JTA  
-Summary: Demonstrates the use of CDI 1.0, JPA 2.0, JTA 1.1, EJB 3.1 and JSF 2.0  
-Target Product: EAP  
-Product Versions: EAP 6.1, EAP 6.2  
-Source: <https://github.com/jboss-developer/jboss-eap-quickstarts/>  
+AdministrationProject
+=====================
 
-What is it?
------------
+Administration general of basic process for project.
 
-This example demonstrates the use of *CDI 1.0*, *JPA 2.0*, *JTA 1.1*, *EJB 3.1* and *JSF 2.0* in Red Hat JBoss Enterprise Application Platform.
+#Configuration
+- Change port jboss
+- file: **jboss-as-7.1.1.Final\standalone\configuration\standalone.xml**
+- Find ```<socket-binding name="http" port="1313"/>```
+- For test run in browser [localhost:1313](http://localhost:1313/)
 
-When you deploy this example, two users are automatically created for you:  `emuster` and `jdoe`. This data is located in the `src/main/resources/import.sql file`.
+#Mysql
+For add the conexion MySql follows step.  
+1.Create the next path **JBOSS_HOME\modules\com\mysql\main**  
+2.Create file **module.xml** with next content  
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
 
-To test this example:
+<!--
+  ~ JBoss, Home of Professional Open Source.
+  ~ Copyright 2010, Red Hat, Inc., and individual contributors
+  ~ as indicated by the @author tags. See the copyright.txt file in the
+  ~ distribution for a full listing of individual contributors.
+  ~
+  ~ This is free software; you can redistribute it and/or modify it
+  ~ under the terms of the GNU Lesser General Public License as
+  ~ published by the Free Software Foundation; either version 2.1 of
+  ~ the License, or (at your option) any later version.
+  ~
+  ~ This software is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  ~ Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public
+  ~ License along with this software; if not, write to the Free
+  ~ Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
+  ~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
+  -->
+<module xmlns="urn:jboss:module:1.1" name="com.mysql">
+    <resources>
+        <resource-root path="mysql-connector-java-5.1.34-bin.jar"/>
+    </resources>
+    <dependencies>
+        <module name="javax.api"/>
+        <module name="javax.transaction.api"/>
+    </dependencies>
+</module>
+```
+3.Copy here the jar MySql-Connector [Download MySql Connector Java](http://dev.mysql.com/downloads/connector/j/)  
+4.In the file **JBOSS_HOME\standalone\configuration\standalone.xml** add or modify the next section.
+```xml
+<subsystem xmlns="urn:jboss:domain:datasources:1.0">
+    <datasources>
+        <datasource jta="true" jndi-name="java:/projectadmin_db" pool-name="projectadmin_db">
+            <connection-url>jdbc:mysql://localhost:3306/projectadmin_db</connection-url>
+            <driver>com.mysql</driver>
+            <transaction-isolation>TRANSACTION_READ_COMMITTED</transaction-isolation>
+            <security>
+                <user-name>root</user-name>
+                <password>root</password>
+            </security>
+        </datasource>
+        <drivers>
+            <driver name="com.mysql" module="com.mysql">
+                <driver-class>com.mysql.jdbc.Driver</driver-class>
+                <xa-datasource-class>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</xa-datasource-class>
+            </driver>
+        </drivers>
+    </datasources>
+</subsystem>
+```
 
-1. Enter a name in the `username` field and click on `Greet!`.
-2. If you enter a username that is not in the database, you get a message `No such user exists!`.
-3. If you enter a valid username, you get a message "Hello, " followed by the user's first and last name.
-4. To create a new user, click the `Add a new user` link. Enter the username, first name, and last name and then click `Add User`. The user is added and a message displays the new user id number.
-5. Click on the `Greet a user!` link to return to the `Greet!` page.
+#Launching
+Run server with followind program:**jboss-as-7.1.1.Final\bin\standalone.bat**  
+Path rest **http://localhost:1313/ProjectAdminMng/rest**
 
-
-There is a tutorial for this quickstart in the [Getting Started Developing Applications Guide](http://www.jboss.org/jdf/stage/quickstarts/jboss-as-quickstart/guide/GreeterQuickstart/).
-
-_Note: This quickstart uses the H2 database included with JBoss EAP 6. It is a lightweight, relational example datasource that is used for examples only. It is not robust or scalable and should NOT be used in a production environment!_
- 
-System requirements
--------------------
-
-The application this project produces is designed to be run on Red Hat JBoss Enterprise Application Platform 6.1 or later.
-
-All you need to build this project is Java 6.0 (Java SDK 1.6) or later, Maven 3.0 or later.
-
- 
-Configure Maven
----------------
-
-If you have not yet done so, you must [Configure Maven](../README.md#configure-maven) before testing the quickstarts.
-
-
-Start the JBoss Server
--------------------------
-
-1. Open a command line and navigate to the root of the JBoss server directory.
-2. The following shows the command line to start the server:
-
-        For Linux:   JBOSS_HOME/bin/standalone.sh
-        For Windows: JBOSS_HOME\bin\standalone.bat
-
- 
-Build and Deploy the Quickstart
--------------------------
-
-_NOTE: The following build command assumes you have configured your Maven user settings. If you have not, you must include Maven setting arguments on the command line. See [Build and Deploy the Quickstarts](../README.md#build-and-deploy-the-quickstarts) for complete instructions and additional options._
-
-1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
-3. Type this command to build and deploy the archive:
-
-        mvn clean install jboss-as:deploy
-
-4. This will deploy `target/jboss-greeter.war` to the running instance of the server.
-
-
-Access the application 
----------------------
-
-The application will be running at the following URL: <http://localhost:8080/jboss-greeter>. 
-
-
-Undeploy the Archive
---------------------
-
-1. Make sure you have started the JBoss Server as described above.
-2. Open a command line and navigate to the root directory of this quickstart.
-3. When you are finished testing, type this command to undeploy the archive:
-
-        mvn jboss-as:undeploy
-
-
-Run the Quickstart in JBoss Developer Studio or Eclipse
--------------------------------------
-You can also start the server and deploy the quickstarts from Eclipse using JBoss tools. For more information, see [Use JBoss Developer Studio or Eclipse to Run the Quickstarts](../README.md#use-jboss-developer-studio-or-eclipse-to-run-the-quickstarts) 
-
-
-Debug the Application
-------------------------------------
-
-If you want to debug the source code or look at the Javadocs of any library in the project, run either of the following commands to pull them into your local repository. The IDE should then detect them.
-
-        mvn dependency:sources
-        mvn dependency:resolve -Dclassifier=javadoc
-
+#DataBase
+Mysql:
+User: **root**  
+Pass: **root**  
+Port: **127.0.0.1:3306**  
+postgres: port 5432
+pass:root
