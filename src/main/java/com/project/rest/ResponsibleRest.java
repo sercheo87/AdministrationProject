@@ -22,7 +22,7 @@ import com.project.exceptions.ProjectException;
 import com.project.services.ResponsibleService;
 
 @Stateless
-@Path("/resources")
+@Path("/responsible")
 public class ResponsibleRest {
 
 	@EJB
@@ -42,7 +42,7 @@ public class ResponsibleRest {
 		res.getMessages().add(new Message("Se agrego correntamente el registro", MessageSeverity.success));
 
 		return Response.ok().status(Status.CREATED).entity(res.getResponseMessage()).type(MediaType.APPLICATION_JSON)
-		        .build();
+				.build();
 	}
 
 	@GET
@@ -78,6 +78,6 @@ public class ResponsibleRest {
 
 		this.responsibleService.remove(inActivity, itemResponsible);
 		return Response.ok().status(Status.OK).entity(res.getResponseMessage()).type(MediaType.APPLICATION_JSON)
-		        .build();
+				.build();
 	}
 }
