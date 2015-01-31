@@ -1,6 +1,0 @@
-ATRIBUTO			el q invoca tiene una trn abierta     requiered=N
-															-abre trn
-															requiered=S
-															-usa trn abierta
-								
-
