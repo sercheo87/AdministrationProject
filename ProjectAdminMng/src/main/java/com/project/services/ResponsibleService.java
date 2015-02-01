@@ -129,4 +129,60 @@ public class ResponsibleService {
 		}
 
 	}
+
+	public void update(Activity activity, Responsible responsible) throws ProjectException {
+
+		UserTransaction utx = this.context.getUserTransaction();
+		try {
+			utx.begin();
+
+			Activity wActivity = this.em.find(Activity.class, activity.getId());
+			if (wActivity == null) {
+				utx.rollback();
+				throw new ProjectException("Actividad no encontrada");
+			}
+
+			StateResponsible state = this.em.find(StateResponsible.class, responsible.getState().getId());
+			if (state == null) {
+				utx.rollback();
+				throw new ProjectException("Estado del responsable no encontrado");
+			}
+
+			responsible.setState(state);
+			responsible.setActivity(wActivity);
+
+			System.out.println("ITEM ACTIVIDAD:" + wActivity);
+			System.out.println("ITEM STATE:" + state);
+			System.out.println("ITEM RESPONSIBLE:" + responsible);
+
+			wActivity.getResponsibles().add(responsible);
+			this.em.merge(wActivity);
+
+			try {
+				utx.commit();
+			} catch (RollbackException e) {
+				e.printStackTrace();
+				utx.rollback();
+			} catch (HeuristicMixedException e) {
+				e.printStackTrace();
+				utx.rollback();
+			} catch (HeuristicRollbackException e) {
+				e.printStackTrace();
+				utx.rollback();
+			}
+
+		} catch (NotSupportedException e) {
+			e.printStackTrace();
+		} catch (SystemException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ProjectException("Error de Infraestructura");
+
+		}
+	}
 }
