@@ -37,6 +37,10 @@ public class Responsible implements Serializable {
 	@Column(name = "idResponsible")
 	private Integer id;
 
+	@ManyToOne
+	@JoinColumn(name = "id_job")
+	private Job job;
+
 	@Column
 	private String lastName;
 
@@ -89,6 +93,10 @@ public class Responsible implements Serializable {
 		return this.id;
 	}
 
+	public Job getJob() {
+		return this.job;
+	}
+
 	public String getLastName() {
 		return this.lastName;
 	}
@@ -121,6 +129,10 @@ public class Responsible implements Serializable {
 		this.id = id;
 	}
 
+	public void setJob(Job job) {
+		this.job = job;
+	}
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
@@ -139,7 +151,8 @@ public class Responsible implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Responsible [address=" + this.address + ", email=" + this.email + ", id=" + this.id + ", lastName="
-		        + this.lastName + ", name=" + this.name + ", phone=" + this.phone + "]";
+		return "Responsible [address=" + this.address + ", email=" + this.email + ", id=" + this.id + ", job="
+		        + this.job + ", lastName=" + this.lastName + ", name=" + this.name + ", phone=" + this.phone
+		        + ", state=" + this.state + "]";
 	}
 }

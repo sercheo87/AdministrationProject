@@ -16,6 +16,7 @@ import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
 import com.project.entity.Activity;
+import com.project.entity.Job;
 import com.project.entity.ResourceActivity;
 import com.project.entity.Responsible;
 import com.project.entity.StateActivity;
@@ -71,7 +72,9 @@ public class ActivityService {
 				for (Responsible responsible : activity.getResponsibles()) {
 					responsible.setActivity(activity);
 					StateResponsible state = this.em.find(StateResponsible.class, responsible.getState().getId());
+					Job job = this.em.find(Job.class, responsible.getJob().getId());
 					responsible.setState(state);
+					responsible.setJob(job);
 				}
 			}
 
