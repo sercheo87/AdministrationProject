@@ -15,4 +15,6 @@ var resourcesController = require('./resources.controller');
 var router = express.Router();
 
 router.get('/', resourcesController.getAll);
+router.put('/add/:idActivity', resourcesController.add);
+router.delete('/delete/:idActivity/:idResource', resourcesController.remove);
 module.exports = router;

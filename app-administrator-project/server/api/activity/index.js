@@ -10,9 +10,12 @@
  */
 
 var express = require('express');
-var controller = require('./thing.controller');
+var activityController = require('./activity.controller');
+
 var router = express.Router();
 
-router.get('/', controller.index);
-router.post('/upload', controller.upload);
+router.get('/', activityController.getAll);
+router.get('/:idActivity', activityController.getActivity);
+router.put('/add', activityController.add);
+router.delete('/delete/:idActivity', activityController.remove);
 module.exports = router;

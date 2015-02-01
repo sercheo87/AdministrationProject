@@ -10,9 +10,13 @@
  */
 
 var express = require('express');
-var controller = require('./thing.controller');
+var jobsController = require('./jobs.controller');
+
 var router = express.Router();
 
-router.get('/', controller.index);
-router.post('/upload', controller.upload);
+router.get('/', jobsController.getAll);
+router.put('/add', jobsController.add);
+router.post('/update', jobsController.update);
+router.delete('/delete/:id', jobsController.remove);
+
 module.exports = router;

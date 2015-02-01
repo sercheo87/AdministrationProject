@@ -3,6 +3,10 @@
 var translations_en = {
   LABEL_LANGUAJE: 'Languaje',
   LABEL_NAME: 'Name',
+  LABEL_LAST_NAME: 'Last Name',
+  LABEL_ADDRESS: 'Address',
+  LABEL_EMAIL: 'Email',
+  LABEL_PHONE: 'Phone',
   LABEL_TYPE: 'Type',
   LABEL_ACTION: 'Action',
   LABEL_PROJECT_ADMIN: 'Project Administrator',
@@ -17,7 +21,17 @@ var translations_en = {
   LABEL_ADMIN_TYPE_RESOURCE: 'Type Resources',
   LABEL_ADMIN: 'Administrator',
   LABEL_ADMIN_STATE_ACTIVITY: 'State Activity',
+  LABEL_ADMIN_STATE_RESPONSIBLE: 'State Responsible',
+  LABEL_ADMIN_JOBS: 'Jobs',
   LABEL_CATALOGS: 'Catalogs',
+  LABEL_DURATION_DAYS: 'Duration days',
+  LABEL_DURATION_HOURS: 'Duration hours',
+  LABEL_DATE_FINISH: 'Date finish',
+  LABEL_ACTIVITIES: 'Activities',
+  LABEL_DETAIL: 'Detail',
+  LABEL_STATE: 'State',
+  LABEL_RESPONSIBLIE: 'Responsible',
+  LABEL_JOB: 'Job',
 
   TITLE_ADMIN_RESOURCE: 'Resources Administrator',
   TITLE_PROJECT_INFO: 'Project Information',
@@ -32,11 +46,16 @@ var translations_en = {
   PH_NAME_PROJECT: 'Project name',
   PH_DESCRIPTION_PROJECT: 'Project description',
   PH_DURATION_PROJECT: 'Project duration'
+
 };
 
 var translations_es = {
   LABEL_LANGUAJE: 'Idioma',
   LABEL_NAME: 'Nombre',
+  LABEL_LAST_NAME: 'Apellido',
+  LABEL_ADDRESS: 'Direccion',
+  LABEL_EMAIL: 'Correo Electronico',
+  LABEL_PHONE: 'Telefono',
   LABEL_TYPE: 'Tipo',
   LABEL_ACTION: 'Accion',
   LABEL_PROJECT_ADMIN: 'Administrador de Proyectos',
@@ -51,7 +70,17 @@ var translations_es = {
   LABEL_ADMIN_TYPE_RESOURCE: 'Tipo de Recursos',
   LABEL_ADMIN: 'Administrador',
   LABEL_ADMIN_STATE_ACTIVITY: 'Estado de las Actividades',
+  LABEL_ADMIN_STATE_RESPONSIBLE: 'Estado de los Responsables',
+  LABEL_ADMIN_JOBS: 'Cargos',
   LABEL_CATALOGS: 'Catalogos',
+  LABEL_DURATION_DAYS: 'Duracion en dias',
+  LABEL_DURATION_HOURS: 'Duracion en horas',
+  LABEL_DATE_FINISH: 'Fecha de finalizacion',
+  LABEL_ACTIVITIES: 'Actividades',
+  LABEL_DETAIL: 'Detalle',
+  LABEL_STATE: 'Estado',
+  LABEL_RESPONSIBLIE: 'Responsables',
+  LABEL_JOB: 'Cargo',
 
   TITLE_ADMIN_RESOURCE: 'Administrador de Recursos',
   TITLE_PROJECT_INFO: 'Informacion del Proyecto',

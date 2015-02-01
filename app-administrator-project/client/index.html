@@ -15,6 +15,7 @@
       <!-- bower:css -->
       <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css" />
       <link rel="stylesheet" href="bower_components/angular-growl-v2/build/angular-growl.css" />
+      <link rel="stylesheet" href="bower_components/select2/select2.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
@@ -61,6 +62,13 @@
       <script src="bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
       <script src="bower_components/angular-growl-v2/build/angular-growl.js"></script>
       <script src="bower_components/angular-animate/angular-animate.js"></script>
+      <script src="bower_components/moment/moment.js"></script>
+      <script src="bower_components/angular-moment/angular-moment.js"></script>
+      <script src="bower_components/ng-pattern-restrict/src/ng-pattern-restrict.js"></script>
+      <script src="bower_components/select2/select2.js"></script>
+      <script src="bower_components/ui-select/src/select3.js"></script>
+      <script src="bower_components/inspector-gadget/inspector-gadget.js"></script>
+      <script src="bower_components/angular-file-upload/angular-file-upload.js"></script>
       <!-- endbower -->
       <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <!-- endbuild -->
@@ -69,17 +77,24 @@
         <script src="app/labels_i18n.js"></script>
         <script src="app/app.js"></script>
           <!-- injector:js -->
+          <script src="app/activity/activity.controller.js"></script>
+          <script src="app/activityService/activityService.service.js"></script>
           <script src="app/admin/admin.controller.js"></script>
           <script src="app/admin/admin.js"></script>
           <script src="app/general/general.js"></script>
+          <script src="app/general/jobs/jobs.controller.js"></script>
           <script src="app/general/stateActivity/stateActivity.controller.js"></script>
+          <script src="app/general/stateResponsible/stateResponsible.controller.js"></script>
           <script src="app/general/typeResource/typeResource.controller.js"></script>
           <script src="app/labels_i18n.js"></script>
           <script src="app/main/main.controller.js"></script>
           <script src="app/main/main.js"></script>
-          <script src="app/resourcesService/resourcesService.service.js"></script>
-          <script src="app/stateActivityService/stateActivityService.service.js"></script>
-          <script src="app/typeResourceService/typeResourceService.service.js"></script>
+          <script src="app/services/jobsService/jobsService.service.js"></script>
+          <script src="app/services/resourcesActivitiesService/resourcesActivitiesService.service.js"></script>
+          <script src="app/services/responsibleService/responsibleService.service.js"></script>
+          <script src="app/services/stateActivityService/stateActivityService.service.js"></script>
+          <script src="app/services/stateResponsibleService/stateResponsibleService.service.js"></script>
+          <script src="app/services/typeResourceService/typeResourceService.service.js"></script>
           <script src="components/modal/modal.service.js"></script>
           <script src="components/navbar/navbar.controller.js"></script>
           <!-- endinjector -->

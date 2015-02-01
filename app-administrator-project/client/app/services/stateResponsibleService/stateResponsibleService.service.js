@@ -1,35 +1,35 @@
 'use strict';
 
 angular.module('appAdministratorProjectApp')
-  .service('typeResourceService', function($http, $log, $q, growl) {
+  .service('stateResponsibleService', function($http, $log, $q, growl) {
 
     this.getAll = function(callback) {
-      $http.get('/api/typeResource')
+      $http.get('/api/stateResponsible')
         .success(callback)
         .error(callback);
     }
 
-    this.saveResource = function(item, callback) {
+    this.save = function(item, callback) {
       $log.info('New object:', item);
-      $http.put('/api/typeResource/add', {
+      $http.put('/api/stateResponsible/add', {
           'data': item
         })
         .success(callback)
         .error(callback);
     }
 
-    this.updateResource = function(item, callback) {
+    this.update = function(item, callback) {
       $log.info('Update object:', item);
-      $http.post('/api/typeResource/update/' + item.id, {
+      $http.post('/api/stateResponsible/update/' + item.id, {
           'data': item
         })
         .success(callback)
         .error(callback);
     }
 
-    this.removeResource = function(item, callback) {
+    this.remove = function(item, callback) {
       $log.info('Remove object:', item);
-      $http.delete('/api/typeResource/delete/' + item.id, {})
+      $http.delete('/api/stateResponsible/delete/' + item.id, {})
         .success(callback)
         .error(callback);
     }

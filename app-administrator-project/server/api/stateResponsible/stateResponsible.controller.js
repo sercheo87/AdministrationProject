@@ -13,17 +13,8 @@ var log = logger.logger;
 
 exports.getAll = function(req, result) {
   var optionServer = underscore.extend(config.serverRestTemplate, {
-    path: '/ProjectAdminMng/rest/resources/getAll',
+    path: '/ProjectAdminMng/rest/stateResponsible/getAll',
     method: 'GET'
-  });
-
-  formatError.executeRequest(optionServer, req, result);
-};
-
-exports.remove = function(req, result) {
-  var optionServer = underscore.extend(config.serverRestTemplate, {
-    path: '/ProjectAdminMng/rest/resources/delete/' + req.params.idActivity + '/' + req.params.idResource,
-    method: 'DELETE'
   });
 
   formatError.executeRequest(optionServer, req, result);
@@ -32,8 +23,26 @@ exports.remove = function(req, result) {
 exports.add = function(req, result) {
 
   var optionServer = underscore.extend(config.serverRestTemplate, {
-    path: '/ProjectAdminMng/rest/resources/add/' + req.params.idActivity,
+    path: '/ProjectAdminMng/rest/stateResponsible/add',
     method: 'PUT'
+  });
+
+  formatError.executeRequest(optionServer, req, result);
+};
+
+exports.update = function(req, result) {
+  var optionServer = underscore.extend(config.serverRestTemplate, {
+    path: '/ProjectAdminMng/rest/stateResponsible/update/' + req.params.id,
+    method: 'POST'
+  });
+
+  formatError.executeRequest(optionServer, req, result);
+};
+
+exports.remove = function(req, result) {
+  var optionServer = underscore.extend(config.serverRestTemplate, {
+    path: '/ProjectAdminMng/rest/stateResponsible/delete/' + req.params.id,
+    method: 'DELETE'
   });
 
   formatError.executeRequest(optionServer, req, result);

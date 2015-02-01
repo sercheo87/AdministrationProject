@@ -13,6 +13,15 @@ module.exports = function(config) {
     files: [
       'client/bower_components/jquery/dist/jquery.js',
       'client/bower_components/angular/angular.js',
+      'client/bower_components/angular-animate/angular-animate.js',
+      'client/bower_components/angular-translate/angular-translate.js',
+      'client/bower_components/angular-xeditable/dist/js/xeditable.js',
+      'client/bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js',
+      'client/bower_components/angular-growl-v2/build/angular-growl.js',
+      'client/bower_components/angular-moment/angular-moment.js',
+      'client/bower_components/ng-pattern-restrict/src/ng-pattern-restrict.js',
+      'client/bower_components/select2/select2.js',
+      'client/bower_components/inspector-gadget/inspector-gadget.js',
       'client/bower_components/angular-mocks/angular-mocks.js',
       'client/bower_components/angular-resource/angular-resource.js',
       'client/bower_components/angular-cookies/angular-cookies.js',
@@ -56,10 +65,8 @@ module.exports = function(config) {
     // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
     logLevel: config.LOG_INFO,
 
-
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: false,
-
 
     // Start these browsers, currently available:
     // - Chrome
@@ -71,9 +78,10 @@ module.exports = function(config) {
     // - IE (only Windows)
     browsers: ['PhantomJS'],
 
-
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: false
+    singleRun: false,
+    colors: true,
+    reporters: ['story']
   });
 };

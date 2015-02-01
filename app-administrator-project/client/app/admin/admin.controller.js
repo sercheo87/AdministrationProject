@@ -1,62 +1,59 @@
 'use strict';
 
 angular.module('appAdministratorProjectApp')
-    .controller('AdminCtrl', function($scope, $http, $log, $translate, $filter, resourcesService, growl) {
-        $scope.project = {
-            name: '',
-            description: '',
-            dateStart: new Date(2015, 1, 1),
-            duration: ''
-        };
-
-        $scope.typesResources = [{
-            id: 1,
-            name: 'Humano',
-        }, {
-            id: 2,
-            name: 'Tecnologico'
-        }];
-
-        $scope.projectSave = function() {
-            $log.info($scope.formProject);
-            $scope.formProject.$setError('name', 'Unknown error!');
-            growl.warning("Override global ttl setting", {});
-        };
-
-        $scope.projectCancel = function() {
-            $scope.project.description = 'eeee';
-        };
-
-        resourcesService.getAllResources(function(results) {
-            $scope.collectionResources = angular.fromJson(results);
-        });
-        $scope.open = function($event) {
-            $event.preventDefault();
-            $event.stopPropagation();
-
-            $scope.opened = true;
-        };
-        $scope.showTypeResource = function(typeResource) {
-            var selected = [];
-            if (typeResource.typeResource) {
-                selected = $filter('filter')($scope.typesResources, {
-                    id: typeResource.typeResource.id
-                });
-            }
-            return selected.length ? selected[0].name : 'Not set';
-        };
-
-        $scope.addResource = function() {
-            $scope.inserted = {
-                id: $scope.collectionResources.length + 1,
-                name: '',
-                typeResource: null
-            };
-            $scope.collectionResources.push($scope.inserted);
-        };
-
-        $scope.saveResource = function(itemResource) {
-            resourcesService.saveResource(itemResource);
-        };
-
+  .controller('AdminCtrl', function($scope, $http, $log, $translate, $filter, FileUploader, growl) {
+    var uploader = $scope.uploader = new FileUploader({
+      url: '/api/things/upload'
     });
+
+    // FILTERS
+
+    uploader.filters.push({
+      name: 'customFilter',
+      fn: function(item /*{File|FileLikeObject}*/ , options) {
+        return this.queue.length < 10;
+      }
+    });
+    // CALLBACKS
+
+    //---------------------------------------------------------------------------------------------------------------
+    uploader.onWhenAddingFileFailed = function(item, filter, options) {
+      console.info('onWhenAddingFileFailed', item, filter, options);
+    };
+    uploader.onAfterAddingFile = function(fileItem) {
+      console.info('onAfterAddingFile', fileItem);
+    };
+    uploader.onAfterAddingAll = function(addedFileItems) {
+      console.info('onAfterAddingAll', addedFileItems);
+    };
+    uploader.onBeforeUploadItem = function(item) {
+      console.info('onBeforeUploadItem', item);
+    };
+    uploader.onProgressItem = function(fileItem, progress) {
+      console.info('onProgressItem', fileItem, progress);
+    };
+    uploader.onProgressAll = function(progress) {
+      console.info('onProgressAll', progress);
+    };
+    uploader.onSuccessItem = function(fileItem, response, status, headers) {
+      console.info('onSuccessItem', fileItem, response, status, headers);
+    };
+    uploader.onErrorItem = function(fileItem, response, status, headers) {
+      console.info('onErrorItem', fileItem, response, status, headers);
+    };
+    uploader.onCancelItem = function(fileItem, response, status, headers) {
+      console.info('onCancelItem', fileItem, response, status, headers);
+    };
+    uploader.onCompleteItem = function(fileItem, response, status, headers) {
+      console.info('onCompleteItem', fileItem, response, status, headers);
+    };
+    uploader.onCompleteAll = function() {
+      console.info('onCompleteAll');
+    };
+    //---------------------------------------------------------------------------------------------------------------
+
+    $scope.projectCancel = function() {
+      $scope.project.description = 'eeee';
+    };
+
+  });

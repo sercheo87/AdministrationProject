@@ -1,0 +1,332 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"lab",
+				"label-success"
+			],
+			[
+				"but",
+				"button"
+			],
+			[
+				"inline",
+				"inline-table"
+			],
+			[
+				"in",
+				"inline"
+			],
+			[
+				"pad",
+				"padding"
+			],
+			[
+				"tex",
+				"text"
+			],
+			[
+				"ins",
+				"insertedTemp"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"pro",
+				"project"
+			],
+			[
+				"col-",
+				"col-md-"
+			],
+			[
+				"col",
+				"col-md-offset-"
+			],
+			[
+				"fo",
+				"form-group"
+			],
+			[
+				"f",
+				"form-horizontal"
+			],
+			[
+				"con",
+				"control-label"
+			],
+			[
+				"input",
+				"input-sm"
+			],
+			[
+				"inp",
+				"input-group"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Remove Package"
+			],
+			[
+				"",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: pl",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Controadd",
+				"Package Control: Add Repository"
+			]
+		],
+		"width": 593.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2deb499853c4371624f5a07e27c334aa' + 'bf8c4e67d14fb0525ba4f89698a6d7e1'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project"
+	],
+	"file_history":
+	[
+		"/Users/Sergio/Documents/app-components/jboss-as-7.1.1.Final/standalone/configuration/application-users.properties",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/activity/detailActivity.jade",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/karma.conf.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/typeResourceService/typeResourceService.service.spec.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/resourcesActivitiesService/resourcesActivitiesService.service.spec.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/general/general.jade",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/activity/activity.controller.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/activityService/activityService.service.spec.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/activity/activity.controller.spec.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/node_modules/grunt-google-cdn/node_modules/bower/node_modules/mout/lang/isNull.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/index.html",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/server/api/Responsible/responsible.controller.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/server/api/Responsible/index.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/server/routes.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/general/stateActivity/stateActivity.jade",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/app.less",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/labels_i18n.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/app.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/general/stateResponsible/stateResponsible.controller.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/general/typeResource/typeResource.jade",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/general/stateResponsible/stateResponsible.jade",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/server/api/stateResponsible/index.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/stateResponsibleService/stateResponsibleService.service.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/server/api/stateResponsible/stateResponsible.controller.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/activityService/activityService.service.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/server/api/activity/index.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/activity/activity.jade",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/resourcesActivitiesService/resourcesActivitiesService.service.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/server/api/activity/activity.controller.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/server/api/resource/resources.controller.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/server/api/resource/index.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/resourcesService/resourcesService.service.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/admin/admin.jade",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/bower_components/angular/angular.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/admin/admin.controller.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/admin/admin.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/main/main.controller.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/main/main.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/app/main/main.jade",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/components/navbar/navbar.controller.js",
+		"/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project/client/components/navbar/navbar.jade",
+		"/Users/Sergio/Documents/app/AdministrationProject/projectAdmin/client/app/app.less",
+		"/Users/Sergio/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/Sergio/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 22.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"jas",
+			"jasmine",
+			"jasmin",
+			"{\n",
+			"loadStatesResponsible",
+			"loadTypeResources",
+			"rowStateActivityForm",
+			"State",
+			"$scope.newActivity",
+			"removeResource",
+			"itemResource",
+			"removeResource",
+			"collectionStateActivity",
+			");\n",
+			"{\n",
+			"        ",
+			");",
+			" .",
+			"$scope",
+			"∂∂",
+			"data",
+			");\n",
+			"ng-",
+			"ng-va",
+			"ng-cla",
+			"ng-",
+			"valid",
+			"model",
+			"\""
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"rowStateResponsibleForm",
+			"$scope.isNewActivity",
+			"item",
+			"'"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "/Users/Sergio/Documents/app/AdministrationProject/app-administrator-project"
+		}
+	],
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 21.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "",
+	"replace":
+	{
+		"height": 40.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 241.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

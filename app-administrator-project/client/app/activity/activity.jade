@@ -1,0 +1,41 @@
+.panel.panel-default(ng-controller='ActivityCtrl')
+  .panel-heading
+    .panel-title.pull-left {{'LABEL_ACTIVITIES' | translate}}
+    .btn-group.pull-right
+      button(type='button', ng-click='addActivity()').btn.btn-default.fa.fa-plus {{'BUTTON_ADD' | translate}}
+    .clearfix
+  .panel-body
+  table.table.table-striped.table-hover
+    thead
+      tr
+        th {{ 'LABEL_DESCRIPTION' | translate}}
+        th {{ 'LABEL_DATE_START' | translate}}
+        th {{ 'LABEL_DATE_FINISH' | translate}}
+        th {{ 'LABEL_DURATION_DAYS' | translate}}
+        th {{ 'LABEL_DURATION_HOURS' | translate}}
+        th {{ 'LABEL_ACTION' | translate}}
+    tbody
+        tr(ng-repeat='item in collectionActivity track by $index')
+          td
+            span(editable-text='item.description', e-name='description', e-form='rowform', e-required='', required='') {{ item.description || 'empty' }}
+          td
+            span(editable-text='item.dateStart', e-name='dateStart', e-form='rowform', e-required='', required='') {{ item.dateStart || 'empty' }}
+          td
+            span(editable-text='item.dateFinish', e-name='dateFinish', e-form='rowform', e-required='', required='') {{ item.dateFinish || 'empty' }}
+          td
+            span(editable-text='item.durationDays', e-name='durationDays', e-form='rowform', e-required='', required='') {{ item.durationDays || 'empty' }}
+          td
+            span(editable-text='item.durationHours', e-name='durationHours', e-form='rowform', e-required='', required='') {{ item.durationHours || 'empty' }}
+          td
+            .btn-group
+              form(editable-form='', name='rowform', ng-show='rowform.$visible', shown='inserted == item', onbeforesave='saveResource($data,  user.id)').form-buttons.form-inline
+                .btn-group
+                  button(type='submit', ng-disabled='rowform.$waiting', ng-click='rowform.$show()').btn.btn-primary.fa.fa-save {{'BUTTON_SAVE' | translate}}
+                  button(type='button', ng-disabled='rowform.$waiting', ng-click='rowform.$cancel()').btn.btn-default.fa.fa-ban {{'BUTTON_CANCEL' | translate}}
+              .buttons(ng-show='!rowform.$visible')
+                .btn-group
+                  button(type='button', ng-click='open(item)').btn.btn-default.fa.fa-eye {{'LABEL_DETAIL' | translate}}
+                  button(type='button', ng-click='rowform.$show()').btn.btn-default.fa.fa-edit {{'BUTTON_EDIT' | translate}}
+                  button(type='button', ng-click='removeActivity(item)').btn.btn-danger.fa.fa-eraser {{'BUTTON_DELETED' | translate}}
+
+  include detailActivity

@@ -10,7 +10,11 @@ angular.module('appAdministratorProjectApp', [
     'pascalprecht.translate',
     'xeditable',
     'tmh.dynamicLocale',
-    'angular-growl'
+    'angular-growl',
+    'angularMoment',
+    'ngPatternRestrict',
+    'swd.inspector-gadget',
+    'angularFileUpload'
   ])
   .config(function($routeProvider, $locationProvider, $translateProvider, $httpProvider, tmhDynamicLocaleProvider, growlProvider) {
 
@@ -48,11 +52,10 @@ angular.module('appAdministratorProjectApp', [
     editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
   });
 
-angular.module('xeditable').directive('editableBsdateNew', ['editableDirectiveFactory',
+angular.module('appAdministratorProjectApp').directive('editableBsdateNew',
   function(editableDirectiveFactory) {
     return editableDirectiveFactory({
       directiveName: 'editableBsdateNew',
       inputTpl: '<datepicker ng-model="dt" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>'
     });
-  }
-]);
+  });

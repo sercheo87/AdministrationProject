@@ -1,0 +1,32 @@
+.container(ng-controller='JobsCtrl')
+  br
+  .panel.panel-default
+    .panel-heading
+      .panel-title.pull-left {{'LABEL_CATALOGS' | translate}}
+      .btn-group.pull-right
+        button(type='button',ng-click='addJob()').btn.btn-default.fa.fa-plus {{'BUTTON_ADD' | translate}}
+      .clearfix
+    .panel-body
+    table.table.table-striped.table-hover
+      thead
+        tr
+          th {{ 'LABEL_JOB' | translate}}
+          th {{ 'LABEL_DESCRIPTION' | translate}}
+          th {{ 'LABEL_ACTION' | translate}}
+      tbody
+        tr(ng-repeat='itemJob in collectionJobs')
+          td
+            input(type='hidden', e-type='hidden', editable-text='itemJob.id', value='{{ itemJob.id }}', e-name='id', e-form='rowJobForm')
+            span(editable-text='itemJob.job', e-name='job', e-form='rowJobForm',e-required='') {{ itemJob.job || 'empty' }}
+          td
+            span(editable-text='itemJob.description', e-name='description', e-form='rowJobForm',e-required='') {{ itemJob.description || 'empty' }}
+          td
+            .btn-group
+              form(editable-form='', name='rowJobForm', ng-show='rowJobForm.$visible', shown='newJob == itemJob', onbeforesave='saveJob($data)', oncancel='getJob()').form-buttons.form-inline
+                .btn-group
+                  button(type='submit',ng-disabled='rowJobForm.$waiting', ng-click='rowJobForm.$show()').btn.btn-primary.fa.fa-save {{'BUTTON_SAVE' | translate}}
+                  button(type='button',ng-disabled='rowJobForm.$waiting', ng-click='rowJobForm.$cancel()').btn.btn-default.fa.fa-ban {{'BUTTON_CANCEL' | translate}}
+              .buttons(ng-show='!rowJobForm.$visible')
+                .btn-group
+                  button(type='button',ng-click='rowJobForm.$show()').btn.btn-default.fa.fa-edit {{'BUTTON_EDIT' | translate}}
+                  button(type='button',ng-click='removeJob(itemJob)').btn.btn-danger.fa.fa-eraser {{'BUTTON_DELETED' | translate}}

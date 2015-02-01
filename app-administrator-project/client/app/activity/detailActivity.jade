@@ -1,0 +1,140 @@
+#detailActivityModal.modal.fade(tabindex='-1', role='dialog', aria-hidden='true')
+  .modal-dialog.modal-lg
+    .modal-content
+
+      .modal-header
+        button.close(type='button', data-dismiss='modal')
+          span(aria-hidden='true') &times;
+          span.sr-only Close
+        h4.modal-title {{'LABEL_ACTIVITIES' | translate}}
+      
+      .modal-body
+        form(role='frDesatilActivity')
+          .row
+            .col-md-6
+              .form-group
+                label.control-label {{ 'LABEL_DATE_START' | translate}}:
+                p.input-group
+                  input.form-control(type='text', datepicker-popup='{{format}}', ng-model='activity.dateStart', is-open='openedStart', datepicker-options='dateOptions', ng-required='true', close-text='Close')
+                  span.input-group-btn
+                    button.btn.btn-default(type='button', ng-click='dateStartOpen($event)')
+                      i.fa.fa-calendar
+
+            .col-md-6
+              .form-group
+                label.control-label {{ 'LABEL_DATE_FINISH' | translate}}:
+                p.input-group
+                  input.form-control(type='text', datepicker-popup='{{format}}', ng-model='activity.dateFinish', is-open='openedFinish', datepicker-options='dateOptions', ng-required='true', close-text='Close')
+                  span.input-group-btn
+                    button.btn.btn-default(type='button', ng-click='dateFinishOpen($event)')
+                      i.fa.fa-calendar
+
+            .col-md-4
+              .form-group
+                label.control-label {{ 'LABEL_DURATION_DAYS' | translate}}:
+                input(ng-model='activity.durationDays', ng-pattern-restrict='[0-9]', pattern='[0-9]+', type='number').form-control
+
+            .col-md-4
+              .form-group
+                label.control-label {{ 'LABEL_DURATION_HOURS' | translate}}:
+                input(ng-model='activity.durationHours', ng-pattern-restrict='[0-9]', pattern='[0-9]+', type='number').form-control
+
+            .col-md-4
+              .form-group
+                label.control-label {{ 'LABEL_STATE' | translate}}:
+                select(ng-model='activity.state.id', ng-options='item.id as item.state for item in collectionStateActivity').form-control
+                  
+            .col-md-12
+              .form-group
+                label.control-label {{ 'LABEL_DESCRIPTION' | translate}}:
+                input(ng-model='activity.description', ng-pattern-restrict='^[A-Za-z\\d\\s]+$', type='text').form-control
+        
+        .panel.panel-default
+          .panel-heading
+            .panel-title.pull-left {{'LABEL_RESOURCES' | translate}}
+            .btn-group.pull-right
+              button(type='button', ng-click='addResource()').btn.btn-default.fa.fa-plus {{'BUTTON_ADD' | translate}}
+            .clearfix
+          .panel-body
+          table.table.table-striped.table-hover
+            thead
+                tr
+                    th {{ 'LABEL_QUANTITY' | translate}}
+                    th {{ 'LABEL_TYPE' | translate}}
+                    th {{ 'LABEL_ACTION' | translate}}
+            tbody
+                tr(ng-repeat='itemResource in activity.resources track by $index')
+                    td
+                      span(editable-text='itemResource.quantity', e-ng-pattern-restrict='[0-9]', e-type='number', e-name='quantity', e-form='rowform', e-required='', required='') {{ itemResource.quantity || 'empty' }}
+                    td 
+                      span(editable-select='itemResource.typeResource.id', e-ng-pattern-restrict='[0-9]', e-name='dtype', e-form='rowform', onshow='loadTypeResources()', e-ng-options='s.id as s.name for s in typesResources') {{ showTypeResource(itemResource.typeResource.id) }}
+                    td
+                      .btn-group
+                        form(editable-form='', name='rowform', ng-show='rowform.$visible', shown='inserted == itemResource', onbeforesave='saveResource($data, itemResource.typeResource.id)', oncancel='cancelResource()').form-buttons.form-inline
+                          .btn-group
+                            button(type='submit', ng-disabled='rowform.$waiting', ng-click='rowform.$show()').btn.btn-primary.fa.fa-save {{'BUTTON_SAVE' | translate}}
+                            button(type='button', ng-disabled='rowform.$waiting', ng-click='rowform.$cancel()').btn.btn-default.fa.fa-ban {{'BUTTON_CANCEL' | translate}}
+                        .buttons(ng-show='!rowform.$visible')
+                          .btn-group
+                            button(type='button', ng-click='rowform.$show()').btn.btn-default.fa.fa-edit {{'BUTTON_EDIT' | translate}}
+                            button(type='button', ng-click='removeResource(itemResource)').btn.btn-danger.fa.fa-eraser {{'BUTTON_DELETED' | translate}}
+
+        .panel.panel-default
+          .panel-heading
+            .panel-title.pull-left {{'LABEL_RESPONSIBLIE' | translate}}
+            .btn-group.pull-right
+              button(type='button', ng-click='addResponsible()').btn.btn-default.fa.fa-plus {{'BUTTON_ADD' | translate}}
+            .clearfix
+          .panel-body
+            .circular
+              inspector-gadget.information-img(data-timeout='5', data-placement='right',ng-repeat='itemResponsible in activity.responsibles track by $index')
+                img.img-responsive.img-circle(data-toggle='collapse',data-target="#collapseExample", aria-expanded="false", aria-controls="collapseExample", ng-click='isCollapsed = true',src='../photos/user_men.png',ng-class='{"disabled": checkEnabledImage(itemResponsible.state)}')
+                inspector-title
+                  p {{itemResponsible.name + ' ' + itemResponsible.lastName}}
+                inspector-content
+                  p {{ 'LABEL_EMAIL' | translate}}: {{itemResponsible.email}}
+                  p {{ 'LABEL_PHONE' | translate}}: {{itemResponsible.phone}}
+  
+          table.table.table-striped.table-hover
+            thead
+                tr
+                    th {{ 'LABEL_NAME' | translate}}
+                    th {{ 'LABEL_LAST_NAME' | translate}}
+                    th {{ 'LABEL_ADDRESS' | translate}}
+                    th {{ 'LABEL_EMAIL' | translate}}
+                    th {{ 'LABEL_PHONE' | translate}}
+                    th {{ 'LABEL_STATE' | translate}}
+                    th {{ 'LABEL_JOB' | translate}}
+                    th {{ 'LABEL_ACTION' | translate}}
+            tbody
+                tr(ng-repeat='itemResponsible in activity.responsibles track by $index')
+                    td
+                      input(type='hidden', e-type='hidden', editable-text='itemResponsible.id', value='{{ itemResponsible.id }}',e-name='id',e-form='rowformResponsible')
+                      span(editable-text='itemResponsible.name', e-ng-pattern-restrict='^[A-Za-z\\d\\s]+$', e-type='text', e-name='name', e-form='rowformResponsible', e-required='', required='') {{ itemResponsible.name || 'empty' }}
+                    td
+                      span(editable-text='itemResponsible.lastName', e-ng-pattern-restrict='^[A-Za-z\\d\\s]+$', e-type='text', e-name='lastName', e-form='rowformResponsible', e-required='', required='') {{ itemResponsible.lastName || 'empty' }}
+                    td
+                      span(editable-text='itemResponsible.address', e-ng-pattern-restrict='^[A-Za-z0-9\\d\\s\\-\\.\\,\\_]+$', e-type='text', e-name='address', e-form='rowformResponsible', e-required='', required='') {{ itemResponsible.address || 'empty' }}
+                    td
+                      span(editable-text='itemResponsible.email', e-ng-pattern-restrict='^[A-Za-z\\d\\s\\@\\-\\_\\.]+$', e-type='email', e-name='email', e-form='rowformResponsible', e-required='', required='') {{ itemResponsible.email || 'empty' }}
+                    td
+                      span(editable-text='itemResponsible.phone', e-ng-pattern-restrict='[0-9]', e-type='tel', e-name='phone', e-form='rowformResponsible', e-required='', required='') {{ itemResponsible.phone || 'empty' }}
+                    td
+                      span.label(ng-class='{"label-success": showStatesResponsible(itemResponsible.state.id)=="Activo","label-warning": showStatesResponsible(itemResponsible.state.id)!="Activo"}', editable-select='itemResponsible.state.id', e-name='dstateResponsible', e-form='rowformResponsible', onshow='loadStatesResponsible()', e-ng-options='s.id as s.state for s in collectionStateResponsible') {{ showStatesResponsible(itemResponsible.state.id) }}
+                    td 
+                      span(editable-select='itemResponsible.job.id', e-ng-pattern-restrict='[0-9]', e-name='djob', e-form='rowformResponsible', onshow='loadJobs()', e-ng-options='s.id as s.job for s in collectionJobs') {{ showJobs(itemResponsible.job.id) }}
+                    td
+                      .btn-group
+                        form(editable-form='', name='rowformResponsible', ng-show='rowformResponsible.$visible', shown='insertedResponsible == itemResponsible', onbeforesave='saveResponsible($data)', oncancel='cancelResponsible()').form-buttons.form-inline
+                          .btn-group
+                            button(type='submit', ng-disabled='rowformResponsible.$waiting', ng-click='rowformResponsible.$show()').btn.btn-primary.fa.fa-save {{'BUTTON_SAVE' | translate}}
+                            button(type='button', ng-disabled='rowformResponsible.$waiting', ng-click='rowformResponsible.$cancel()').btn.btn-default.fa.fa-ban {{'BUTTON_CANCEL' | translate}}
+                        .buttons(ng-show='!rowformResponsible.$visible')
+                          .btn-group
+                            button(type='button', ng-click='rowformResponsible.$show()').btn.btn-default.fa.fa-edit {{'BUTTON_EDIT' | translate}}
+                            button(type='button', ng-click='removeResponsible(itemResponsible)').btn.btn-danger.fa.fa-eraser {{'BUTTON_DELETED' | translate}}
+
+
+      .modal-footer
+        button.btn.btn-default(type='button', data-dismiss='modal') {{ 'BUTTON_CANCEL' | translate}}
+        button.btn.btn-primary(type='button', ng-click='saveActivity()') {{ 'BUTTON_SAVE' | translate}}

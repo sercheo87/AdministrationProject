@@ -10,9 +10,13 @@
  */
 
 var express = require('express');
-var controller = require('./thing.controller');
+var responsibleController = require('./responsible.controller');
+
 var router = express.Router();
 
-router.get('/', controller.index);
-router.post('/upload', controller.upload);
+router.get('/', responsibleController.getAll);
+router.put('/add/:idActivity', responsibleController.add);
+router.post('/update/:idActivity', responsibleController.update);
+router.delete('/delete/:idActivity/:id', responsibleController.remove);
+
 module.exports = router;

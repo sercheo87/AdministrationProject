@@ -1,4 +1,4 @@
-div(ng-include='"components/navbar/navbar.html"')
+div(ng-include='"components/navbar/navbar.html"',uploader="uploader",filters="queueLimit, customFilter")
 
 header#banner.hero-unit
   .container
@@ -39,37 +39,86 @@ header#banner.hero-unit
           .col-md-offset-2.col-md-10
             button(type='submit', ng-disabled='formProject.$waiting').btn.btn-primary {{'BUTTON_SAVE' | translate}}
             button(type='button', ng-click='formProject.$cancel()', ng-disabled='formProject.$waiting').btn.btn-default {{'BUTTON_CANCEL' | translate}}
+      
+      input(type="file",ng-model='myfile',file-model='myfile', nv-file-select='', uploader="uploader")
+      ul
+        li(ng-repeat="item in uploader.queue")
+          Name: ||
+          span(ng-bind="item.file.name")
+          button(ng-click="item.upload()") upload
+      .col-md-9(style='margin-bottom: 40px')
+      h3 Upload queue
+        |                     
+        p Queue length: {{ uploader.queue.length }}
+        |                     
+        table.table
+          thead
+            tr
+              th(width='50%') Name
+              |                                 
+              th(ng-show='uploader.isHTML5') Size
+              |                                 
+              th(ng-show='uploader.isHTML5') Progress
+              |                                 
+              th Status
+              |                                 
+              th Actions
+          |                         
+          tbody
+            tr(ng-repeat='item in uploader.queue')
+              td
+                strong {{ item.file.name }}
+              |                                 
+              td(ng-show='uploader.isHTML5', nowrap='') {{ item.file.size/1024/1024|number:2 }} MB
+              |                                 
+              td(ng-show='uploader.isHTML5')
+                .progress(style='margin-bottom: 0;')
+                  .progress-bar(role='progressbar', ng-style="{ 'width': item.progress + '%' }")
+              |                                 
+              td.text-center
+                span(ng-show='item.isSuccess')
+                  i.glyphicon.glyphicon-ok
+                |                                     
+                span(ng-show='item.isCancel')
+                  i.glyphicon.glyphicon-ban-circle
+                |                                     
+                span(ng-show='item.isError')
+                  i.glyphicon.glyphicon-remove
+              |                                 
+              td(nowrap='')
+                button.btn.btn-success.btn-xs(type='button', ng-click='item.upload()', ng-disabled='item.isReady || item.isUploading || item.isSuccess')
+                  span.glyphicon.glyphicon-upload
+                  |  Upload
+                |                                     
+                button.btn.btn-warning.btn-xs(type='button', ng-click='item.cancel()', ng-disabled='!item.isUploading')
+                  span.glyphicon.glyphicon-ban-circle
+                  |  Cancel
+                |                                     
+                button.btn.btn-danger.btn-xs(type='button', ng-click='item.remove()')
+                  span.glyphicon.glyphicon-trash
+                  |  Remove
+        |                     
+        div
+          div
+            | Queue progress:
+            .progress(style='')
+              .progress-bar(role='progressbar', ng-style="{ 'width': uploader.progress + '%' }")
+          |                         
+          button.btn.btn-success(type='button', ng-click='uploader.uploadAll()', ng-disabled='!uploader.getNotUploadedItems().length')
+            span.glyphicon.glyphicon-upload
+            |  Upload all
+          |                         
+          button.btn.btn-warning(type='button', ng-click='uploader.cancelAll()', ng-disabled='!uploader.isUploading')
+            span.glyphicon.glyphicon-ban-circle
+            |  Cancel all
+          |                         
+          button.btn.btn-danger(type='button', ng-click='uploader.clearQueue()', ng-disabled='!uploader.queue.length')
+            span.glyphicon.glyphicon-trash
+            |  Remove all
 
-      .panel.panel-default
-        .panel-heading
-          .panel-title.pull-left {{'LABEL_RESOURCES' | translate}}
-          .btn-group.pull-right
-            button(type='button', ng-click='addResource()').btn.btn-default.fa.fa-plus {{'BUTTON_ADD' | translate}}
-          .clearfix
-        .panel-body
-        table.table.table-striped.table-hover
-            thead
-                tr
-                    th {{ 'LABEL_QUANTITY' | translate}}
-                    th {{ 'LABEL_TYPE' | translate}}
-                    th {{ 'LABEL_ACTION' | translate}}
-            tbody
-                tr(ng-repeat='itemResource in collectionResources track by $index')
-                    td
-                      span(editable-text='itemResource.quantity', e-name='quantity', e-form='rowform', e-required='', required='') {{ itemResource.quantity || 'empty' }}
-                    td 
-                      span(editable-select='itemResource.typeResource.id', e-name='dtype', e-form='rowform', e-ng-options='s.id as s.name for s in typesResources') {{ showTypeResource(itemResource) }}
-                    td
-                      .btn-group
-                        form(editable-form='', name='rowform', ng-show='rowform.$visible', shown='inserted == itemResource', onbeforesave='saveResource($data,  user.id)').form-buttons.form-inline
-                          .btn-group
-                            button(type='submit', ng-disabled='rowform.$waiting', ng-click='rowform.$show()').btn.btn-primary.fa.fa-save {{'BUTTON_SAVE' | translate}}
-                            button(type='button', ng-disabled='rowform.$waiting', ng-click='rowform.$cancel()').btn.btn-default.fa.fa-ban {{'BUTTON_CANCEL' | translate}}
-                        .buttons(ng-show='!rowform.$visible')
-                          .btn-group
-                            button(type='button', ng-click='rowform.$show()').btn.btn-default.fa.fa-edit {{'BUTTON_EDIT' | translate}}
-                            button(type='button', ng-click='removeResource($index)').btn.btn-danger.fa.fa-eraser {{'BUTTON_DELETED' | translate}}
 
+      include ../activity/activity
+ 
 footer.footer
   .container
     p

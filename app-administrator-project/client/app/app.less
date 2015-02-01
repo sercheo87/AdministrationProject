@@ -15,6 +15,37 @@
     padding: 0.2em 0;
 }
 
+@photo_user: 40px;
+@photo_opacity: 0.3;
+@photo_shadow: 0 0 5px red;
+@photo_container_radius: 50px;
+.circular {
+  background-color: @gray-lighter;
+  border-radius: @photo_container_radius;
+  -webkit-border-radius: @photo_container_radius;
+  -moz-border-radius: @photo_container_radius;
+  padding: 2px;
+   img {
+    margin: 0px 2px;
+    width: @photo_user;
+    height: @photo_user;
+  }
+   img:hover {
+    box-shadow: @photo_shadow;
+    -webkit-box-shadow: @photo_shadow;
+    -moz-box-shadow: @photo_shadow;
+  }
+  .information-img{
+    display:inline-table;
+  }
+}
+
+img.disabled{
+  opacity: @photo_opacity;
+  -webkit-opacity: @photo_opacity;
+  -moz-opacity: @photo_opacity;
+}
+
 // injector
 @import 'main/main.less';
 @import 'modal/modal.less';
