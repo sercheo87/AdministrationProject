@@ -1,9 +1,11 @@
 'use strict';
 
 angular.module('appAdministratorProjectApp')
-  .controller('AdminCtrl', function($scope, $http, $log, $translate, $filter, FileUploader, growl) {
+  .controller('AdminCtrl', function($scope, $http, $log, $translate, $filter, growl, FileUploader) {
+
+    //-------------------------------------------------------------------------------------------------------
     var uploader = $scope.uploader = new FileUploader({
-      url: '/api/things/upload'
+      url: '/api/files/upload'
     });
 
     // FILTERS
@@ -11,14 +13,16 @@ angular.module('appAdministratorProjectApp')
     uploader.filters.push({
       name: 'customFilter',
       fn: function(item /*{File|FileLikeObject}*/ , options) {
-        return this.queue.length < 10;
+        var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+        return '|jpg|png|jpeg|bmp|gif|doc|docx|xls|xlsx|txt|pdf|zip|rar|'.indexOf(type) !== -1;
       }
     });
+
     // CALLBACKS
 
-    //---------------------------------------------------------------------------------------------------------------
-    uploader.onWhenAddingFileFailed = function(item, filter, options) {
+    uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/ , filter, options) {
       console.info('onWhenAddingFileFailed', item, filter, options);
+      growl.error('{{"LABEL_FILE_NOT_SUPPORTED" | translate}}' + ': ' + item.name);
     };
     uploader.onAfterAddingFile = function(fileItem) {
       console.info('onAfterAddingFile', fileItem);
@@ -46,11 +50,16 @@ angular.module('appAdministratorProjectApp')
     };
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
       console.info('onCompleteItem', fileItem, response, status, headers);
+      growl.info('{{"LABEL_FILE_UPLOADED" | translate}}' + ':' + response.file, {
+        ttl: 3000
+      })
     };
     uploader.onCompleteAll = function() {
       console.info('onCompleteAll');
     };
-    //---------------------------------------------------------------------------------------------------------------
+
+    console.info('uploader', uploader);
+    //-------------------------------------------------------------------------------------------------------
 
     $scope.projectCancel = function() {
       $scope.project.description = 'eeee';
