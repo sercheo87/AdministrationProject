@@ -1,0 +1,40 @@
+include ../navigation_bar
+
+.container
+  .row(uploader="uploader", filters="queueLimit, customFilter")
+    .col-lg-12
+      
+      h1.page-header {{'TITLE_PROJECT_INFO' | translate}}-{{projectid}}
+      h1.container {{projectid}}
+      form(id='frmProyect', editable-form='', name='formProject', onaftersave='projectSave()').form-horizontal
+        .form-group
+          label.control-label.col-md-2 {{'LABEL_NAME' | translate}}:
+          .col-md-10
+            label(editable-text='project.name', e-name='name', e-required='', e-placeholder='{{"PH_NAME_PROJECT" | translate}}' ).control-label {{ project.name || 'LABEL_EMPTY' | translate }}
+
+        .form-group
+          label.control-label.col-md-2 {{'LABEL_DESCRIPTION' | translate}}:
+          .col-md-10
+            label(editable-text='project.description', e-name='description', e-required='' ).control-label  {{ project.name || 'LABEL_EMPTY' | translate }}
+        
+        .form-group
+          label.control-label.col-md-2 {{'LABEL_DATE_START' | translate}}:
+          .col-md-10
+            label(editable-bsdate-new='project.dateStart', e-name='dateStart', e-required='').control-label  {{ project.dateStart | date:'fullDate' }}
+        
+        .form-group
+          label.control-label.col-md-2 {{'LABEL_DURATION' | translate}}:
+          .col-md-10
+            label(editable-text='project.duration',e-datepicker-popup='dd-MMMM-yyyy', e-name='duration', e-required='', e-placeholder='{{"PH_DURATION_PROJECT" | translate}}' ).control-label  {{ project.duration || 'LABEL_EMPTY' | translate }}
+        
+        .form-group
+          .col-md-offset-2.col-md-10
+            button(type='button', ng-click='formProject.$show()', ng-show='!formProject.$visible').btn.btn-default {{'BUTTON_EDIT' | translate}}
+
+        .form-group(ng-show='formProject.$visible')
+          .col-md-offset-2.col-md-10
+            button(type='submit', ng-disabled='formProject.$waiting').btn.btn-primary {{'BUTTON_SAVE' | translate}}
+            button(type='button', ng-click='formProject.$cancel()', ng-disabled='formProject.$waiting').btn.btn-default {{'BUTTON_CANCEL' | translate}}
+      
+      include adminFiles
+      include ../activity/activity

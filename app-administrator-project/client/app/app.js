@@ -22,8 +22,20 @@ angular.module('appAdministratorProjectApp', [
     delete $httpProvider.defaults.headers.common['X-Requested-With'];
 
     $routeProvider
+      .when('/Administrar', {
+        templateUrl: 'app/admin/admin.html',
+        controller: 'AdminCtrl'
+      })
+  .when('/Projects/:projectId', {
+        templateUrl: 'app/projects/projects.html',
+        controller: 'ProjectsCtrl'
+      })
+      .when('/Main', {
+        templateUrl: 'app/main/main.html',
+        controller: 'MainCtrl'
+      })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/Main'
       });
 
     $locationProvider.html5Mode(true);
