@@ -27,11 +27,12 @@ public class ActivityRest {
 	private ActivityService activityService;
 
 	@PUT
-	@Path("/add")
+	@Path("/{idProject}/add")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response add(Activity activity) throws ProjectException {
+	public Response add(@PathParam("idProject")
+	int idProject, Activity activity) throws ProjectException {
 		try {
-			this.activityService.add(activity);
+			this.activityService.add(activity, idProject);
 
 			ResponseMessage res = new ResponseMessage();
 			res.getMessages().add(new Message("Se agrego correntamente el registro", MessageSeverity.success));

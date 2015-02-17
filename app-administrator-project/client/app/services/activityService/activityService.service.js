@@ -15,9 +15,9 @@ angular.module('appAdministratorProjectApp')
         .error(callback);
     }
 
-    this.save = function(item, callback) {
+    this.save = function(item, idProject, callback) {
       $log.info('New object:', item);
-      $http.put('/api/activity/add', {
+      $http.put('/api/activity/add/' + idProject, {
           'data': item
         })
         .success(callback)

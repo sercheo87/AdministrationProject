@@ -16,6 +16,6 @@ var router = express.Router();
 
 router.get('/', activityController.getAll);
 router.get('/:idActivity', activityController.getActivity);
-router.put('/add', activityController.add);
+router.put('/add/:idProject', activityController.add);
 router.delete('/delete/:idActivity', activityController.remove);
 module.exports = router;

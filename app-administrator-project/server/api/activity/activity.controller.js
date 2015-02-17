@@ -32,7 +32,7 @@ exports.getActivity = function(req, result) {
 exports.add = function(req, result) {
 
   var optionServer = underscore.extend(config.serverRestTemplate, {
-    path: '/ProjectAdminMng/rest/activity/add',
+    path: '/ProjectAdminMng/rest/activity/' + req.params.idProject + '/add',
     method: 'PUT'
   });
 

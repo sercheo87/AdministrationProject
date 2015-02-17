@@ -1,40 +1,104 @@
 include ../navigation_bar
 
 .container
-  .row(uploader="uploader", filters="queueLimit, customFilter")
-    .col-lg-12
+  .col-md-8
+    h1.page-header {{'TITLE_PROJECT_INFO' | translate}}
+    form(name='formProject').form-horizontal
       
-      h1.page-header {{'TITLE_PROJECT_INFO' | translate}}-{{projectid}}
-      h1.container {{projectid}}
-      form(id='frmProyect', editable-form='', name='formProject', onaftersave='projectSave()').form-horizontal
-        .form-group
-          label.control-label.col-md-2 {{'LABEL_NAME' | translate}}:
-          .col-md-10
-            label(editable-text='project.name', e-name='name', e-required='', e-placeholder='{{"PH_NAME_PROJECT" | translate}}' ).control-label {{ project.name || 'LABEL_EMPTY' | translate }}
+      .form-group(ng-class='(isNewProject) ? (formProject.name.$valid) ? "has-success has-feedback": "has-error has-feedback":""')
+        label.control-label.col-md-2 {{'LABEL_NAME' | translate}}:
+        .col-md-10
+          input(type='text', name='name', required, ng-disabled='!isNewProject', ng-model='project.name', placeholder='{{"PH_PROJECT_NAME" | translate }}' ).form-control
+          span(ng-show='formProject.name.$valid && isNewProject', class='glyphicon glyphicon-ok form-control-feedback', aria-hidden='true')
+          span(ng-show='!formProject.name.$valid && isNewProject', class='glyphicon glyphicon-remove form-control-feedback', aria-hidden='true')
 
-        .form-group
-          label.control-label.col-md-2 {{'LABEL_DESCRIPTION' | translate}}:
-          .col-md-10
-            label(editable-text='project.description', e-name='description', e-required='' ).control-label  {{ project.name || 'LABEL_EMPTY' | translate }}
-        
-        .form-group
-          label.control-label.col-md-2 {{'LABEL_DATE_START' | translate}}:
-          .col-md-10
-            label(editable-bsdate-new='project.dateStart', e-name='dateStart', e-required='').control-label  {{ project.dateStart | date:'fullDate' }}
-        
-        .form-group
-          label.control-label.col-md-2 {{'LABEL_DURATION' | translate}}:
-          .col-md-10
-            label(editable-text='project.duration',e-datepicker-popup='dd-MMMM-yyyy', e-name='duration', e-required='', e-placeholder='{{"PH_DURATION_PROJECT" | translate}}' ).control-label  {{ project.duration || 'LABEL_EMPTY' | translate }}
-        
-        .form-group
-          .col-md-offset-2.col-md-10
-            button(type='button', ng-click='formProject.$show()', ng-show='!formProject.$visible').btn.btn-default {{'BUTTON_EDIT' | translate}}
-
-        .form-group(ng-show='formProject.$visible')
-          .col-md-offset-2.col-md-10
-            button(type='submit', ng-disabled='formProject.$waiting').btn.btn-primary {{'BUTTON_SAVE' | translate}}
-            button(type='button', ng-click='formProject.$cancel()', ng-disabled='formProject.$waiting').btn.btn-default {{'BUTTON_CANCEL' | translate}}
+      .form-group(ng-class='(isNewProject) ?(formProject.description.$valid) ? "has-success has-feedback": "has-error has-feedback":""')
+        label.control-label.col-md-2 {{'LABEL_DESCRIPTION' | translate}}:
+        .col-md-10
+          input(type='text', name='description', required, ng-disabled='!isNewProject', ng-model='project.description', placeholder='{{"PH_PROJECT_DESCRIPTION" | translate}}' ).form-control
+          span(ng-show='formProject.description.$valid && isNewProject', class='glyphicon glyphicon-ok form-control-feedback', aria-hidden='true')
+          span(ng-show='!formProject.description.$valid && isNewProject', class='glyphicon glyphicon-remove form-control-feedback', aria-hidden='true')
       
+      .form-group(ng-class='(isNewProject) ?(formProject.scope.$valid) ? "has-success has-feedback": "has-error has-feedback":""')
+        label.control-label.col-md-2 {{'LABEL_SCOPE' | translate}}:
+        .col-md-10
+          input(type='text', name='scope', required, ng-disabled='!isNewProject', ng-model='project.scope', placeholder='{{"PH_PROJECT_SCOPE" | translate}}' ).form-control
+          span(ng-show='formProject.scope.$valid && isNewProject', class='glyphicon glyphicon-ok form-control-feedback', aria-hidden='true')
+          span(ng-show='!formProject.scope.$valid && isNewProject', class='glyphicon glyphicon-remove form-control-feedback', aria-hidden='true')
+      
+      .form-group(ng-class='(isNewProject) ?(formProject.target.$valid) ? "has-success has-feedback": "has-error has-feedback":""')
+        label.control-label.col-md-2 {{'LABEL_TARGET' | translate}}:
+        .col-md-10
+          input(type='text', name='target', required, ng-disabled='!isNewProject', ng-model='project.target', placeholder='{{"PH_PROJECT_TARGET" | translate}}' ).form-control
+          span(ng-show='formProject.target.$valid && isNewProject', class='glyphicon glyphicon-ok form-control-feedback', aria-hidden='true')
+          span(ng-show='!formProject.target.$valid && isNewProject', class='glyphicon glyphicon-remove form-control-feedback', aria-hidden='true')
+      
+      .form-group.col-md-6
+        label.control-label.col-md-4 {{'LABEL_DATE_START' | translate}}:
+        .col-md-8
+          .input-group
+            input.form-control(type='text', ng-change='updateDuration()', ng-disabled='!isNewProject', datepicker-popup='shortDate', ng-model='project.dateStart', is-open='openedStart', min-date='minDate', datepicker-options='dateOptions', ng-required='true', close-text='Close')
+            span.input-group-btn
+              button.btn.btn-default(type='button', ng-disabled='!isNewProject', ng-click='openStart($event)')
+                i.glyphicon.glyphicon-calendar
+
+      .form-group.col-md-6
+        label.control-label.col-md-4 {{'LABEL_DATE_FINISH' | translate}}:
+        .col-md-8
+          .input-group
+            input.form-control(type='text', ng-change='updateDuration()' ng-disabled='!isNewProject', datepicker-popup='shortDate', ng-model='project.dateFinish', is-open='openedFinish', min-date='minDate', datepicker-options='dateOptions', ng-required='true', close-text='Close')
+            span.input-group-btn
+              button.btn.btn-default(type='button', ng-disabled='!isNewProject', ng-click='openFinish($event)')
+                i.glyphicon.glyphicon-calendar
+
+      .form-group
+        .col-md-offset-2.col-md-10
+          button(type='button', ng-click='projectEdit()', ng-show='!isNewProject').btn.btn-default
+            span.fa.fa-pencil  {{'BUTTON_EDIT' | translate}}
+
+      .form-group
+        .col-md-offset-2.col-md-10
+          button(type='submit', ng-show='isNewProject', ng-click='projectSave()').btn.btn-primary
+            span.fa.fa-save  {{'BUTTON_SAVE' | translate}}
+          button(type='button', ng-show='isNewProject', ng-click='projectCancel()').btn.btn-default
+            span.fa.fa-undo  {{'BUTTON_CANCEL' | translate}}
+
+  .col-md-4
+    .panel.panel-primary
+      .panel-heading
+        h4.panel-title {{'TITLE_SUMMARY' | translate}}
+      .panel-body
+        h3
+          span.control-label{{'LABEL_DURATION' | translate}}: 
+          span.label.label-success {{project.duration}}  {{'LABEL_DAYS' | translate}}
+
+    .panel.panel-primary
+      .panel-heading
+        .panel-title.pull-left {{'LABEL_BENEFICIARIES' | translate}}
+        .btn-group.pull-right
+          button(type='button', ng-click='addBeneficiary()').btn.btn-default.fa.fa-plus {{'BUTTON_ADD' | translate}}
+        .clearfix
+      .panel-body
+        include ../../components/editors/beneficiaryList
+      table.table
+        thead
+          tr
+            th {{'LABEL_NAME' | translate}}
+            th {{'LABEL_COMMUNITY_NAME' | translate}}
+            th {{'LABEL_ACTION' | translate}}
+        tbody
+          tr(ng-repeat='item in project.beneficiary') 
+            td {{item.name}}   
+            td {{item.community}}
+            td
+              .buttons
+                .btn-group
+                  button(type='button',ng-click='removeBeneficiary(item)').btn.btn-danger.fa.fa-eraser {{'BUTTON_DELETED' | translate}}
+
+  .row(ng-hide='projectid==0')
+    .col-md-12
+      include projectCharts
+    .col-md-12
       include adminFiles
+    .col-md-12
       include ../activity/activity

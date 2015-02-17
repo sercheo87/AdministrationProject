@@ -108,31 +108,31 @@
                     th {{ 'LABEL_ACTION' | translate}}
             tbody
                 tr(ng-repeat='itemResponsible in activity.responsibles track by $index')
-                    td
-                      input(type='hidden', e-type='hidden', editable-text='itemResponsible.id', value='{{ itemResponsible.id }}',e-name='id',e-form='rowformResponsible')
-                      span(editable-text='itemResponsible.name', e-ng-pattern-restrict='^[A-Za-z\\d\\s]+$', e-type='text', e-name='name', e-form='rowformResponsible', e-required='', required='') {{ itemResponsible.name || 'empty' }}
-                    td
-                      span(editable-text='itemResponsible.lastName', e-ng-pattern-restrict='^[A-Za-z\\d\\s]+$', e-type='text', e-name='lastName', e-form='rowformResponsible', e-required='', required='') {{ itemResponsible.lastName || 'empty' }}
-                    td
-                      span(editable-text='itemResponsible.address', e-ng-pattern-restrict='^[A-Za-z0-9\\d\\s\\-\\.\\,\\_]+$', e-type='text', e-name='address', e-form='rowformResponsible', e-required='', required='') {{ itemResponsible.address || 'empty' }}
-                    td
-                      span(editable-text='itemResponsible.email', e-ng-pattern-restrict='^[A-Za-z\\d\\s\\@\\-\\_\\.]+$', e-type='email', e-name='email', e-form='rowformResponsible', e-required='', required='') {{ itemResponsible.email || 'empty' }}
-                    td
-                      span(editable-text='itemResponsible.phone', e-ng-pattern-restrict='[0-9]', e-type='tel', e-name='phone', e-form='rowformResponsible', e-required='', required='') {{ itemResponsible.phone || 'empty' }}
-                    td
-                      span.label(ng-class='{"label-success": showStatesResponsible(itemResponsible.state.id)=="Activo","label-warning": showStatesResponsible(itemResponsible.state.id)!="Activo"}', editable-select='itemResponsible.state.id', e-name='dstateResponsible', e-form='rowformResponsible', onshow='loadStatesResponsible()', e-ng-options='s.id as s.state for s in collectionStateResponsible') {{ showStatesResponsible(itemResponsible.state.id) }}
-                    td 
-                      span(editable-select='itemResponsible.job.id', e-ng-pattern-restrict='[0-9]', e-name='djob', e-form='rowformResponsible', onshow='loadJobs()', e-ng-options='s.id as s.job for s in collectionJobs') {{ showJobs(itemResponsible.job.id) }}
-                    td
-                      .btn-group
-                        form(editable-form='', name='rowformResponsible', ng-show='rowformResponsible.$visible', shown='insertedResponsible == itemResponsible', onbeforesave='saveResponsible($data)', oncancel='cancelResponsible()').form-buttons.form-inline
-                          .btn-group
-                            button(type='submit', ng-disabled='rowformResponsible.$waiting', ng-click='rowformResponsible.$show()').btn.btn-primary.fa.fa-save {{'BUTTON_SAVE' | translate}}
-                            button(type='button', ng-disabled='rowformResponsible.$waiting', ng-click='rowformResponsible.$cancel()').btn.btn-default.fa.fa-ban {{'BUTTON_CANCEL' | translate}}
-                        .buttons(ng-show='!rowformResponsible.$visible')
-                          .btn-group
-                            button(type='button', ng-click='rowformResponsible.$show()').btn.btn-default.fa.fa-edit {{'BUTTON_EDIT' | translate}}
-                            button(type='button', ng-click='removeResponsible(itemResponsible)').btn.btn-danger.fa.fa-eraser {{'BUTTON_DELETED' | translate}}
+                  td
+                    input(type='hidden', e-type='hidden', editable-text='itemResponsible.id', value='{{ itemResponsible.id }}',e-name='id',e-form='rowformResponsible')
+                    span(editable-text='itemResponsible.name', e-ng-pattern-restrict='^[A-Za-z\\d\\s]+$', e-type='text', e-name='name', e-form='rowformResponsible', e-required='', required='') {{ itemResponsible.name || 'empty' }}
+                  td
+                    span(editable-text='itemResponsible.lastName', e-ng-pattern-restrict='^[A-Za-z\\d\\s]+$', e-type='text', e-name='lastName', e-form='rowformResponsible', e-required='', required='') {{ itemResponsible.lastName || 'empty' }}
+                  td
+                    span(editable-text='itemResponsible.address', e-ng-pattern-restrict='^[A-Za-z0-9\\d\\s\\-\\.\\,\\_]+$', e-type='text', e-name='address', e-form='rowformResponsible', e-required='', required='') {{ itemResponsible.address || 'empty' }}
+                  td
+                    span(editable-text='itemResponsible.email', e-ng-pattern-restrict='^[A-Za-z\\d\\s\\@\\-\\_\\.]+$', e-type='email', e-name='email', e-form='rowformResponsible', e-required='', required='') {{ itemResponsible.email || 'empty' }}
+                  td
+                    span(editable-text='itemResponsible.phone', e-ng-pattern-restrict='[0-9]', e-type='tel', e-name='phone', e-form='rowformResponsible', e-required='', required='') {{ itemResponsible.phone || 'empty' }}
+                  td
+                    span.label(editable-select='itemResponsible.state.id', e-name='dstateResponsible', e-form='rowformResponsible', onshow='loadStatesResponsible()', e-ng-options='s.id as s.state for s in collectionStateResponsible', ng-class='{"label-success": showStatesResponsible(itemResponsible.state.id)=="Activo","label-success": showStatesResponsible(itemResponsible.state.id)!="Activo"}') {{ showStatesResponsible(itemResponsible.state.id) }}
+                  td 
+                    span(editable-select='itemResponsible.job.id', e-ng-pattern-restrict='[0-9]', e-name='djob', e-form='rowformResponsible', onshow='loadJobs()', e-ng-options='s.id as s.job for s in collectionJobs') {{ showJobs(itemResponsible.job.id) }}
+                  td
+                    .btn-group
+                      form(editable-form='', name='rowformResponsible', ng-show='rowformResponsible.$visible', shown='insertedResponsible == itemResponsible', onbeforesave='saveResponsible($data)', oncancel='cancelResponsible()').form-buttons.form-inline
+                        .btn-group
+                          button(type='submit', ng-disabled='rowformResponsible.$waiting', ng-click='rowformResponsible.$show()').btn.btn-primary.fa.fa-save {{'BUTTON_SAVE' | translate}}
+                          button(type='button', ng-disabled='rowformResponsible.$waiting', ng-click='rowformResponsible.$cancel()').btn.btn-default.fa.fa-ban {{'BUTTON_CANCEL' | translate}}
+                      .buttons(ng-show='!rowformResponsible.$visible')
+                        .btn-group
+                          button(type='button', ng-click='rowformResponsible.$show()').btn.btn-default.fa.fa-edit {{'BUTTON_EDIT' | translate}}
+                          button(type='button', ng-click='removeResponsible(itemResponsible)').btn.btn-danger.fa.fa-eraser {{'BUTTON_DELETED' | translate}}
 
 
       .modal-footer

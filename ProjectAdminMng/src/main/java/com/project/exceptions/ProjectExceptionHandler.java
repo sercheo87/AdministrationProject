@@ -17,7 +17,7 @@ public class ProjectExceptionHandler implements ExceptionMapper<ProjectException
 
 		ResponseMessage res = new ResponseMessage();
 		res.getMessages().add(new Message(arg0.getMessage(), MessageSeverity.error));
-		return Response.serverError().entity(res).type(MediaType.APPLICATION_JSON).build();
+		return Response.serverError().entity(res.getResponseMessage()).type(MediaType.APPLICATION_JSON).build();
 	}
 
 }

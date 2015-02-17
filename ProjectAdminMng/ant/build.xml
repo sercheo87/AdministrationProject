@@ -1,0 +1,24 @@
+<project name="ProjectAdminMng" basedir="../" default="deploy-show">
+
+	<!-- Project settings -->
+	<property file="${basedir}/ant/build.properties" />
+	<property name="project.distname" value="ProjectAdminMng" />
+
+	<!-- define your folder for deployment -->
+	<property name="deploy.dir" value="${jboss.home}/standalone/deployments" />
+
+	<target name="deploy" depends="">
+		<delete file="${deploy.dir}/${project.distname}.war" />
+		<copy todir="${deploy.dir}" file="${basedir}/target/${project.distname}.war" />
+	</target>
+
+
+	<target name="app-esperar">
+		<echo message="Esperando 5 segundos hasta que la pagina este disponible...." />
+		<!-- Espera 5 segundos -->
+		<sleep seconds="5" />
+	</target>
+
+	<target name="deploy-show" depends="deploy,app-esperar">
+	</target>
+</project>

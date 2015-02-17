@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('appAdministratorProjectApp')
-  .controller('ActivityCtrl', function($scope, $http, $log, $filter, activityService, growl, $modal, stateActivityService, typeResourceService, resourcesActivitiesService, stateResponsibleService, responsibleService, jobsService, moment) {
+  .controller('ActivityCtrl', function($rootScope, $routeParams, $scope, $http, $log, $filter, activityService, growl, $modal, stateActivityService, typeResourceService, resourcesActivitiesService, stateResponsibleService, responsibleService, jobsService, moment, projectService) {
     $scope.format = 'yyyy-MM-dd';
     $scope.typesResources = [];
     $scope.collectionStateResponsible = [];
@@ -11,6 +11,8 @@ angular.module('appAdministratorProjectApp')
       formatYear: 'yyyy',
       startingDay: 1
     };
+
+    $scope.projectid = $routeParams.projectId;
 
     $scope.dateStartOpen = function($event) {
       $log.info('dateStartOpen');
@@ -30,11 +32,22 @@ angular.module('appAdministratorProjectApp')
 
     $scope.getActivities = function() {
       $log.info('getActivities');
-      activityService.getAll(function(data, status, headers, config) {
+      projectService.getActivities($scope.projectid, function(data, status, headers, config) {
         $scope.collectionActivity = data.data;
-        $log.log($scope.collectionActivity);
+        $log.debug($scope.collectionActivity);
       });
     };
+
+    $scope.$on('findActivity', function(event, args) {
+      args = parseInt(args);
+      $scope.getActivities();
+
+      $log.debug('objeto a buscar', args, $scope.collectionActivity);
+      var single_object = $filter('filter')($scope.collectionActivity, function(d) {
+        return d.id === args;
+      })[0];
+      $scope.open(single_object);
+    });
 
     $scope.open = function(item) {
       $log.info('open');
@@ -48,7 +61,8 @@ angular.module('appAdministratorProjectApp')
       $scope.isNewActivity = true;
       $('#detailActivityModal').modal('show');
       $scope.activity = {
-        resources: []
+        resources: [],
+        responsibles: []
       };
       $scope.activity.dateStart = moment().format('YYYY-MM-DD');
       $scope.activity.dateFinish = moment().format('YYYY-MM-DD');
@@ -56,9 +70,7 @@ angular.module('appAdministratorProjectApp')
 
     $scope.getActivity = function() {
       $log.info('getActivity');
-      $log.info('preub', $scope.activity);
       if (!angular.isUndefined($scope.activity) && !angular.isUndefined($scope.activity.id)) {
-        $log.info('xxxxxxx');
         activityService.getActivity($scope.activity, function(data, status, headers, config) {
           $scope.activity = data.data;
         });
@@ -68,7 +80,9 @@ angular.module('appAdministratorProjectApp')
     $scope.saveActivity = function() {
       $log.info('saveActivity');
       $('#detailActivityModal').modal('hide');
-      activityService.save($scope.activity, function(data, status, headers, config) {
+      $log.debug('Activity to saving:', $scope.activity);
+
+      activityService.save($scope.activity, $scope.projectid, function(data, status, headers, config) {
         $scope.refresh();
       });
     };
@@ -87,9 +101,10 @@ angular.module('appAdministratorProjectApp')
       $log.info('addResource');
       $scope.inserted = {
         quantity: 0,
-        typeResource: $scope.collectionTypesResource
+        typeResource: {}
       };
       $scope.activity.resources.push($scope.inserted);
+      $log.debug('Activity modify:', $scope.activity);
     };
 
     $scope.saveResource = function(data, user) {
@@ -101,10 +116,11 @@ angular.module('appAdministratorProjectApp')
         }
       };
 
-      $log.info('Add resource action:', insertedTemp);
+      $log.debug('Add resource action:', insertedTemp);
       if (!$scope.isNewActivity) {
         resourcesActivitiesService.save($scope.activity, insertedTemp, function(data, status, headers, config) {
           $scope.refresh();
+          $rootScope.$broadcast('refreshChartsExternal', '');
         });
       }
     };
@@ -144,15 +160,23 @@ angular.module('appAdministratorProjectApp')
     $scope.addResponsible = function() {
       $log.info('addResponsible');
       $scope.insertedResponsible = {
-        state: $scope.collectionStateResponsible
+        address: '',
+        email: '',
+        lastName: '',
+        name: '',
+        phone: '',
+        state: {},
+        job: {}
       };
+      $log.debug('Responsible inserted:', $scope.insertedResponsible);
       $scope.activity.responsibles.push($scope.insertedResponsible);
+
+      $log.debug('Activity modify:', $scope.activity);
       $scope.isNewResponsible = true;
     };
 
     $scope.saveResponsible = function(data) {
       $log.info('saveReponsible');
-      $log.info('Responsible item saving:', data);
 
       var insertedTemp = {
         id: data.id,
@@ -169,17 +193,22 @@ angular.module('appAdministratorProjectApp')
         }
       };
 
-      if ($scope.isNewResponsible) {
-        $log.info('Add responsible action:', insertedTemp, $scope.isNewResponsible);
-        responsibleService.save($scope.activity, insertedTemp, function(data, status, headers, config) {
-          $scope.refresh();
-        });
-      } else {
-        $log.info('Update responsible action:', insertedTemp, $scope.isNewResponsible);
-        responsibleService.update($scope.activity, insertedTemp, function(data, status, headers, config) {
-          $scope.refresh();
-        });
+      $log.debug('Responsible item saving:', insertedTemp);
+      if (!$scope.isNewActivity) {
+        if ($scope.isNewResponsible) {
+          $log.debug('Add responsible action:', insertedTemp, $scope.isNewResponsible);
+          responsibleService.save($scope.activity, insertedTemp, function(data, status, headers, config) {
+            $rootScope.$broadcast('refreshChartsExternal', '');
+            $scope.refresh();
+          });
+        } else {
+          $log.debug('Update responsible action:', insertedTemp, $scope.isNewResponsible);
+          responsibleService.update($scope.activity, insertedTemp, function(data, status, headers, config) {
+            $rootScope.$broadcast('refreshChartsExternal', '');
+            $scope.refresh();
+          });
 
+        }
       }
     };
 
@@ -198,7 +227,7 @@ angular.module('appAdministratorProjectApp')
 
     $scope.loadStatesResponsible = function() {
       $log.info('loadStatesResponsible');
-      $scope.collectionStateResponsible.length ? null : stateResponsibleService.getAll(function(data, status, headers, config) {
+      return $scope.collectionStateResponsible.length ? null : stateResponsibleService.getAll(function(data, status, headers, config) {
         $scope.collectionStateResponsible = data.data;
       });
     };

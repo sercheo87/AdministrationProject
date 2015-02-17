@@ -10,18 +10,11 @@
  */
 
 var express = require('express');
-var managerFiles = require('./managerFiles.controller');
+var beneficiaryController = require('./beneficiary.controller');
 
 var router = express.Router();
 
-var multipart = require('connect-multiparty');
-var multipartMiddleware = multipart({
-  autoFields: true,
-  autoFiles: true,
-  uploadDir: __dirname + '/../../../client/upload'
-});
-
-router.post('/upload', multipartMiddleware, managerFiles.upload);
-router.get('/getFile', managerFiles.getFile);
+router.get('/', beneficiaryController.getAll);
+router.post('/update/:id', beneficiaryController.update);
 
 module.exports = router;

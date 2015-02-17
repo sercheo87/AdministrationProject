@@ -17,6 +17,7 @@ import javax.transaction.UserTransaction;
 
 import com.project.entity.Activity;
 import com.project.entity.Job;
+import com.project.entity.Project;
 import com.project.entity.ResourceActivity;
 import com.project.entity.Responsible;
 import com.project.entity.StateActivity;
@@ -33,7 +34,7 @@ public class ActivityService {
 	@PersistenceContext
 	private EntityManager em;
 
-	public void add(Activity activity) throws ProjectException {
+	public void add(Activity activity, Integer idProject) throws ProjectException {
 
 		UserTransaction utx = this.context.getUserTransaction();
 		Boolean isNewItem = true;
@@ -43,6 +44,13 @@ public class ActivityService {
 
 			System.out.println("Actividad a ingresar");
 			System.out.println(activity);
+
+			Project project = this.em.find(Project.class, idProject);
+
+			if (project == null) {
+				utx.rollback();
+				throw new ProjectException("No existe projecto seleccionado");
+			}
 
 			if (activity.getId() != null && activity.getId() != 0) {
 				System.out.println("Actividad encontrada");
@@ -79,6 +87,8 @@ public class ActivityService {
 			}
 
 			if (isNewItem) {
+
+				project.getActivities().add(activity);
 				activity.setState(stateActivity);
 				this.em.persist(activity);
 			} else {

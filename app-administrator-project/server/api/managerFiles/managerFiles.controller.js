@@ -5,6 +5,7 @@ var http = require('http');
 var module = 'managerFiles';
 var config = require('./../../config/environment');
 var formatError = require('./../../components/format');
+var fileSystem = require('fs');
 
 var underscore = require('underscore');
 //logger configuration
@@ -31,4 +32,23 @@ exports.upload = function(req, res) {
   });
   res.write(JSON.stringify(response));
   res.end();
+};
+
+exports.getFile = function(req, res) {
+  var filePath = path.join(__dirname, 'Pacificardbox.docx');
+  log.info(filePath);
+  var file = fileSystem.readFileSync(filePath, 'binary');
+
+  res.setHeader('Content-Length', file.length);
+  //s.setHeader('Content-Transfer-Encoding', 'binary');
+  res.setHeader('Content-Disposition', 'attachment; filename=' + 'Pacificardbox.docx');
+  res.contentType('application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+
+  res.download(filePath,'file_rename.docx', function(err){
+    if (err) {
+      log.info('Get file from server');
+    } else {
+      log.info('Get file from server');
+    }
+  });
 };

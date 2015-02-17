@@ -1,0 +1,80 @@
+include ../navigation_bar
+
+.container
+  h1.page-header {{'TITLE_BENEFICIARY' | translate}}
+  form(name='frBeneficiaryAdmin').form-horizontal
+    
+    .form-group(ng-class='(isEditBeneficiary) ? (frBeneficiaryAdmin.name.$valid) ? "has-success has-feedback": "has-error has-feedback":""')
+      label.control-label.col-md-2 {{'LABEL_BENEFICIARY_NAME' | translate}}:
+      .col-md-10
+        input(type='text', name='name', required, ng-disabled='!isEditBeneficiary', ng-model='beneficiary.name', placeholder='{{"PH_BENEFICIARY_NAME" | translate }}' ).form-control
+        span(ng-show='frBeneficiaryAdmin.name.$valid && isEditBeneficiary', class='glyphicon glyphicon-ok form-control-feedback', aria-hidden='true')
+        span(ng-show='!frBeneficiaryAdmin.name.$valid && isEditBeneficiary', class='glyphicon glyphicon-remove form-control-feedback', aria-hidden='true')
+
+    .form-group(ng-class='(isEditBeneficiary) ?(frBeneficiaryAdmin.community.$valid) ? "has-success has-feedback": "has-error has-feedback":""')
+      label.control-label.col-md-2 {{'LABEL_BENEFICIARY_COMMUNITY' | translate}}:
+      .col-md-10
+        input(type='text', name='community', required, ng-disabled='!isEditBeneficiary', ng-model='beneficiary.community', placeholder='{{"PH_BENEFICIARY_COMMUNITY" | translate}}' ).form-control
+        span(ng-show='frBeneficiaryAdmin.community.$valid && isEditBeneficiary', class='glyphicon glyphicon-ok form-control-feedback', aria-hidden='true')
+        span(ng-show='!frBeneficiaryAdmin.community.$valid && isEditBeneficiary', class='glyphicon glyphicon-remove form-control-feedback', aria-hidden='true')
+    
+    .form-group(ng-class='(isEditBeneficiary) ?(frBeneficiaryAdmin.president.$valid) ? "has-success has-feedback": "has-error has-feedback":""')
+      label.control-label.col-md-2 {{'LABEL_BENEFICIARY_PRESIDENT' | translate}}:
+      .col-md-10
+        input(type='text', name='president', required, ng-disabled='!isEditBeneficiary', ng-model='beneficiary.president', placeholder='{{"PH_BENEFICIARY_PRESIDENT" | translate}}' ).form-control
+        span(ng-show='frBeneficiaryAdmin.president.$valid && isEditBeneficiary', class='glyphicon glyphicon-ok form-control-feedback', aria-hidden='true')
+        span(ng-show='!frBeneficiaryAdmin.president.$valid && isEditBeneficiary', class='glyphicon glyphicon-remove form-control-feedback', aria-hidden='true')
+        
+    .form-group(ng-class='(isEditBeneficiary) ?(frBeneficiaryAdmin.uid.$valid) ? "has-success has-feedback": "has-error has-feedback":""')
+      label.control-label.col-md-2 {{'LABEL_BENEFICIARY_UID' | translate}}:
+      .col-md-10
+        input(type='text', name='uid', required, ng-disabled='!isEditBeneficiary', ng-model='beneficiary.uid', placeholder='{{"PH_BENEFICIARY_UID" | translate}}' ).form-control
+        span(ng-show='frBeneficiaryAdmin.uid.$valid && isEditBeneficiary', class='glyphicon glyphicon-ok form-control-feedback', aria-hidden='true')
+        span(ng-show='!frBeneficiaryAdmin.uid.$valid && isEditBeneficiary', class='glyphicon glyphicon-remove form-control-feedback', aria-hidden='true')
+    
+    .form-group(ng-class='(isEditBeneficiary) ?(frBeneficiaryAdmin.numberOfCitizens.$valid) ? "has-success has-feedback": "has-error has-feedback":""')
+      label.control-label.col-md-2 {{'LABEL_BENEFICIARY_NUMBER_CITIZEN' | translate}}:
+      .col-md-10
+        input(type='number', name='numberOfCitizens', required, ng-disabled='!isEditBeneficiary', ng-model='beneficiary.numberOfCitizens', placeholder='{{"PH_BENEFICIARY_NUMBER_CITIZEN" | translate}}' ).form-control
+        span(ng-show='frBeneficiaryAdmin.numberOfCitizens.$valid && isEditBeneficiary', class='glyphicon glyphicon-ok form-control-feedback', aria-hidden='true')
+        span(ng-show='!frBeneficiaryAdmin.numberOfCitizens.$valid && isEditBeneficiary', class='glyphicon glyphicon-remove form-control-feedback', aria-hidden='true')
+
+    .form-group
+      .col-md-offset-2.col-md-10
+        button(type='submit', ng-show='isEditBeneficiary', ng-click='beneficiarySave()').btn.btn-primary
+          span.fa.fa-save  {{'BUTTON_SAVE' | translate}}
+        button(type='button', ng-show='isEditBeneficiary', ng-click='beneficiaryCancel()').btn.btn-default
+          span.fa.fa-undo  {{'BUTTON_CANCEL' | translate}}
+
+
+  .panel.panel-default
+    .panel-heading
+      .panel-title.pull-left {{'LABEL_BENEFICIARY_LIST' | translate}}
+      .btn-group.pull-right
+        button(type='button', ng-click='beneficiaryNew()').btn.btn-default.fa.fa-plus {{'BUTTON_ADD' | translate}}
+      .clearfix
+    .panel-body
+    table.table.table-striped.table-hover
+      thead
+        tr
+          th {{ 'LABEL_BENEFICIARY_NAME' | translate}}
+          th {{ 'LABEL_BENEFICIARY_COMMUNITY' | translate}}
+          th {{ 'LABEL_BENEFICIARY_UID' | translate}}
+          th {{ 'LABEL_ACTION' | translate}}
+      tbody
+          tr(ng-repeat='itemBeneficiary in collectionBeneficiary | filter:txFilterBeneficiary')
+            td
+              {{ itemBeneficiary.name || 'empty' }}
+            td
+              {{ itemBeneficiary.community || 'empty' }}
+            td
+              {{ itemBeneficiary.uid || 'empty' }}
+            td
+              .btn-group
+                button(type='button',ng-click='beneficiaryEdit(itemBeneficiary)').btn.btn-default.fa.fa-edit {{'BUTTON_EDIT' | translate}}
+    .panel-footer
+      .input-group
+        span.input-group-addon
+          i.fa.fa-filter
+        input(type='text', ng-model='txFilterBeneficiary').form-control
+

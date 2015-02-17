@@ -1,18 +1,51 @@
 include ../navigation_bar
 
-header#banner.hero-unit
-  .container
-    h1 'Allo,  'Allo! hello
-    p.lead Kick-start your next web app with Angular Fullstack
-    img(src='assets/images/yeoman.png',  alt='I\'m Yeoman')
+div(ng-include='"components/header.html"')
+br
+.container
+  .panel.panel-default
+    .panel-heading
+      .panel-title.pull-left {{'LABEL_PROJECTS' | translate}}
+      .btn-group.pull-right
+        a(, href='/Projects/0').btn.btn-default.fa.fa-plus {{'BUTTON_ADD' | translate}}
+        button(type='button', ng-click='refresh()').btn.btn-default.fa.fa-refresh {{'BUTTON_REFRESH' | translate}}
+      .clearfix
+    .panel-body
+      .col-md-6
+        .input-group.input-group-md
+          span.input-group-addon
+            i.fa.fa-filter
+          input.form-control(type='text', ng-model='searchInProjects')
+      .col-md-6
+        include ../../components/editors/beneficiaryList
+        
+    table.table.table-striped.table-hover
+      thead
+          tr
+            th {{ 'LABEL_NAME' | translate}}
+            th {{ 'LABEL_DESCRIPTION' | translate}}
+            th {{ 'LABEL_DATE_START' | translate}}
+            th {{ 'LABEL_DATE_FINISH' | translate}}
+            th {{ 'LABEL_ACTION' | translate}}
+      tbody
+        tr(ng-repeat='item in collectionProjects | filter:searchInProjects')
+          td
+            a(href='/Projects/{{item.id}}') {{item.name}}
+          td
+            p {{item.description}}
+          td
+            p {{item.dateStart|amDateFormat: 'MM-DD-YYYY'}}
+          td
+            p {{item.dateFinish|amDateFormat: 'MM-DD-YYYY'}}
+          td
+            .btn-group
+              form(editable-form='', name='rowStateResponsibleForm', ng-show='rowStateResponsibleForm.$visible', shown='newStateResponsible == item', onbeforesave='saveStateResponsible($data)', oncancel='getStateResponsible()').form-buttons.form-inline
+                .btn-group
+                  button(type='submit',ng-disabled='rowStateResponsibleForm.$waiting', ng-click='rowStateResponsibleForm.$show()').btn.btn-primary.fa.fa-save {{'BUTTON_SAVE' | translate}}
+                  button(type='button',ng-disabled='rowStateResponsibleForm.$waiting', ng-click='rowStateResponsibleForm.$cancel()').btn.btn-default.fa.fa-ban {{'BUTTON_CANCEL' | translate}}
+              .buttons(ng-show='!rowStateResponsibleForm.$visible')
+                .btn-group
+                  button(type='button',ng-click='rowStateResponsibleForm.$show()').btn.btn-default.fa.fa-edit {{'BUTTON_EDIT' | translate}}
+                  button(type='button',ng-click='removeStateResponsible(item)').btn.btn-danger.fa.fa-eraser {{'BUTTON_DELETED' | translate}}
 
-a(href='/Projects/1') XXX
- 
-footer.footer
-  .container
-    p
-      | Angular Fullstack v2.0.13
-      = ' | '
-      a(href='https://twitter.com/tyhenkel') @tyhenkel
-      = ' | '
-      a(href='https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open') Issues
+div(ng-include='"components/footer.html"')

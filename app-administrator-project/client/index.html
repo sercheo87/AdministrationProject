@@ -9,6 +9,7 @@
     <base href="/">
     <title></title>
     <meta name="description" content="">
+    <link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(client) app/vendor.css -->
@@ -16,13 +17,18 @@
       <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css" />
       <link rel="stylesheet" href="bower_components/angular-growl-v2/build/angular-growl.css" />
       <link rel="stylesheet" href="bower_components/select2/select2.css" />
+      <link rel="stylesheet" href="bower_components/c3/c3.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
     <link rel="stylesheet" href="app/app.css">
       <!-- injector:css -->
+      <link rel="stylesheet" href="components/select/select.css">
       <!-- endinjector -->
     <!-- endbuild -->
+    
+      <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/select2/3.4.5/select2.css">
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.8.5/css/selectize.default.css">
   </head>
   <body ng-app="appAdministratorProjectApp">
     <!--[if lt IE 7]>
@@ -64,10 +70,11 @@
       <script src="bower_components/moment/moment.js"></script>
       <script src="bower_components/angular-moment/angular-moment.js"></script>
       <script src="bower_components/ng-pattern-restrict/src/ng-pattern-restrict.js"></script>
-      <script src="bower_components/select2/select2.js"></script>
-      <script src="bower_components/ui-select/src/select3.js"></script>
       <script src="bower_components/inspector-gadget/inspector-gadget.js"></script>
       <script src="bower_components/angular-file-upload/angular-file-upload.js"></script>
+      <script src="bower_components/select2/select2.js"></script>
+      <script src="bower_components/d3/d3.js"></script>
+      <script src="bower_components/c3/c3.js"></script>
       <!-- endbower -->
       <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
       <script src="bower_components/angular-translate/angular-translate.js"></script>
@@ -78,8 +85,8 @@
         <script src="app/app.js"></script>
           <!-- injector:js -->
           <script src="app/activity/activity.controller.js"></script>
-          <script src="app/activityService/activityService.service.js"></script>
           <script src="app/admin/admin.controller.js"></script>
+          <script src="app/beneficiary/beneficiary.controller.js"></script>
           <script src="app/general/general.js"></script>
           <script src="app/general/jobs/jobs.controller.js"></script>
           <script src="app/general/stateActivity/stateActivity.controller.js"></script>
@@ -88,7 +95,10 @@
           <script src="app/labels_i18n.js"></script>
           <script src="app/main/main.controller.js"></script>
           <script src="app/projects/projects.controller.js"></script>
+          <script src="app/services/activityService/activityService.service.js"></script>
+          <script src="app/services/beneficiaryService/beneficiaryService.service.js"></script>
           <script src="app/services/jobsService/jobsService.service.js"></script>
+          <script src="app/services/projectService/projectService.service.js"></script>
           <script src="app/services/resourcesActivitiesService/resourcesActivitiesService.service.js"></script>
           <script src="app/services/responsibleService/responsibleService.service.js"></script>
           <script src="app/services/stateActivityService/stateActivityService.service.js"></script>
@@ -96,6 +106,7 @@
           <script src="app/services/typeResourceService/typeResourceService.service.js"></script>
           <script src="components/modal/modal.service.js"></script>
           <script src="components/navbar/navbar.controller.js"></script>
+          <script src="components/select/select.js"></script>
           <!-- endinjector -->
         <!-- endbuild -->
 </body>

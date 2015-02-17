@@ -15,6 +15,19 @@
     padding: 0.2em 0;
 }
 
+//--------------------------------------------------------
+// Personalize with controls input in form
+//--------------------------------------------------------
+.editable-wrap {
+    display: block;
+}
+
+.editable-controls input {
+  width: 100%;
+}
+
+//--------------------------------------------------------
+
 @photo_user: 40px;
 @photo_opacity: 0.3;
 @photo_shadow: 0 0 5px red;
@@ -46,7 +59,9 @@ img.disabled{
   -moz-opacity: @photo_opacity;
 }
 
+
 // injector
 @import 'main/main.less';
 @import 'modal/modal.less';
 // endinjector
+

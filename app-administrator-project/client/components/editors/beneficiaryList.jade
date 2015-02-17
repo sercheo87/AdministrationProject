@@ -1,0 +1,12 @@
+ui-select(ng-model='beneficiary.selected',on-select='loadByFilterBeneficiary($item, $model)', theme='bootstrap', ng-disabled='disabled', style='min-width: 300px;')
+  ui-select-match(placeholder='{{"PH_SELECT_BENEFICIARY" | translate}}') {{beneficiary.selected.name}}
+  ui-select-choices(repeat='beneficiary in collectionBeneficiary | propsFilter: {name: $select.search, community: $select.search}')
+    div(ng-bind-html='beneficiary.name | highlight: $select.search').text-capitalize
+    small
+      dl.dl-horizontal
+        dt {{'LABEL_EMAIL' | translate}}:
+        dd {{beneficiary.name}}
+        dt {{'LABEL_IDENTIFICATION' | translate}}:
+        dd {{beneficiary.uid}}
+        dt {{'LABEL_COMMUNITY_NAME' | translate}}:
+        dd {{beneficiary.community}}         

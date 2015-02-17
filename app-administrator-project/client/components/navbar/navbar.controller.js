@@ -8,6 +8,9 @@ angular.module('appAdministratorProjectApp')
     }, {
       'title': 'LABEL_PROJECT_ADMIN',
       'link': '/Administrar'
+    },{
+      'title': 'LABEL_BENEFICIARIES',
+      'link': '/Beneficiary'
     }];
 
     $scope.collectionLanguaje = [{

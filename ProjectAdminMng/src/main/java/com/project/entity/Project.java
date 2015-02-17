@@ -24,7 +24,10 @@ import org.hibernate.annotations.LazyCollectionOption;
 @NamedQueries({
 	@NamedQuery(name = "Project.getAll", query = "SELECT p FROM Project p"),
 	@NamedQuery(name = "Project.getResume", query = "SELECT NEW com.project.entity.Project(p.dateFinish, p.dateStart, p.description, p.id, p.name) FROM Project p"),
-	@NamedQuery(name = "Project.getProjectByName", query = "SELECT p FROM Project p JOIN p.beneficiary b where b.id = :idBeneficiary") })
+	@NamedQuery(name = "Project.getProjectByName", query = "SELECT p FROM Project p JOIN p.beneficiary b where b.id = :idBeneficiary"),
+	@NamedQuery(name = "Project.getSummaryResponsibles", query = "SELECT new com.project.dto.Summary(a.id, a.description, 0, size(r.id)) FROM Project p join p.activities a left join a.responsibles r where p.id=:idProject group by a.id, a.description order by a.id,a.description"),
+	@NamedQuery(name = "Project.getSummaryResources", query = "SELECT new com.project.dto.Summary(a.id, a.description, size(r.id), 0) FROM Project p join p.activities a left join a.resources r where p.id=:idProject group by a.id, a.description order by a.id,a.description"),
+	@NamedQuery(name = "Project.getActivitiesByProject", query = "SELECT p.activities FROM Project p where p.id = :idProject") })
 public class Project {
 	@OneToMany(targetEntity = Activity.class, cascade = CascadeType.ALL, orphanRemoval = true)
 	@LazyCollection(LazyCollectionOption.FALSE)
