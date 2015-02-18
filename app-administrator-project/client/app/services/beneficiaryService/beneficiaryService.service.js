@@ -9,6 +9,12 @@ angular.module('appAdministratorProjectApp')
         .error(callback);
     }
 
+    this.getSummary = function(callback) {
+      $http.get('/api/beneficiary/summary')
+        .success(callback)
+        .error(callback);
+    }
+
     this.save = function(item, callback) {
       $log.info('New object:', item);
       $http.put('/api/beneficiary/add', {

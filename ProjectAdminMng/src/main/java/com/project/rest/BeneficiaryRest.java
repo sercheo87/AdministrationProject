@@ -65,8 +65,7 @@ public class BeneficiaryRest {
 	@DELETE
 	@Path("/delete/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response remove(@PathParam("id")
-	int id) throws ProjectException {
+	public Response remove(@PathParam("id") int id) throws ProjectException {
 		try {
 			ResponseMessage res = new ResponseMessage();
 			res.getMessages().add(new Message("Se ha eliminado el beneficiario", MessageSeverity.success));
@@ -83,12 +82,27 @@ public class BeneficiaryRest {
 		}
 	}
 
+	@GET
+	@Path("/summary")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response summary() throws ProjectException {
+		try {
+
+			ResponseMessage res = new ResponseMessage();
+			res.setData(this.beneficiaryService.getSummary());
+
+			return Response.ok().status(Status.OK).entity(res.getResponse()).type(MediaType.APPLICATION_JSON).build();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			throw new ProjectException("Error al obtener el resumen de proyectos por beneficiarios");
+		}
+	}
+
 	@POST
 	@Path("/update/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response update(@PathParam("id")
-	int id, Beneficiary beneficiary) throws ProjectException {
+	public Response update(@PathParam("id") int id, Beneficiary beneficiary) throws ProjectException {
 		try {
 
 			this.beneficiaryService.update(id, beneficiary);
@@ -102,6 +116,5 @@ public class BeneficiaryRest {
 			ex.printStackTrace();
 			throw new ProjectException("Error actualizando el beneficiario");
 		}
-
 	}
 }

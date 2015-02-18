@@ -20,6 +20,15 @@ exports.getAll = function(req, result) {
   formatError.executeRequest(optionServer, req, result);
 };
 
+exports.getSummary = function(req, result) {
+  var optionServer = underscore.extend(config.serverRestTemplate, {
+    path: '/ProjectAdminMng/rest/beneficiary/summary',
+    method: 'GET'
+  });
+
+  formatError.executeRequest(optionServer, req, result);
+};
+
 exports.update = function(req, result) {
   var optionServer = underscore.extend(config.serverRestTemplate, {
     path: '/ProjectAdminMng/rest/beneficiary/update/' + req.params.id,

@@ -15,6 +15,7 @@ var beneficiaryController = require('./beneficiary.controller');
 var router = express.Router();
 
 router.get('/', beneficiaryController.getAll);
+router.get('/summary', beneficiaryController.getSummary);
 router.post('/update/:id', beneficiaryController.update);
 
 module.exports = router;

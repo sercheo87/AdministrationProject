@@ -68,6 +68,9 @@ var translations_en = {
   LABEL_BENEFICIARY_COMMUNITY: 'Community Name',
   LABEL_BENEFICIARY_LIST: 'Beneficiary List',
   LABEL_SELECT_BENEFICIARY: 'Please select at beneficiary',
+  LABEL_SUMMARY_BENEFICIARY: 'Projects by beneficiary',
+  LABEL_BENEFICIARY: 'Beneficiary',
+  LABEL_PROJECT_BENEFICIARY: 'Projects total',
 
   TITLE_ADMIN_RESOURCE: 'Resources Administrator',
   TITLE_PROJECT_INFO: 'Project Information',
@@ -166,6 +169,9 @@ var translations_es = {
   LABEL_BENEFICIARY_COMMUNITY: 'Nombre de la Comunidad',
   LABEL_BENEFICIARY_LIST: 'Listado de Beneficiarios',
   LABEL_SELECT_BENEFICIARY: 'Por favor seleccione un beneficiario',
+  LABEL_SUMMARY_BENEFICIARY: 'Proyectos por beneficiario',
+  LABEL_BENEFICIARY: 'Beneficiario',
+  LABEL_PROJECT_BENEFICIARY: 'Total de proyectos',
 
   TITLE_ADMIN_RESOURCE: 'Administrador de Recursos',
   TITLE_PROJECT_INFO: 'Informacion del Proyecto',

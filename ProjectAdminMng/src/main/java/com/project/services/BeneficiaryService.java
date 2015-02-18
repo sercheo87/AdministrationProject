@@ -1,5 +1,6 @@
 package com.project.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -7,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import com.project.dto.SummaryBeneficiary;
 import com.project.entity.Beneficiary;
 import com.project.exceptions.ProjectException;
 
@@ -34,6 +36,23 @@ public class BeneficiaryService {
 			ex.printStackTrace();
 			throw new ProjectException("Error al obtener el listado de los beneficiarios");
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<SummaryBeneficiary> getSummary() {
+		List<SummaryBeneficiary> collection = new ArrayList<SummaryBeneficiary>();
+		List<Beneficiary> listBeneficiary = this.em.createQuery("select b from Beneficiary b").getResultList();
+		for (Beneficiary beneficiary : listBeneficiary) {
+			SummaryBeneficiary summary = new SummaryBeneficiary();
+			summary.setBeneficiary(beneficiary);
+
+			Query qr = this.em.createNamedQuery("Project.getProjectByName");
+			qr.setParameter("idBeneficiary", beneficiary.getId());
+			summary.setTotalProjects(qr.getResultList().size());
+
+			collection.add(summary);
+		}
+		return collection;
 	}
 
 	public void remove(Beneficiary beneficiary) throws ProjectException {

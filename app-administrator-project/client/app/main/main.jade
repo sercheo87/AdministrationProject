@@ -1,14 +1,31 @@
-div(ng-include='"components/navbar/navbar.html"')
+include ../navigation_bar
 
 div(ng-include='"components/header.html"')
-  
+
 .container
   .row
-    .col-lg-12
+    .col-md-8
       h1.page-header Features:
       ul.nav.nav-tabs.nav-stacked.col-md-4.col-lg-4.col-sm-6(ng-repeat='thing in awesomeThings')
         li
           a(href='#', tooltip='{{thing.info}}')
             | {{thing.name}}
+    .col-md-4
+      br
+      .panel.panel-info
+        .panel-heading
+          .panel-title {{'LABEL_SUMMARY_BENEFICIARY' | translate}}
+        .panel-body
+        table.table.table-striped.table-hover
+          thead
+            tr
+              th {{'LABEL_BENEFICIARY' | translate}}
+              th {{'LABEL_PROJECT_BENEFICIARY' | translate}}
+          tbody
+            tr(ng-repeat='item in summaryBeneficiaries') 
+              td 
+                p {{item.beneficiary.name}}   
+              td 
+                p {{item.totalProjects}}
 
 div(ng-include='"components/footer.html"')
